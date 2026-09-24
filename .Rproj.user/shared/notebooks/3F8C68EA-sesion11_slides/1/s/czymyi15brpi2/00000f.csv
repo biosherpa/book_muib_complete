@@ -1,0 +1,5 @@
+"0","#| echo: true"
+"0","fit_sex <- survfit(Surv(time, status == 2) ~ sex, data = lung)"
+"0",""
+"0","# Estimación de la mediana de supervivencia"
+"0","surv_median(fit_sex)"

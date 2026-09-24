@@ -1,0 +1,80 @@
+---
+title: "Sesión 12: Análisis de Supervivencia II"
+subtitle: "Modelo de Regresión de Cox, Hazard Ratios y Evaluación de Supuestos"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  html:
+    toc: true
+    code-fold: show
+---
+
+# Regresión de Cox y Modelos Semiparamétricos
+
+El modelo de riesgos proporcionales de Cox permite evaluar simultáneamente el efecto de múltiples variables continuas y categóricas sobre la tasa de riesgo instántaneo $\lambda(t)$.
+
+$$\lambda(t \vert{} X) = \lambda_0(t) \exp(\beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)$$
+
+## 1. Ajuste del Modelo Multivariado
+
+Ajustamos un modelo para evaluar el efecto de la edad, el sexo y la escala funcional ECOG (`ph.ecog`) sobre la supervivencia en cáncer de pulmón.
+
+```{r}
+#| label: setup-sesion12
+#| message: false
+#| warning: false
+
+library(survival)
+library(survminer)
+
+# Ajuste del modelo de Cox multivariado
+fit_cox <- coxph(
+  Surv(time, status == 2) ~ age + sex + ph.ecog, 
+  data = lung
+)
+
+# Resumen del modelo (Hazard Ratios, IC 95% y p-valores)
+summary(fit_cox)
+```
+
+## 2. Representación Gráfica de Hazard Ratios (Forest Plot)
+
+```{r}
+#| label: fig-cox-forest
+#| fig-cap: "Forest plot de los Hazard Ratios estimados por el modelo multivariado de Cox"
+
+ggforest(
+  fit_cox, 
+  data = lung,
+  main = "Hazard Ratios (IC 95%)",
+  cLocations = c(0.02, 0.22, 0.4),
+  fontSize = 0.8
+)
+```
+
+## 3. Evaluación del Supuesto de Riesgos Proporcionales
+
+El supuesto fundamental del modelo establece que la razón de riesgos ($HR$) permanece constante a lo largo del tiempo. Lo evaluamos mediante los residuos de Schoenfeld.
+
+```{r}
+#| label: cox-diagnostics
+
+# Test estadístico de residuos de Schoenfeld (H0: riesgos proporcionales)
+test_ph <- cox.zph(fit_cox)
+test_ph
+```
+
+```{r}
+#| label: fig-schoenfeld
+#| fig-cap: "Diagnóstico gráfico del supuesto de riesgos proporcionales (residuos de Schoenfeld)"
+
+# Gráfico de residuos a lo largo del tiempo
+ggcoxzph(test_ph)
+```
+
+---
+
+### Conclusiones del Diagnóstico
+* **Sexo:** Presenta un efecto protector estadísticamente significativo en mujeres frente a hombres ($HR < 1$, $p < 0.001$).
+* **Escala ECOG:** Un mayor deterioro funcional se asocia de forma independiente con un mayor riesgo de fallecimiento ($HR > 1$).
+* **Evaluación del supuesto:** El p-valor global del test `cox.zph` es mayor a 0.05, lo que confirma que el modelo cumple el supuesto de riesgos proporcionales.

@@ -1,0 +1,26 @@
+project:
+  type: book
+
+book:
+  title: "Método Científico y Análisis de Datos"
+  author: "Jesús Esteban Hernández"
+  chapters:
+    - index.qmd
+    - part: "Bloque IV: Validación Diagnóstica"
+      chapters:
+        - sesion09.qmd
+        - sesion10.qmd
+     - part: "Bloque V: Análisis de Supervivencia"
+      chapters:
+       - sesion11.qmd
+       - sesion12.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    number-sections: true

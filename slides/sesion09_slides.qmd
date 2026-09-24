@@ -1,0 +1,121 @@
+---
+title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Tablas 2x2, Métricas de Rendimiento y Teorema de Bayes"
+author: "Jesús Esteban Hernández"
+institute: "URJC | Máster en Investigación Biomédica"
+format:
+  beamer:
+    theme: Madrid
+    colortheme: dolphin
+    fonttheme: structurebold
+    aspectratio: 169
+    incremental: false
+header-includes:
+  - \setbeamerfont{institute}{size=\small}
+  - \setbeamertemplate{frametitle continuation}{}
+lang: es
+---
+
+# Objetivos y Fundamentos de la Sesión
+
+## Marco Conceptual de la Validación Diagnóstica
+
+  * **La toma de decisiones en medicina:** En la investigación biomédica y la práctica clínica actual, la correcta evaluación de una prueba diagnóstica es el pilar fundamental para establecer un diagnóstico certero, pronosticar la evolución de patologías y monitorizar la respuesta terapéutica. Todas las pruebas tienen Falsos Positivos $(FP)$  y Falsos Negativos $(FN)$. Cuantificar estos errores es analizar su validez para señalar el diagnóstico correcto.
+  
+  * **Patrón de oro (*gold standard*):** Para validar cualquier test nuevo, es indispensable compararlo contra el mejor método disponible en la actualidad que define con certeza la presencia o ausencia de la enfermedad.
+  
+## Teorema de Bayes.
+
+  Este análisis no es más que una aplicación del Teorema de Bayes, que a su vez se asienta sobre el concepto de dependencia. 
+  
+  * Dos sucesos son dependientes, cuando la aparición de uno condiciona (modifica la probabilidad) de otro.
+  
+  Su expresión más sencilla utilizando solo dos sucesos sería la siguiente:
+  
+    P(B|A) · P(A) =  P(B \mid A_j) P(A_j)
+  
+
+Para formularlo, debemos definir rigurosamente el **espacio completo de sucesos**, constituido por un conjunto de causas o hipótesis alternativas $(A_1, A_2, \dots, A_n)$ que son mutuamente excluyentes (no pueden ocurrir simultáneamente) y colectivamente exhaustivas (su unión abarca todo el espacio muestral, cumpliendo que $\sum_{j=1}^{n} P(A_j) = 1$).
+
+El **Teorema de las Probabilidades Totales** nos permite calcular la probabilidad de un evento observado $B$ (por ejemplo, el resultado positivo de una prueba diagnóstica) ponderando las probabilidades condicionadas de dicho evento en cada causa por su probabilidad a priori:
+
+$$
+P(B) = \sum_{j=1}^{n} P(B \mid A_j) P(A_j)
+$$
+
+A partir de este resultado, el **Teorema de Bayes generalizado** para $i$ causas se define como la probabilidad a posteriori de una causa específica $A_i$ condicionada por la observación del evento $B$:
+
+$$
+P(A_i \mid B) = \frac{P(B \mid A_i) P(A_i)}{\sum_{j=1}^{n} P(B \mid A_j) P(A_j)}
+$$
+  
+
+# 1. Tablas de Contingencia y Parámetros Básicos
+
+## La Matriz de Confusión de $2 \times 2$
+
+La relación entre el resultado de la prueba diagnóstica y el estado real del paciente se plasma en una tabla de contingencia bidimensional:
+
+| | Enfermo ($D+$) | Sano ($D-$) | Total |
+| :--- | :---: | :---: | :---: |
+| **Prueba Positiva ($T+$)** | Verdaderos Positivos ($VP$) | Falsos Positivos ($FP$) | $VP + FP$ |
+| **Prueba Negativa ($T-$)** | Falsos Negativos ($FN$) | Verdaderos Negativos ($VN$) | $FN + VN$ |
+| **Total** | $VP + FN$ | $FP + VN$ | $N$ |
+
+
+## Definición e Interpretación de las Métricas Principales
+
+  * **Sensibilidad (Se):** Probabilidad condicional de obtener un resultado positivo entre aquellos pacientes que realmente padecen la enfermedad ($\frac{VP}{VP + FN}$).
+  * **Especificidad (Sp):** Probabilidad condicional de obtener un resultado negativo entre los individuos sanos ($\frac{VN}{FP + VN}$).
+  * **Valor Predictivo Positivo (VPP):** Probabilidad de que un paciente con un resultado positivo en la prueba esté realmente enfermo ($\frac{VP}{VP + FP}$).
+  * **Valor Predictivo Negativo (VPN):** Probabilidad de que un paciente con resultado negativo esté verdaderamente sano ($\frac{VN}{FN + VN}$).
+
+
+
+# 2. El Teorema de Bayes y la Prevalencia
+
+## Relación con la Prevalencia de la Enfermedad
+
+* **Invarianza de Se y Sp:** Los parámetros de sensibilidad y especificidad permanecen estables independientemente de la proporción de enfermos en la muestra o población evaluada.
+* **Dependencia de VPP y VPN:** Los valores predictivos varían drásticamente según la prevalencia previa de la enfermedad en la población de estudio.
+
+  $$\text{VPP} = \frac{\text{Se} \times \text{Prevalencia}}{(\text{Se} \times \text{Prevalencia}) + ((1 - \text{Sp}) \times (1 - \text{Prevalencia}))}$$
+  
+* **Implicación en Cribado (*Screening*):** En poblaciones sanas con baja prevalencia, el número de falsos positivos crece enormemente, colapsando el VPP.
+
+
+
+# 3. Caso Práctico en R (`epiR`)
+
+## Simulación y Análisis Automatizado de una Cohorte
+
+```{r}
+#| label: practica-sesion9-epir
+#| echo: true
+#| message: false
+#| warning: false
+
+library(epiR)
+
+set.seed(2026)
+n <- 1000
+prevalencia_real <- 0.15 
+
+estado_real <- factor(rbinom(n, 1, prevalencia_real), levels = c(0, 1), labels = c("Sano", "Enfermo"))
+biomarcador <- rnorm(n, mean = 40 + 12 * as.numeric(estado_real), sd = 10)
+punto_corte <- 52
+
+resultado_prueba <- factor(ifelse(biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+
+VP <- sum(resultado_prueba == "Positivo" & estado_real == "Enfermo")
+FP <- sum(resultado_prueba == "Positivo" & estado_real == "Sano")
+FN <- sum(resultado_prueba == "Negativo" & estado_real == "Enfermo")
+VN <- sum(resultado_prueba == "Negativo" & estado_real == "Sano")
+
+matriz_epir <- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)
+colnames(matriz_epir) <- c("Enfermo", "Sano")
+rownames(matriz_epir) <- c("Test +", "Test -")
+
+resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
+print(resultados_diagnosticos$res[c("se", "sp", "pv.pos", "pv.neg"), c("est", "lower", "upper")])
+```

@@ -1,0 +1,101 @@
+---
+title: "Sesión 10: Pruebas Diagnósticas II"
+subtitle: "Curvas ROC, Área Bajo la Curva (AUC) y Punto de Corte Óptimo"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  html:
+    toc: true
+    code-fold: show
+---
+
+# Curvas ROC y Punto de Corte Óptimo
+
+En esta sesión evaluamos marcadores diagnósticos continuos mediante el análisis de curvas ROC (*Receiver Operating Characteristic*) y la estimación del área bajo la curva (AUC).
+
+## 1. Carga de librerías y datos
+
+```{r}
+#| label: setup-sesion10
+#| message: false
+#| warning: false
+
+library(pROC)
+library(ggplot2)
+
+# Dataset aSAH: Evaluación del biomarcador s100b para mal pronóstico (outcome)
+data(aSAH)
+head(aSAH)
+```
+
+## 2. Construcción de la curva ROC y cálculo del AUC
+
+```{r}
+#| label: roc-basic
+#| message: false
+
+# Objeto ROC (outcome: 'Good' vs 'Poor')
+roc_s100b <- roc(
+  response = aSAH$outcome,
+  predictor = aSAH$s100b,
+  levels = c("Good", "Poor"), # Control / Caso
+  direction = "<"             # "<" indica que valores más altos sugieren el caso ("Poor")
+)
+
+# Área bajo la curva (AUC)
+auc(roc_s100b)
+
+# Intervalo de confianza al 95% para el AUC (Delong)
+ci.auc(roc_s100b)
+```
+
+## 3. Representación gráfica de la curva ROC
+
+```{r}
+#| label: fig-roc-plot
+#| fig-cap: "Curva ROC para el biomarcador S100b con intervalo de confianza"
+
+plot(
+  roc_s100b,
+  main = "Evaluación Diagnóstica: S100b",
+  col = "#2E9FDF",
+  lwd = 3,
+  print.auc = TRUE,
+  print.auc.x = 0.4,
+  print.auc.y = 0.2,
+  auc.polygon = TRUE,
+  auc.polygon.col = "#2E9FDF22",
+  grid = TRUE
+)
+
+# Añadir IC del 95% dibujado sobre la curva
+ci_sp <- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))
+plot(ci_sp, type = "shape", col = "#2E9FDF11")
+```
+
+## 4. Determinación del Punto de Corte Óptimo (Índice de Youden)
+
+El índice de Youden maximiza la distancia vertical respecto a la diagonal de azar ($J = \text{Sensibilidad} + \text{Especificidad} - 1$):
+
+```{r}
+#| label: optimal-cutpoint
+
+# Extracción del punto de corte óptimo por el método de Youden
+corte_optimo <- coords(
+  roc_s100b, 
+  x = "best", 
+  best.method = "youden",
+  ret = c("threshold", "sensitivity", "specificity", "ppv", "npv")
+)
+
+corte_optimo
+```
+
+---
+
+### Interpretación Clínica
+
+* **Punto de corte óptimo:** `r round(corte_optimo$threshold, 3)`
+* **Sensibilidad:** `r round(corte_optimo$sensitivity * 100, 1)`%
+* **Especificidad:** `r round(corte_optimo$specificity * 100, 1)`%
+

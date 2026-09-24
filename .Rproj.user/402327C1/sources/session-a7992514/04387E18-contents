@@ -1,0 +1,98 @@
+---
+title: "Pruebas Diagnósticas II"
+subtitle: "Curvas ROC y Punto de Corte Óptimo"
+author: "Jesús Esteban Hernández"
+institute: "Universidad Rey Juan Carlos"
+date: last-modified
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    show-slide-number: all
+    chalkboard: true
+    scrollable: true
+    footer: "Método Científico y Análisis de Datos | Sesión 10"
+---
+
+## Objetivos de la Sesión
+
+- Evaluar marcadores diagnósticos continuos.
+- Construir e interpretar **Curvas ROC**.
+- Calcular el **Área Bajo la Curva (AUC)** e intervalos de confianza.
+- Seleccionar el **Punto de Corte Óptimo** (Índice de Youden).
+
+---
+
+## El Paquete `pROC` en R
+
+```{r}
+#| echo: true
+#| message: false
+library(pROC)
+data(aSAH)
+
+# Creación del objeto ROC
+roc_s100b <- roc(
+  response = aSAH$outcome,
+  predictor = aSAH$s100b,
+  levels = c("Good", "Poor"),
+  direction = "<"
+)
+```
+
+---
+
+## Área Bajo la Curva (AUC)
+
+$$\text{AUC} \in [0.5, 1.0]$$
+
+```{r}
+#| echo: true
+# AUC puntual
+auc(roc_s100b)
+
+# Intervalo de Confianza al 95%
+ci.auc(roc_s100b)
+```
+
+---
+
+## Gráfico de la Curva ROC
+
+```{r}
+#| echo: true
+#| fig-align: "center"
+#| fig-height: 5
+
+plot(
+  roc_s100b,
+  col = "#2E9FDF",
+  lwd = 3,
+  print.auc = TRUE,
+  grid = TRUE
+)
+```
+
+---
+
+## Punto de Corte Óptimo (Youden)
+
+$$J = \text{Sensibilidad} + \text{Especificidad} - 1$$
+
+```{r}
+#| echo: true
+coords(
+  roc_s100b, 
+  x = "best", 
+  best.method = "youden",
+  ret = c("threshold", "sensitivity", "specificity", "ppv", "npv")
+)
+```
+
+---
+
+## Enlace a los Apuntes
+
+Para consultar los fundamentos teóricos y las propiedades estadísticas detalladas del test DeLong:
+
+[ Ir al Capítulo 10 del Libro](../sesion10.html){.btn .btn-primary target="_blank"}

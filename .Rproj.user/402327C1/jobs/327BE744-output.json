@@ -1,0 +1,5 @@
+[1,"==> quarto preview sesion11_slides.qmd --to revealjs --presentation --no-watch-inputs --no-browse\n\n"]
+[1,"\r\n\r\nprocessing file: sesion11_slides.qmd\r\n\r  |                                                          \r  |                                                    |   0%\r  |                                                          \r  |......                                              |  11%                  \r  |                                                          \r  |............                                        |  22% [unnamed-chunk-1]"]
+[1,"\r\n\r\nError in `library()`:\r\n! no hay paquete llamado 'survminer'\r\nBacktrace:\r\n    ▆\r\n 1. └─base::library(survminer)\r\n"]
+[1,"\r\nQuitting from sesion11_slides.qmd:30-38 [unnamed-chunk-1]\r\n\r                                                                                                            \r\nEjecución interrumpida\r\n"]
+[1,"WARN: Error encountered when rendering files\n"]

@@ -1,0 +1,6 @@
+"0","# 3. Evaluación detallada con caret
+cm <- confusionMatrix(resultado_prueba, estado_real, positive = ""Positivo"")
+"
+"2","Error en confusionMatrix.default(resultado_prueba, estado_real, positive = ""Positivo""): 
+  The data must contain some levels that overlap the reference.
+"

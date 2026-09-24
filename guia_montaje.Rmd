@@ -1,0 +1,79 @@
+# Estrategia y Guía de Montaje: Quarto Book + Diapositivas en 8 Horas
+
+---
+  
+  ## 1. ¿Es compatible con GitHub Pages?
+  
+  **Sí, 100% compatible y óptimo.** 
+  
+  Al renderizar tu libro, Quarto genera un sitio web HTML estático. Si usas **Reveal.js** para las diapositivas en lugar de Beamer (LaTeX PDF), tanto el libro como las diapositivas serán archivos HTML nativos. Esto permite alojar el libro completo y las diapositivas en una sola URL de GitHub Pages (por ejemplo, `https://tu-usuario.github.io/mi-asignatura/` para el libro y `/slides/sesion09_slides.html` para la presentación).
+
+Si necesitas obligatoriamente PDF/Beamer para proyectar en clase, Quarto también puede compilar los Beamer a PDF y dejarlos como enlaces de descarga dentro del libro HTML.
+
+---
+  
+  ## 2. ¿Llevará mucho tiempo adaptar lo que tienes?
+  
+  **No, si aplicas la regla de no duplicar trabajo.**
+  
+  El principal riesgo de tiempo es redactar el texto del libro y luego volver a escribir las diapositivas desde cero. La clave está en usar la técnica de **inclusión de fragmentos (`{{< include >}}`)** o diseñar los `.qmd` con etiquetas de diapositivas.
+
+Adaptar el material que ya posees te llevará aproximadamente **1.5 a 2 horas por sesión**, divididas entre la preparación de los apuntes y la generación automática/semiautomática de las diapositivas.
+
+---
+  
+  ## 3. Estrategia para no trabajar dos veces
+  
+  Para evitar hacer el trabajo dos veces, aplica la siguiente arquitectura de contenidos:
+  
+  ### Opción Recomendada: Reutilización por Inclusión (`{{< include >}}`)
+  En lugar de escribir las diapositivas desde cero, crea los fragmentos de código R y resúmenes clave en archivos `.qmd` secundarios o en los propios apuntes, e inclúyelos en el archivo de diapositivas.
+
+O mejor aún: **Reveal.js desde Quarto**. Reveal.js te permite escribir sintaxis de diapositivas directamente en Markdown con `##` y `---`, ejecutando exactamente los mismos bloques de código R que usas en el libro.
+
+---
+  
+  ## 4. Configuración del proyecto (`_quarto.yml`)
+  
+  Actualiza tu archivo `_quarto.yml` para gestionar tanto el libro como el renderizado de la carpeta `slides/`:
+  
+```yaml
+project:
+  type: book
+output-dir: _site
+render:
+  - "*.qmd"
+- "slides/*.qmd"
+
+book:
+  title: "Método Científico y Análisis de Datos"
+subtitle: "Bloques IV y V: Diagnóstico y Supervivencia"
+author: "Jesús Esteban Hernández"
+date: today
+language: es
+sidebar:
+  style: "docked"
+search: true
+chapters:
+  - index.qmd
+- part: "Bloque IV: Validación Diagnóstica"
+chapters:
+  - sesion09.qmd
+- sesion10.qmd
+- part: "Bloque V: Análisis de Supervivencia"
+chapters:
+  - sesion11.qmd
+- sesion12.qmd
+
+format:
+  html:
+  theme: cosmo
+toc: true
+code-fold: show
+code-tools: true
+pdf:
+  documentclass: scrreprt
+toc: true
+number-sections: true
+
+```

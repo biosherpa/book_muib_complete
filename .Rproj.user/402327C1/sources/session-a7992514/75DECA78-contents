@@ -1,0 +1,92 @@
+---
+title: "Sesión 11: Análisis de Supervivencia I"
+subtitle: "Conceptos Fundamentales, Estimador de Kaplan-Meier y Test de Log-Rank"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  html:
+    toc: true
+    code-fold: show
+---
+
+# Análisis de Supervivencia: Estimador de Kaplan-Meier
+
+En esta sesión abordaremos el análisis de datos de tiempo hasta el evento, la gestión de la censura a la derecha y la estimación no paramétrica de la función de supervivencia $S(t)$.
+
+## 1. Carga de paquetes y datos
+
+```{r}
+#| label: setup-sesion11
+#| message: false
+#| warning: false
+
+library(survival)
+library(survminer)
+
+# Dataset 'lung': cáncer de pulmón en estadio avanzado
+# Nota sobre la variable status: 1 = censurado, 2 = evento (fallecimiento)
+data(lung)
+head(lung)
+```
+
+## 2. Creación del objeto de supervivencia y ajuste no paramétrico
+
+El objeto `Surv()` combina el tiempo de seguimiento y el indicador del evento.
+
+```{r}
+#| label: fit-km
+
+# Creación del objeto Surv
+surv_obj <- Surv(time = lung$time, event = lung$status == 2)
+
+# Ajuste global de Kaplan-Meier
+fit_global <- survfit(surv_obj ~ 1, data = lung)
+summary(fit_global, times = c(100, 300, 500))
+
+# Ajuste estratificado por sexo (1 = Hombre, 2 = Mujer)
+fit_sex <- survfit(Surv(time, status == 2) ~ sex, data = lung)
+```
+
+## 3. Estimación de la mediana de supervivencia y test de Log-Rank
+
+La comparación no paramétrica entre grupos se realiza mediante la prueba de Log-Rank (`survdiff`).
+
+```{r}
+#| label: logrank-test
+
+# Mediana de supervivencia e intervalos de confianza al 95%
+surv_median(fit_sex)
+
+# Test de Log-Rank
+logrank_test <- survdiff(Surv(time, status == 2) ~ sex, data = lung)
+logrank_test
+```
+
+## 4. Representación gráfica detallada
+
+```{r}
+#| label: fig-km-plot
+#| fig-cap: "Curvas de supervivencia de Kaplan-Meier estratificadas por sexo"
+
+ggsurvplot(
+  fit_sex,
+  data = lung,
+  pval = TRUE,             # P-valor del test de Log-Rank
+  conf.int = TRUE,         # Banda de confianza al 95%
+  risk.table = TRUE,       # Tabla de sujetos en riesgo
+  risk.table.height = 0.25,
+  legend.labs = c("Hombre", "Mujer"),
+  legend.title = "Sexo",
+  palette = c("#E7B800", "#2E9FDF"),
+  xlab = "Tiempo (días)",
+  ylab = "Probabilidad de supervivencia S(t)",
+  ggtheme = theme_minimal()
+)
+```
+
+---
+
+### Interpretación Clínica
+* **Mediana de supervivencia en Hombres:** `r round(surv_median(fit_sex)$median[1], 1)` días.
+* **Mediana de supervivencia en Mujeres:** `r round(surv_median(fit_sex)$median[2], 1)` días.
+* Existe una diferencia estadísticamente significativa en la supervivencia entre hombres y mujeres ($p < 0.001$).

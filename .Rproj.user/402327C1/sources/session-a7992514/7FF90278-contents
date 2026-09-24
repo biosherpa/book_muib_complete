@@ -1,0 +1,87 @@
+---
+title: "Análisis de Supervivencia II"
+subtitle: "Modelo de Regresión de Cox"
+author: "Jesús Esteban Hernández"
+institute: "Universidad Rey Juan Carlos"
+date: last-modified
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    show-slide-number: all
+    chalkboard: true
+    scrollable: true
+    footer: "Método Científico y Análisis de Datos | Sesión 12"
+---
+
+## Objetivos de la Sesión
+
+- Comprender la **función de riesgo** $\lambda(t)$ y el concepto de **Hazard Ratio (HR)**.
+- Ajustar modelos multivariados con la función `coxph()`.
+- Interpretar y visualizar los resultados mediante un **Forest Plot**.
+- Diagnosticar el **supuesto de riesgos proporcionales** con residuos de Schoenfeld.
+
+---
+
+## Modelo de Cox Multivariado
+
+$$\lambda(t \vert{} X) = \lambda_0(t) \exp(\boldsymbol{\beta X})$$
+
+```{r}
+#| echo: true
+#| message: false
+library(survival)
+library(survminer)
+
+fit_cox <- coxph(
+  Surv(time, status == 2) ~ age + sex + ph.ecog, 
+  data = lung
+)
+
+# Coeficientes y Hazard Ratios
+coef(summary(fit_cox))[, c("coef", "exp(coef)", "Pr(>|z|)")]
+```
+
+---
+
+## Visualización de HR: Forest Plot
+
+```{r}
+#| echo: true
+#| fig-align: "center"
+#| fig-height: 5.5
+
+ggforest(fit_cox, data = lung)
+```
+
+---
+
+## Diagnóstico: Residuos de Schoenfeld
+
+Evaluación de la constancia de los HR en el tiempo ($H_0$: el supuesto se cumple):
+
+```{r}
+#| echo: true
+test_ph <- cox.zph(fit_cox)
+test_ph
+```
+
+---
+
+## Diagnóstico Gráfico (`ggcoxzph`)
+
+```{r}
+#| echo: true
+#| fig-align: "center"
+#| fig-height: 5
+
+ggcoxzph(test_ph)
+```
+
+---
+
+## Enlace a los Apuntes
+
+Para consultar los fundamentos matemáticos de la verosimilitud parcial de Cox:
+
+[ Ir al Capítulo 12 del Libro](../sesion12.html){.btn .btn-primary target="_blank"}

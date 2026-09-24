@@ -1,0 +1,29 @@
+---
+title: "Método Científico y Análisis de Datos"
+subtitle: "Máster Universitario en Investigación Biomédica (Curso 2026-2027)"
+author: 
+  - name: "Carlos Lara Romero"
+  - email: "carlos.lara@urjc.es"
+  - affiliation: "Universidad Rey Juan Carlos (Campus Alcorcón)"
+  - name: "Jesús Esteban Hernández"
+  - email: "jesus.esteban@urjc.es"
+  - affiliation: "Universidad Rey Juan Carlos (Campus Móstoles)"
+date: today
+---
+  
+  # Presentación de la Asignatura {.unnumbered}
+  
+  La asignatura **Método Científico y Análisis de Datos** tiene como objetivo general proporcionar al estudiante una comprensión rigurosa de los fundamentos del diseño experimental, la inferencia estadística y la modelización avanzada aplicada al ámbito biomédico[cite: 3]. 
+
+Las competencias desarrolladas en esta materia son clave para el desarrollo de proyectos de investigación en campos como la bioinformática, la terapia génica, los modelos experimentales y la evaluación de nuevos fármacos[cite: 3].
+
+## Estructura del Curso
+
+El manual está dividido en los bloques temáticos correspondientes al programa académico:
+  
+  * **Bloques I a III (Temas 1–4):** Impartidos por el Dr. Carlos Lara Romero en el Campus de Alcorcón, centrados en el diseño de estudios, muestreo, inferencia estadística, remuestreo (Bootstrap) y modelización lineal (GLM).
+* **Bloques IV y V (Temas 5 y 6):** Impartidos por el Dr. Jesús Esteban Hernández en el Campus de Móstoles, centrados en la validación diagnóstica (tablas $2 \times 2$ y curvas ROC) y el análisis de supervivencia (Kaplan-Meier y regresión de Cox).
+
+## Metodología Docente
+
+El plan de trabajo combina clases teóricas expositivas con sesiones prácticas de resolución de problemas, análisis de casos biomédicos reales y programación reproducible mediante el lenguaje **R**[cite: 3].

@@ -1,0 +1,93 @@
+---
+title: "Análisis de Supervivencia I"
+subtitle: "Kaplan-Meier y Comparación de Curvas"
+author: "Jesús Esteban Hernández"
+institute: "Universidad Rey Juan Carlos"
+date: last-modified
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    show-slide-number: all
+    chalkboard: true
+    scrollable: true
+    footer: "Método Científico y Análisis de Datos | Sesión 11"
+---
+
+## Objetivos de la Sesión
+
+- Comprender el concepto de **tiempo hasta el evento** y **censura a la derecha**.
+- Definir la **función de supervivencia** $S(t)$.
+- Calcular el **estimador no paramétrico de Kaplan-Meier**.
+- Comparar curvas entre grupos mediante la prueba de **Log-Rank**.
+
+---
+
+## El objeto `Surv()` en R
+
+Combinamos el tiempo transcurrido y la ocurrencia del evento:
+
+```{r}
+#| echo: true
+#| message: false
+library(survival)
+library(survminer)
+
+# status == 2 indica el evento en el dataset 'lung'
+head(Surv(lung$time, lung$status == 2), 12)
+```
+
+*El símbolo `+` denota observaciones censuradas.*
+
+---
+
+## Ajuste del Modelo por Grupos
+
+$$S(t) = \prod_{t_i \le t} \left( 1 - \frac{d_i}{n_i} \right)$$
+
+```{r}
+#| echo: true
+fit_sex <- survfit(Surv(time, status == 2) ~ sex, data = lung)
+
+# Estimación de la mediana de supervivencia
+surv_median(fit_sex)
+```
+
+---
+
+## Comparación: Test de Log-Rank
+
+Prueba de hipótesis no paramétrica ($H_0: S_1(t) = S_2(t)$):
+
+```{r}
+#| echo: true
+survdiff(Surv(time, status == 2) ~ sex, data = lung)
+```
+
+---
+
+## Curvas de Kaplan-Meier (`survminer`)
+
+```{r}
+#| echo: true
+#| fig-align: "center"
+#| fig-height: 5
+
+ggsurvplot(
+  fit_sex,
+  data = lung,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend.labs = c("Hombre", "Mujer"),
+  palette = c("#E7B800", "#2E9FDF"),
+  ggtheme = theme_minimal()
+)
+```
+
+---
+
+## Enlace a los Apuntes
+
+Para consultar los fundamentos teóricos sobre verosimilitud con datos censurados:
+
+[ Ir al Capítulo 11 del Libro](../sesion11.html){.btn .btn-primary target="_blank"}
