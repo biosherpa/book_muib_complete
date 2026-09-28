@@ -7,13 +7,15 @@ format:
   html:
     toc: true
     code-fold: show
+    number-sections: false
+
 ---
 
 # Análisis de Supervivencia: Estimador de Kaplan-Meier
 
 En esta sesión abordaremos el análisis de datos de tiempo hasta el evento, la gestión de la censura a la derecha y la estimación no paramétrica de la función de supervivencia $S(t)$.
 
-## 1. Carga de paquetes y datos
+## Carga de paquetes y datos
 
 ```{r}
 #| label: setup-sesion11
@@ -29,7 +31,7 @@ data(lung)
 head(lung)
 ```
 
-## 2. Creación del objeto de supervivencia y ajuste no paramétrico
+## Creación del objeto de supervivencia y ajuste no paramétrico
 
 El objeto `Surv()` combina el tiempo de seguimiento y el indicador del evento.
 
@@ -47,7 +49,7 @@ summary(fit_global, times = c(100, 300, 500))
 fit_sex <- survfit(Surv(time, status == 2) ~ sex, data = lung)
 ```
 
-## 3. Estimación de la mediana de supervivencia y test de Log-Rank
+## Estimación de la mediana de supervivencia y test de Log-Rank
 
 La comparación no paramétrica entre grupos se realiza mediante la prueba de Log-Rank (`survdiff`).
 
@@ -62,7 +64,7 @@ logrank_test <- survdiff(Surv(time, status == 2) ~ sex, data = lung)
 logrank_test
 ```
 
-## 4. Representación gráfica detallada
+## Representación gráfica detallada
 
 ```{r}
 #| label: fig-km-plot

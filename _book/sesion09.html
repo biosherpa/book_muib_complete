@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.37">
@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jesús Esteban Hernández">
+<meta name="dcterms.date" content="2026-09-28">
 
-<title>2&nbsp; Sesión 9: Pruebas Diagnósticas I – Método Científico y Análisis de Datos</title>
+<title>Sesión 9: Pruebas Diagnósticas I – Método Científico y Análisis de Datos</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -95,20 +96,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
-    "search-matching-documents-text": "documentos encontrados",
-    "search-copy-link-title": "Copiar el enlace en la búsqueda",
-    "search-hide-matches-text": "Ocultar resultados adicionales",
-    "search-more-match-text": "resultado adicional en este documento",
-    "search-more-matches-text": "resultados adicionales en este documento",
-    "search-clear-button-title": "Borrar",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancelar",
-    "search-submit-button-title": "Enviar",
-    "search-label": "Buscar"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-</head><body class="nav-sidebar floating quarto-light">\setbeamerfont{institute}{size=\small}
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -140,21 +140,21 @@ window.Quarto = {
 };
 </script>
 
+</head>
 
-
-
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion09.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion09.html"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -171,7 +171,7 @@ window.Quarto = {
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Buscar"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -179,28 +179,47 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Método Científico y Análisis de Datos</span></span></a>
+ <span class="menu-text">Método Científico y Análisis de Datos</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Bloque IV: Validación Diagnóstica</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sesion09.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></span></a>
+  <a href="./sesion09.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sesion10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></span></a>
+  <a href="./sesion10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bloque V: Análisis de Supervivencia</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sesion11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sesión 11: Análisis de Supervivencia I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sesion12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sesión 12: Análisis de Supervivencia II</span></a>
   </div>
 </li>
       </ul>
@@ -212,25 +231,22 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Tabla de contenidos</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#objetivos-de-la-sesión" id="toc-objetivos-de-la-sesión" class="nav-link active" data-scroll-target="#objetivos-de-la-sesión"><span class="header-section-number">3</span> Objetivos de la Sesión</a>
+  <li><a href="#objetivos-de-aprendizaje." id="toc-objetivos-de-aprendizaje." class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje.">Objetivos de aprendizaje.</a></li>
+  <li><a href="#validación-diagnóstica-y-matrices-de-confusión" id="toc-validación-diagnóstica-y-matrices-de-confusión" class="nav-link" data-scroll-target="#validación-diagnóstica-y-matrices-de-confusión">Validación Diagnóstica y Matrices de Confusión</a>
   <ul class="collapse">
-  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link" data-scroll-target="#objetivos-de-aprendizaje"><span class="header-section-number">3.1</span> Objetivos de Aprendizaje</a></li>
+  <li><a href="#estructura-de-la-matriz-2times2" id="toc-estructura-de-la-matriz-2times2" class="nav-link" data-scroll-target="#estructura-de-la-matriz-2times2">Estructura de la Matriz <span class="math inline">\(2\times2\)</span></a></li>
+  <li><a href="#parámetros-principales-de-rendimiento" id="toc-parámetros-principales-de-rendimiento" class="nav-link" data-scroll-target="#parámetros-principales-de-rendimiento">Parámetros Principales de Rendimiento</a></li>
   </ul></li>
-  <li><a href="#validación-diagnóstica-y-matrices-de-confusión" id="toc-validación-diagnóstica-y-matrices-de-confusión" class="nav-link" data-scroll-target="#validación-diagnóstica-y-matrices-de-confusión"><span class="header-section-number">4</span> 1. Validación Diagnóstica y Matrices de Confusión</a>
+  <li><a href="#el-teorema-de-bayes-en-la-clínica" id="toc-el-teorema-de-bayes-en-la-clínica" class="nav-link" data-scroll-target="#el-teorema-de-bayes-en-la-clínica">El Teorema de Bayes en la Clínica</a>
   <ul class="collapse">
-  <li><a href="#estructura-de-la-matriz-2-times-2" id="toc-estructura-de-la-matriz-2-times-2" class="nav-link" data-scroll-target="#estructura-de-la-matriz-2-times-2"><span class="header-section-number">4.1</span> Estructura de la Matriz <span class="math inline">\(2 \times 2\)</span></a></li>
-  <li><a href="#parámetros-principales-de-rendimiento" id="toc-parámetros-principales-de-rendimiento" class="nav-link" data-scroll-target="#parámetros-principales-de-rendimiento"><span class="header-section-number">4.2</span> Parámetros Principales de Rendimiento</a></li>
+  <li><a href="#influencia-crítica-de-la-prevalencia" id="toc-influencia-crítica-de-la-prevalencia" class="nav-link" data-scroll-target="#influencia-crítica-de-la-prevalencia">Influencia Crítica de la Prevalencia</a></li>
   </ul></li>
-  <li><a href="#el-teorema-de-bayes-en-la-clínica" id="toc-el-teorema-de-bayes-en-la-clínica" class="nav-link" data-scroll-target="#el-teorema-de-bayes-en-la-clínica"><span class="header-section-number">5</span> 2. El Teorema de Bayes en la Clínica</a>
+  <li><a href="#caso-práctico-en-r-epir" id="toc-caso-práctico-en-r-epir" class="nav-link" data-scroll-target="#caso-práctico-en-r-epir">Caso Práctico en R (<code>epiR</code>)</a>
   <ul class="collapse">
-  <li><a href="#influencia-crítica-de-la-prevalencia" id="toc-influencia-crítica-de-la-prevalencia" class="nav-link" data-scroll-target="#influencia-crítica-de-la-prevalencia"><span class="header-section-number">5.1</span> Influencia Crítica de la Prevalencia</a></li>
-  </ul></li>
-  <li><a href="#caso-práctico-en-r-epir" id="toc-caso-práctico-en-r-epir" class="nav-link" data-scroll-target="#caso-práctico-en-r-epir"><span class="header-section-number">6</span> 3. Caso Práctico en R (<code>epiR</code>)</a>
-  <ul class="collapse">
-  <li><a href="#simulación-y-análisis-de-una-cohorte-clínica" id="toc-simulación-y-análisis-de-una-cohorte-clínica" class="nav-link" data-scroll-target="#simulación-y-análisis-de-una-cohorte-clínica"><span class="header-section-number">6.1</span> Simulación y Análisis de una Cohorte Clínica</a></li>
+  <li><a href="#simulación-y-análisis-de-una-cohorte-clínica" id="toc-simulación-y-análisis-de-una-cohorte-clínica" class="nav-link" data-scroll-target="#simulación-y-análisis-de-una-cohorte-clínica">Simulación y Análisis de una Cohorte Clínica</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -238,30 +254,29 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion09.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion09.html"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></h1>
+<h1 class="title"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></h1>
 <p class="subtitle lead">Tablas 2x2, Métricas de Rendimiento y Teorema de Bayes</p>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Autor/a</div>
-  <div class="quarto-title-meta-heading">Afiliación</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Jesús Esteban Hernández </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            URJC | Máster en Investigación Biomédica
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jesús Esteban Hernández </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 28, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -271,10 +286,8 @@ window.Quarto = {
 </header>
 
 
-<section id="objetivos-de-la-sesión" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Objetivos de la Sesión</h1>
-<section id="objetivos-de-aprendizaje" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="objetivos-de-aprendizaje"><span class="header-section-number">3.1</span> Objetivos de Aprendizaje</h2>
+<section id="objetivos-de-aprendizaje." class="level2">
+<h2 class="anchored" data-anchor-id="objetivos-de-aprendizaje.">Objetivos de aprendizaje.</h2>
 <ul>
 <li>Comprender los fundamentos de la validación diagnóstica en biomedicina y medicina de precisión.</li>
 <li>Construir e interpretar correctamente tablas de contingencia de <span class="math inline">\(2 \times 2\)</span>.</li>
@@ -283,11 +296,10 @@ window.Quarto = {
 </ul>
 <hr>
 </section>
-</section>
-<section id="validación-diagnóstica-y-matrices-de-confusión" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 1. Validación Diagnóstica y Matrices de Confusión</h1>
-<section id="estructura-de-la-matriz-2-times-2" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="estructura-de-la-matriz-2-times-2"><span class="header-section-number">4.1</span> Estructura de la Matriz <span class="math inline">\(2 \times 2\)</span></h2>
+<section id="validación-diagnóstica-y-matrices-de-confusión" class="level2">
+<h2 class="anchored" data-anchor-id="validación-diagnóstica-y-matrices-de-confusión">Validación Diagnóstica y Matrices de Confusión</h2>
+<section id="estructura-de-la-matriz-2times2" class="level3">
+<h3 class="anchored" data-anchor-id="estructura-de-la-matriz-2times2">Estructura de la Matriz <span class="math inline">\(2\times2\)</span></h3>
 <p>En investigación clínica, validar una nueva prueba diagnóstica requiere contrastar sus resultados frente a un patrón de referencia u <em>gold standard</em>. La estructura básica se resume en la siguiente tabla:</p>
 <table class="caption-top table">
 <colgroup>
@@ -327,8 +339,8 @@ window.Quarto = {
 </table>
 <hr>
 </section>
-<section id="parámetros-principales-de-rendimiento" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="parámetros-principales-de-rendimiento"><span class="header-section-number">4.2</span> Parámetros Principales de Rendimiento</h2>
+<section id="parámetros-principales-de-rendimiento" class="level3">
+<h3 class="anchored" data-anchor-id="parámetros-principales-de-rendimiento">Parámetros Principales de Rendimiento</h3>
 <ul>
 <li><strong>Sensibilidad (Se):</strong> Probabilidad de que la prueba sea positiva en pacientes enfermos. <span class="math display">\[\text{Se} = \frac{VP}{VP + FN}\]</span></li>
 <li><strong>Especificidad (Sp):</strong> Probabilidad de que la prueba sea negativa en pacientes sanos. <span class="math display">\[\text{Sp} = \frac{VN}{FP + VN}\]</span></li>
@@ -338,10 +350,10 @@ window.Quarto = {
 <hr>
 </section>
 </section>
-<section id="el-teorema-de-bayes-en-la-clínica" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 2. El Teorema de Bayes en la Clínica</h1>
-<section id="influencia-crítica-de-la-prevalencia" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="influencia-crítica-de-la-prevalencia"><span class="header-section-number">5.1</span> Influencia Crítica de la Prevalencia</h2>
+<section id="el-teorema-de-bayes-en-la-clínica" class="level2">
+<h2 class="anchored" data-anchor-id="el-teorema-de-bayes-en-la-clínica">El Teorema de Bayes en la Clínica</h2>
+<section id="influencia-crítica-de-la-prevalencia" class="level3">
+<h3 class="anchored" data-anchor-id="influencia-crítica-de-la-prevalencia">Influencia Crítica de la Prevalencia</h3>
 <ul>
 <li><strong>Independencia analítica:</strong> La sensibilidad y la especificidad son propiedades intrínsecas de la prueba diagnóstica y no varían según la población.</li>
 <li><strong>Dependencia predictiva:</strong> Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio. <span class="math display">\[\text{VPP} = \frac{\text{Se} \times \text{Prevalencia}}{(\text{Se} \times \text{Prevalencia}) + ((1 - \text{Sp}) \times (1 - \text{Prevalencia}))}\]</span></li>
@@ -350,13 +362,13 @@ window.Quarto = {
 <hr>
 </section>
 </section>
-<section id="caso-práctico-en-r-epir" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 3. Caso Práctico en R (<code>epiR</code>)</h1>
-<section id="simulación-y-análisis-de-una-cohorte-clínica" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="simulación-y-análisis-de-una-cohorte-clínica"><span class="header-section-number">6.1</span> Simulación y Análisis de una Cohorte Clínica</h2>
+<section id="caso-práctico-en-r-epir" class="level2">
+<h2 class="anchored" data-anchor-id="caso-práctico-en-r-epir">Caso Práctico en R (<code>epiR</code>)</h2>
+<section id="simulación-y-análisis-de-una-cohorte-clínica" class="level3">
+<h3 class="anchored" data-anchor-id="simulación-y-análisis-de-una-cohorte-clínica">Simulación y Análisis de una Cohorte Clínica</h3>
 <div class="cell">
-<details class="code-fold">
-<summary>Código</summary>
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiR)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulación de datos clínicos (Cohorte de enfermedad coronaria)</span></span>
@@ -382,10 +394,29 @@ window.Quarto = {
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluación diagnóstica automatizada con intervalos de confianza</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>resultados_diagnosticos <span class="ot">&lt;-</span> <span class="fu">epi.tests</span>(matriz_epir, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados_diagnosticos<span class="sc">$</span>res[<span class="fu">c</span>(<span class="st">"se"</span>, <span class="st">"sp"</span>, <span class="st">"pv.pos"</span>, <span class="st">"pv.neg"</span>), <span class="fu">c</span>(<span class="st">"est"</span>, <span class="st">"lower"</span>, <span class="st">"upper"</span>)])</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Muestra directamente la tabla de métricas con estimación e IC95%</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados_diagnosticos<span class="sc">$</span>detail)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
+<pre><code>   statistic        est      lower       upper
+1         ap 0.54500000 0.51354179  0.57619255
+2         tp 0.15700000 0.13498766  0.18105255
+3         se 0.87261146 0.81013444  0.92042091
+4         sp 0.51601423 0.48168030  0.55023586
+5    diag.ac 0.57200000 0.54065880  0.60291610
+6    diag.or 7.30330882 4.48216955 11.90011203
+7       nndx 2.57317002 2.12469057  3.42683175
+8     youden 0.38862570 0.29181474  0.47065677
+9     pv.pos 0.25137615 0.21547007  0.29000267
+10    pv.neg 0.95604396 0.93292773  0.97294699
+11    lr.pos 1.80296928 1.64479815  1.97635085
+12    lr.neg 0.24687020 0.16308632  0.37369715
+13    p.rout 0.45500000 0.42380745  0.48645821
+14     p.rin 0.54500000 0.51354179  0.57619255
+15    p.tpdn 0.48398577 0.44976414  0.51831970
+16    p.tndp 0.12738854 0.07957909  0.18986556
+17    p.dntp 0.74862385 0.70999733  0.78452993
+18    p.dptn 0.04395604 0.02705301  0.06707227</code></pre>
 </div>
 </div>
 
@@ -419,12 +450,12 @@ window.Quarto = {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -797,12 +828,12 @@ window.Quarto = {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./index.html" class="pagination-link" aria-label="Método Científico y Análisis de Datos">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Método Científico y Análisis de Datos</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Método Científico y Análisis de Datos</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./sesion10.html" class="pagination-link" aria-label="Sesión 10: Pruebas Diagnósticas II">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jesús Esteban Hernández">
-<meta name="dcterms.date" content="2026-09-24">
+<meta name="dcterms.date" content="2026-09-28">
 
-<title>3&nbsp; Sesión 10: Pruebas Diagnósticas II – Método Científico y Análisis de Datos</title>
+<title>Sesión 10: Pruebas Diagnósticas II – Método Científico y Análisis de Datos</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -70,6 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./sesion11.html" rel="next">
 <link href="./sesion09.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -150,7 +151,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion10.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion10.html"><span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -178,7 +179,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Método Científico y Análisis de Datos</span></span></a>
+ <span class="menu-text">Método Científico y Análisis de Datos</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -192,14 +193,33 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sesion09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></span></a>
+  <a href="./sesion09.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sesion10.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></span></a>
+  <a href="./sesion10.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bloque V: Análisis de Supervivencia</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sesion11.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sesión 11: Análisis de Supervivencia I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sesion12.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sesión 12: Análisis de Supervivencia II</span></a>
   </div>
 </li>
       </ul>
@@ -214,15 +234,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#curvas-roc-y-punto-de-corte-óptimo" id="toc-curvas-roc-y-punto-de-corte-óptimo" class="nav-link active" data-scroll-target="#curvas-roc-y-punto-de-corte-óptimo"><span class="header-section-number">4</span> Curvas ROC y Punto de Corte Óptimo</a>
+  <li><a href="#curvas-roc-y-punto-de-corte-óptimo" id="toc-curvas-roc-y-punto-de-corte-óptimo" class="nav-link active" data-scroll-target="#curvas-roc-y-punto-de-corte-óptimo">Curvas ROC y Punto de Corte Óptimo</a>
   <ul class="collapse">
-  <li><a href="#carga-de-librerías-y-datos" id="toc-carga-de-librerías-y-datos" class="nav-link" data-scroll-target="#carga-de-librerías-y-datos"><span class="header-section-number">4.1</span> 1. Carga de librerías y datos</a></li>
-  <li><a href="#construcción-de-la-curva-roc-y-cálculo-del-auc" id="toc-construcción-de-la-curva-roc-y-cálculo-del-auc" class="nav-link" data-scroll-target="#construcción-de-la-curva-roc-y-cálculo-del-auc"><span class="header-section-number">4.2</span> 2. Construcción de la curva ROC y cálculo del AUC</a></li>
-  <li><a href="#representación-gráfica-de-la-curva-roc" id="toc-representación-gráfica-de-la-curva-roc" class="nav-link" data-scroll-target="#representación-gráfica-de-la-curva-roc"><span class="header-section-number">4.3</span> 3. Representación gráfica de la curva ROC</a></li>
-  <li><a href="#determinación-del-punto-de-corte-óptimo-índice-de-youden" id="toc-determinación-del-punto-de-corte-óptimo-índice-de-youden" class="nav-link" data-scroll-target="#determinación-del-punto-de-corte-óptimo-índice-de-youden"><span class="header-section-number">4.4</span> 4. Determinación del Punto de Corte Óptimo (Índice de Youden)</a>
-  <ul class="collapse">
-  <li><a href="#interpretación-clínica" id="toc-interpretación-clínica" class="nav-link" data-scroll-target="#interpretación-clínica"><span class="header-section-number">4.4.1</span> Interpretación Clínica</a></li>
-  </ul></li>
+  <li><a href="#carga-de-librerías-y-datos" id="toc-carga-de-librerías-y-datos" class="nav-link" data-scroll-target="#carga-de-librerías-y-datos">Carga de librerías y datos</a></li>
+  <li><a href="#construcción-de-la-curva-roc-y-cálculo-del-auc" id="toc-construcción-de-la-curva-roc-y-cálculo-del-auc" class="nav-link" data-scroll-target="#construcción-de-la-curva-roc-y-cálculo-del-auc">Construcción de la curva ROC y cálculo del AUC</a></li>
+  <li><a href="#representación-gráfica-de-la-curva-roc" id="toc-representación-gráfica-de-la-curva-roc" class="nav-link" data-scroll-target="#representación-gráfica-de-la-curva-roc">Representación gráfica de la curva ROC</a></li>
+  <li><a href="#determinación-del-punto-de-corte-óptimo-índice-de-youden" id="toc-determinación-del-punto-de-corte-óptimo-índice-de-youden" class="nav-link" data-scroll-target="#determinación-del-punto-de-corte-óptimo-índice-de-youden">Determinación del Punto de Corte Óptimo (Índice de Youden)</a></li>
+  <li><a href="#interpretación-clínica" id="toc-interpretación-clínica" class="nav-link" data-scroll-target="#interpretación-clínica">Interpretación Clínica</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -230,9 +248,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion10.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion10.html"><span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></h1>
+<h1 class="title"><span class="chapter-title">Sesión 10: Pruebas Diagnósticas II</span></h1>
 <p class="subtitle lead">Curvas ROC, Área Bajo la Curva (AUC) y Punto de Corte Óptimo</p>
 </div>
 
@@ -250,7 +268,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 24, 2026</p>
+      <p class="date">September 28, 2026</p>
     </div>
   </div>
   
@@ -262,11 +280,11 @@ window.Quarto = {
 </header>
 
 
-<section id="curvas-roc-y-punto-de-corte-óptimo" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Curvas ROC y Punto de Corte Óptimo</h1>
+<section id="curvas-roc-y-punto-de-corte-óptimo" class="level2">
+<h2 class="anchored" data-anchor-id="curvas-roc-y-punto-de-corte-óptimo">Curvas ROC y Punto de Corte Óptimo</h2>
 <p>En esta sesión evaluamos marcadores diagnósticos continuos mediante el análisis de curvas ROC (<em>Receiver Operating Characteristic</em>) y la estimación del área bajo la curva (AUC).</p>
-<section id="carga-de-librerías-y-datos" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="carga-de-librerías-y-datos"><span class="header-section-number">4.1</span> 1. Carga de librerías y datos</h2>
+<section id="carga-de-librerías-y-datos" class="level3">
+<h3 class="anchored" data-anchor-id="carga-de-librerías-y-datos">Carga de librerías y datos</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -288,8 +306,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="construcción-de-la-curva-roc-y-cálculo-del-auc" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="construcción-de-la-curva-roc-y-cálculo-del-auc"><span class="header-section-number">4.2</span> 2. Construcción de la curva ROC y cálculo del AUC</h2>
+<section id="construcción-de-la-curva-roc-y-cálculo-del-auc" class="level3">
+<h3 class="anchored" data-anchor-id="construcción-de-la-curva-roc-y-cálculo-del-auc">Construcción de la curva ROC y cálculo del AUC</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -317,8 +335,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="representación-gráfica-de-la-curva-roc" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="representación-gráfica-de-la-curva-roc"><span class="header-section-number">4.3</span> 3. Representación gráfica de la curva ROC</h2>
+<section id="representación-gráfica-de-la-curva-roc" class="level3">
+<h3 class="anchored" data-anchor-id="representación-gráfica-de-la-curva-roc">Representación gráfica de la curva ROC</h3>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -350,15 +368,15 @@ shape.</code></pre>
 <img src="sesion10_files/figure-html/fig-roc-plot-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roc-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1: Curva ROC para el biomarcador S100b con intervalo de confianza
+Figure&nbsp;1: Curva ROC para el biomarcador S100b con intervalo de confianza
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="determinación-del-punto-de-corte-óptimo-índice-de-youden" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="determinación-del-punto-de-corte-óptimo-índice-de-youden"><span class="header-section-number">4.4</span> 4. Determinación del Punto de Corte Óptimo (Índice de Youden)</h2>
+<section id="determinación-del-punto-de-corte-óptimo-índice-de-youden" class="level3">
+<h3 class="anchored" data-anchor-id="determinación-del-punto-de-corte-óptimo-índice-de-youden">Determinación del Punto de Corte Óptimo (Índice de Youden)</h3>
 <p>El índice de Youden maximiza la distancia vertical respecto a la diagonal de azar (<span class="math inline">\(J = \text{Sensibilidad} + \text{Especificidad} - 1\)</span>):</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -379,8 +397,9 @@ threshold     0.205   0.6341463   0.8055556 0.65 0.7945205</code></pre>
 </div>
 </div>
 <hr>
-<section id="interpretación-clínica" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="interpretación-clínica"><span class="header-section-number">4.4.1</span> Interpretación Clínica</h3>
+</section>
+<section id="interpretación-clínica" class="level3">
+<h3 class="anchored" data-anchor-id="interpretación-clínica">Interpretación Clínica</h3>
 <ul>
 <li><strong>Punto de corte óptimo:</strong> 0.205</li>
 <li><strong>Sensibilidad:</strong> 63.4%</li>
@@ -388,7 +407,6 @@ threshold     0.205   0.6341463   0.8055556 0.65 0.7945205</code></pre>
 </ul>
 
 
-</section>
 </section>
 </section>
 
@@ -796,10 +814,13 @@ threshold     0.205   0.6341463   0.8055556 0.65 0.7945205</code></pre>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./sesion09.html" class="pagination-link" aria-label="Sesión 9: Pruebas Diagnósticas I">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./sesion11.html" class="pagination-link" aria-label="Sesión 11: Análisis de Supervivencia I">
+        <span class="nav-page-text"><span class="chapter-title">Sesión 11: Análisis de Supervivencia I</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

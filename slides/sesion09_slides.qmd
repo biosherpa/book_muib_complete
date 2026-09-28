@@ -1,5 +1,5 @@
 ---
-title: "Sesión 9: Pruebas Diagnósticas I"
+title: "Sesión 9: Pruebas Diagnósticas I" 
 subtitle: "Tablas 2x2, Métricas de Rendimiento y Teorema de Bayes"
 author: "Jesús Esteban Hernández"
 institute: "URJC | Máster en Investigación Biomédica"
@@ -16,7 +16,7 @@ header-includes:
 lang: es
 ---
 
-# Objetivos y Fundamentos de la Sesión
+# Objetivos y fundamentos de la sesión {.unnumbered}
 
 ## Marco Conceptual de la Validación Diagnóstica
 
@@ -87,6 +87,12 @@ La relación entre el resultado de la prueba diagnóstica y el estado real del p
 
 # 3. Caso Práctico en R (`epiR`)
 
+
+```{r}
+#| include: false
+knitr::read_chunk("../sesion09.R")
+```
+
 ## Simulación y Análisis Automatizado de una Cohorte
 
 ```{r}
@@ -119,3 +125,4 @@ rownames(matriz_epir) <- c("Test +", "Test -")
 resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
 print(resultados_diagnosticos$res[c("se", "sp", "pv.pos", "pv.neg"), c("est", "lower", "upper")])
 ```
+

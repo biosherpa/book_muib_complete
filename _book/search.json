@@ -4,150 +4,195 @@
     "href": "index.html",
     "title": "Método Científico y Análisis de Datos",
     "section": "",
-    "text": "0.1 Estructura del Curso\n# Presentación de la Asignatura {.unnumbered}\nLa asignatura Método Científico y Análisis de Datos tiene como objetivo general proporcionar al estudiante una comprensión rigurosa de los fundamentos del diseño experimental, la inferencia estadística y la modelización avanzada aplicada al ámbito biomédico[cite: 3].\nLas competencias desarrolladas en esta materia son clave para el desarrollo de proyectos de investigación en campos como la bioinformática, la terapia génica, los modelos experimentales y la evaluación de nuevos fármacos[cite: 3].\nEl manual está dividido en los bloques temáticos correspondientes al programa académico:",
+    "text": "Método Científico y Análisis de Datos",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Método Científico y Análisis de Datos</span>"
+      "Método Científico y Análisis de Datos"
     ]
   },
   {
-    "objectID": "index.html#estructura-del-curso",
-    "href": "index.html#estructura-del-curso",
+    "objectID": "index.html#presentación-de-la-asignatura",
+    "href": "index.html#presentación-de-la-asignatura",
     "title": "Método Científico y Análisis de Datos",
-    "section": "",
-    "text": "Bloques I a III (Temas 1–4): Impartidos por el Dr. Carlos Lara Romero en el Campus de Alcorcón, centrados en el diseño de estudios, muestreo, inferencia estadística, remuestreo (Bootstrap) y modelización lineal (GLM).\nBloques IV y V (Temas 5 y 6): Impartidos por el Dr. Jesús Esteban Hernández en el Campus de Móstoles, centrados en la validación diagnóstica (tablas \\(2 \\times 2\\) y curvas ROC) y el análisis de supervivencia (Kaplan-Meier y regresión de Cox).",
+    "section": "Presentación de la Asignatura",
+    "text": "Presentación de la Asignatura\nLa asignatura Método Científico y Análisis de Datos tiene como objetivo general proporcionar al estudiante una comprensión rigurosa de los fundamentos del diseño experimental, la inferencia estadística y la modelización avanzada aplicada al ámbito biomédico[cite: 3].\nLas competencias desarrolladas en esta materia son clave para el desarrollo de proyectos de investigación en campos como la bioinformática, la terapia génica, los modelos experimentales y la evaluación de nuevos fármacos[cite: 3].\n\nEstructura del Curso\nEl manual está dividido en los bloques temáticos correspondientes al programa académico:\n\nBloques I a III (Temas 1–4): Impartidos por el Dr. Carlos Lara Romero en el Campus de Alcorcón, centrados en el diseño de estudios, muestreo, inferencia estadística, remuestreo (Bootstrap) y modelización lineal (GLM).\nBloques IV y V (Temas 5 y 6): Impartidos por el Dr. Jesús Esteban Hernández en el Campus de Móstoles, centrados en la validación diagnóstica (tablas \\(2 \\times 2\\) y curvas ROC) y el análisis de supervivencia (Kaplan-Meier y regresión de Cox).\n\n\n\nMetodología Docente\nEl plan de trabajo combina clases teóricas expositivas con sesiones prácticas de resolución de problemas, análisis de casos biomédicos reales y programación reproducible mediante el lenguaje R[cite: 3].",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Método Científico y Análisis de Datos</span>"
-    ]
-  },
-  {
-    "objectID": "index.html#metodología-docente",
-    "href": "index.html#metodología-docente",
-    "title": "Método Científico y Análisis de Datos",
-    "section": "0.2 Metodología Docente",
-    "text": "0.2 Metodología Docente\nEl plan de trabajo combina clases teóricas expositivas con sesiones prácticas de resolución de problemas, análisis de casos biomédicos reales y programación reproducible mediante el lenguaje R[cite: 3].",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Método Científico y Análisis de Datos</span>"
+      "Método Científico y Análisis de Datos"
     ]
   },
   {
     "objectID": "sesion09.html",
     "href": "sesion09.html",
-    "title": "2  Sesión 9: Pruebas Diagnósticas I",
+    "title": "Sesión 9: Pruebas Diagnósticas I",
     "section": "",
-    "text": "3 Objetivos de la Sesión",
+    "text": "Objetivos de aprendizaje.",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
     ]
   },
   {
-    "objectID": "sesion09.html#objetivos-de-aprendizaje",
-    "href": "sesion09.html#objetivos-de-aprendizaje",
-    "title": "2  Sesión 9: Pruebas Diagnósticas I",
-    "section": "3.1 Objetivos de Aprendizaje",
-    "text": "3.1 Objetivos de Aprendizaje\n\nComprender los fundamentos de la validación diagnóstica en biomedicina y medicina de precisión.\nConstruir e interpretar correctamente tablas de contingencia de \\(2 \\times 2\\).\nCalcular e interpretar analíticamente la sensibilidad, la especificidad, el valor predictivo positivo (VPP) y el valor predictivo negativo (VPN).\nAnalizar el impacto crítico de la prevalencia de la enfermedad mediante el Teorema de Bayes aplicado a la práctica clínica.",
+    "objectID": "sesion09.html#objetivos-de-aprendizaje.",
+    "href": "sesion09.html#objetivos-de-aprendizaje.",
+    "title": "Sesión 9: Pruebas Diagnósticas I",
+    "section": "",
+    "text": "Comprender los fundamentos de la validación diagnóstica en biomedicina y medicina de precisión.\nConstruir e interpretar correctamente tablas de contingencia de \\(2 \\times 2\\).\nCalcular e interpretar analíticamente la sensibilidad, la especificidad, el valor predictivo positivo (VPP) y el valor predictivo negativo (VPN).\nAnalizar el impacto crítico de la prevalencia de la enfermedad mediante el Teorema de Bayes aplicado a la práctica clínica.",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
     ]
   },
   {
-    "objectID": "sesion09.html#estructura-de-la-matriz-2-times-2",
-    "href": "sesion09.html#estructura-de-la-matriz-2-times-2",
-    "title": "2  Sesión 9: Pruebas Diagnósticas I",
-    "section": "4.1 Estructura de la Matriz \\(2 \\times 2\\)",
-    "text": "4.1 Estructura de la Matriz \\(2 \\times 2\\)\nEn investigación clínica, validar una nueva prueba diagnóstica requiere contrastar sus resultados frente a un patrón de referencia u gold standard. La estructura básica se resume en la siguiente tabla:\n\n\n\n\n\n\n\n\n\n\nEnfermo (\\(D+\\))\nSano (\\(D-\\))\nTotal\n\n\n\n\nPrueba Positiva (\\(T+\\))\nVerdaderos Positivos (\\(VP\\))\nFalsos Positivos (\\(FP\\))\n\\(VP + FP\\)\n\n\nPrueba Negativa (\\(T-\\))\nFalsos Negativos (\\(FN\\))\nVerdaderos Negativos (\\(VN\\))\n\\(FN + VN\\)\n\n\nTotal\n\\(VP + FN\\)\n\\(FP + VN\\)\n\\(N\\)",
+    "objectID": "sesion09.html#validación-diagnóstica-y-matrices-de-confusión",
+    "href": "sesion09.html#validación-diagnóstica-y-matrices-de-confusión",
+    "title": "Sesión 9: Pruebas Diagnósticas I",
+    "section": "Validación Diagnóstica y Matrices de Confusión",
+    "text": "Validación Diagnóstica y Matrices de Confusión\n\nEstructura de la Matriz \\(2\\times2\\)\nEn investigación clínica, validar una nueva prueba diagnóstica requiere contrastar sus resultados frente a un patrón de referencia u gold standard. La estructura básica se resume en la siguiente tabla:\n\n\n\n\n\n\n\n\n\n\nEnfermo (\\(D+\\))\nSano (\\(D-\\))\nTotal\n\n\n\n\nPrueba Positiva (\\(T+\\))\nVerdaderos Positivos (\\(VP\\))\nFalsos Positivos (\\(FP\\))\n\\(VP + FP\\)\n\n\nPrueba Negativa (\\(T-\\))\nFalsos Negativos (\\(FN\\))\nVerdaderos Negativos (\\(VN\\))\n\\(FN + VN\\)\n\n\nTotal\n\\(VP + FN\\)\n\\(FP + VN\\)\n\\(N\\)\n\n\n\n\n\n\nParámetros Principales de Rendimiento\n\nSensibilidad (Se): Probabilidad de que la prueba sea positiva en pacientes enfermos. \\[\\text{Se} = \\frac{VP}{VP + FN}\\]\nEspecificidad (Sp): Probabilidad de que la prueba sea negativa en pacientes sanos. \\[\\text{Sp} = \\frac{VN}{FP + VN}\\]\nValor Predictivo Positivo (VPP): Probabilidad de que un paciente con resultado positivo esté realmente enfermo. \\[\\text{VPP} = \\frac{VP}{VP + FP}\\]\nValor Predictivo Negativo (VPN): Probabilidad de que un paciente con resultado negativo esté realmente sano. \\[\\text{VPN} = \\frac{VN}{FN + VN}\\]",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
     ]
   },
   {
-    "objectID": "sesion09.html#parámetros-principales-de-rendimiento",
-    "href": "sesion09.html#parámetros-principales-de-rendimiento",
-    "title": "2  Sesión 9: Pruebas Diagnósticas I",
-    "section": "4.2 Parámetros Principales de Rendimiento",
-    "text": "4.2 Parámetros Principales de Rendimiento\n\nSensibilidad (Se): Probabilidad de que la prueba sea positiva en pacientes enfermos. \\[\\text{Se} = \\frac{VP}{VP + FN}\\]\nEspecificidad (Sp): Probabilidad de que la prueba sea negativa en pacientes sanos. \\[\\text{Sp} = \\frac{VN}{FP + VN}\\]\nValor Predictivo Positivo (VPP): Probabilidad de que un paciente con resultado positivo esté realmente enfermo. \\[\\text{VPP} = \\frac{VP}{VP + FP}\\]\nValor Predictivo Negativo (VPN): Probabilidad de que un paciente con resultado negativo esté realmente sano. \\[\\text{VPN} = \\frac{VN}{FN + VN}\\]",
+    "objectID": "sesion09.html#el-teorema-de-bayes-en-la-clínica",
+    "href": "sesion09.html#el-teorema-de-bayes-en-la-clínica",
+    "title": "Sesión 9: Pruebas Diagnósticas I",
+    "section": "El Teorema de Bayes en la Clínica",
+    "text": "El Teorema de Bayes en la Clínica\n\nInfluencia Crítica de la Prevalencia\n\nIndependencia analítica: La sensibilidad y la especificidad son propiedades intrínsecas de la prueba diagnóstica y no varían según la población.\nDependencia predictiva: Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio. \\[\\text{VPP} = \\frac{\\text{Se} \\times \\text{Prevalencia}}{(\\text{Se} \\times \\text{Prevalencia}) + ((1 - \\text{Sp}) \\times (1 - \\text{Prevalencia}))}\\]\nImplicación práctica: En escenarios de cribado (screening con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
     ]
   },
   {
-    "objectID": "sesion09.html#influencia-crítica-de-la-prevalencia",
-    "href": "sesion09.html#influencia-crítica-de-la-prevalencia",
-    "title": "2  Sesión 9: Pruebas Diagnósticas I",
-    "section": "5.1 Influencia Crítica de la Prevalencia",
-    "text": "5.1 Influencia Crítica de la Prevalencia\n\nIndependencia analítica: La sensibilidad y la especificidad son propiedades intrínsecas de la prueba diagnóstica y no varían según la población.\nDependencia predictiva: Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio. \\[\\text{VPP} = \\frac{\\text{Se} \\times \\text{Prevalencia}}{(\\text{Se} \\times \\text{Prevalencia}) + ((1 - \\text{Sp}) \\times (1 - \\text{Prevalencia}))}\\]\nImplicación práctica: En escenarios de cribado (screening con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.",
+    "objectID": "sesion09.html#caso-práctico-en-r-epir",
+    "href": "sesion09.html#caso-práctico-en-r-epir",
+    "title": "Sesión 9: Pruebas Diagnósticas I",
+    "section": "Caso Práctico en R (epiR)",
+    "text": "Caso Práctico en R (epiR)\n\nSimulación y Análisis de una Cohorte Clínica\n\n\nCode\nlibrary(epiR)\n\n# Simulación de datos clínicos (Cohorte de enfermedad coronaria)\nset.seed(2026)\nn &lt;- 1000\nprevalencia_real &lt;- 0.15 # 15% de pacientes enfermos en la población\n\nestado_real &lt;- factor(rbinom(n, 1, prevalencia_real), levels = c(0, 1), labels = c(\"Sano\", \"Enfermo\"))\nbiomarcador &lt;- rnorm(n, mean = 40 + 12 * as.numeric(estado_real), sd = 10)\npunto_corte &lt;- 52\n\nresultado_prueba &lt;- factor(ifelse(biomarcador &gt; punto_corte, 1, 0), levels = c(0, 1), labels = c(\"Negativo\", \"Positivo\"))\n\n# Construcción de la matriz de contingencia para epi.tests\nVP &lt;- sum(resultado_prueba == \"Positivo\" & estado_real == \"Enfermo\")\nFP &lt;- sum(resultado_prueba == \"Positivo\" & estado_real == \"Sano\")\nFN &lt;- sum(resultado_prueba == \"Negativo\" & estado_real == \"Enfermo\")\nVN &lt;- sum(resultado_prueba == \"Negativo\" & estado_real == \"Sano\")\n\nmatriz_epir &lt;- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)\ncolnames(matriz_epir) &lt;- c(\"Enfermo\", \"Sano\")\nrownames(matriz_epir) &lt;- c(\"Test +\", \"Test -\")\n\n# Evaluación diagnóstica automatizada con intervalos de confianza\nresultados_diagnosticos &lt;- epi.tests(matriz_epir, conf.level = 0.95)\n# Muestra directamente la tabla de métricas con estimación e IC95%\nprint(resultados_diagnosticos$detail)\n\n\n   statistic        est      lower       upper\n1         ap 0.54500000 0.51354179  0.57619255\n2         tp 0.15700000 0.13498766  0.18105255\n3         se 0.87261146 0.81013444  0.92042091\n4         sp 0.51601423 0.48168030  0.55023586\n5    diag.ac 0.57200000 0.54065880  0.60291610\n6    diag.or 7.30330882 4.48216955 11.90011203\n7       nndx 2.57317002 2.12469057  3.42683175\n8     youden 0.38862570 0.29181474  0.47065677\n9     pv.pos 0.25137615 0.21547007  0.29000267\n10    pv.neg 0.95604396 0.93292773  0.97294699\n11    lr.pos 1.80296928 1.64479815  1.97635085\n12    lr.neg 0.24687020 0.16308632  0.37369715\n13    p.rout 0.45500000 0.42380745  0.48645821\n14     p.rin 0.54500000 0.51354179  0.57619255\n15    p.tpdn 0.48398577 0.44976414  0.51831970\n16    p.tndp 0.12738854 0.07957909  0.18986556\n17    p.dntp 0.74862385 0.70999733  0.78452993\n18    p.dptn 0.04395604 0.02705301  0.06707227",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
-    ]
-  },
-  {
-    "objectID": "sesion09.html#simulación-y-análisis-de-una-cohorte-clínica",
-    "href": "sesion09.html#simulación-y-análisis-de-una-cohorte-clínica",
-    "title": "2  Sesión 9: Pruebas Diagnósticas I",
-    "section": "6.1 Simulación y Análisis de una Cohorte Clínica",
-    "text": "6.1 Simulación y Análisis de una Cohorte Clínica\n\n\nCódigo\nlibrary(epiR)\n\n# Simulación de datos clínicos (Cohorte de enfermedad coronaria)\nset.seed(2026)\nn &lt;- 1000\nprevalencia_real &lt;- 0.15 # 15% de pacientes enfermos en la población\n\nestado_real &lt;- factor(rbinom(n, 1, prevalencia_real), levels = c(0, 1), labels = c(\"Sano\", \"Enfermo\"))\nbiomarcador &lt;- rnorm(n, mean = 40 + 12 * as.numeric(estado_real), sd = 10)\npunto_corte &lt;- 52\n\nresultado_prueba &lt;- factor(ifelse(biomarcador &gt; punto_corte, 1, 0), levels = c(0, 1), labels = c(\"Negativo\", \"Positivo\"))\n\n# Construcción de la matriz de contingencia para epi.tests\nVP &lt;- sum(resultado_prueba == \"Positivo\" & estado_real == \"Enfermo\")\nFP &lt;- sum(resultado_prueba == \"Positivo\" & estado_real == \"Sano\")\nFN &lt;- sum(resultado_prueba == \"Negativo\" & estado_real == \"Enfermo\")\nVN &lt;- sum(resultado_prueba == \"Negativo\" & estado_real == \"Sano\")\n\nmatriz_epir &lt;- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)\ncolnames(matriz_epir) &lt;- c(\"Enfermo\", \"Sano\")\nrownames(matriz_epir) &lt;- c(\"Test +\", \"Test -\")\n\n# Evaluación diagnóstica automatizada con intervalos de confianza\nresultados_diagnosticos &lt;- epi.tests(matriz_epir, conf.level = 0.95)\nprint(resultados_diagnosticos$res[c(\"se\", \"sp\", \"pv.pos\", \"pv.neg\"), c(\"est\", \"lower\", \"upper\")])\n\n\nNULL",
-    "crumbs": [
-      "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sesión 9: Pruebas Diagnósticas I</span>"
     ]
   },
   {
     "objectID": "sesion10.html",
     "href": "sesion10.html",
-    "title": "3  Sesión 10: Pruebas Diagnósticas II",
+    "title": "Sesión 10: Pruebas Diagnósticas II",
     "section": "",
-    "text": "4 Curvas ROC y Punto de Corte Óptimo\nEn esta sesión evaluamos marcadores diagnósticos continuos mediante el análisis de curvas ROC (Receiver Operating Characteristic) y la estimación del área bajo la curva (AUC).",
+    "text": "Curvas ROC y Punto de Corte Óptimo\nEn esta sesión evaluamos marcadores diagnósticos continuos mediante el análisis de curvas ROC (Receiver Operating Characteristic) y la estimación del área bajo la curva (AUC).",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
     ]
   },
   {
-    "objectID": "sesion10.html#carga-de-librerías-y-datos",
-    "href": "sesion10.html#carga-de-librerías-y-datos",
-    "title": "3  Sesión 10: Pruebas Diagnósticas II",
-    "section": "4.1 1. Carga de librerías y datos",
-    "text": "4.1 1. Carga de librerías y datos\n\n\nCode\nlibrary(pROC)\nlibrary(ggplot2)\n\n# Dataset aSAH: Evaluación del biomarcador s100b para mal pronóstico (outcome)\ndata(aSAH)\nhead(aSAH)\n\n\n   gos6 outcome gender age wfns s100b  ndka\n29    5    Good Female  42    1  0.13  3.01\n30    5    Good Female  37    1  0.14  8.54\n31    5    Good Female  42    1  0.10  8.09\n32    5    Good Female  27    1  0.04 10.42\n33    1    Poor Female  42    3  0.13 17.40\n34    1    Poor   Male  48    2  0.10 12.75",
+    "objectID": "sesion10.html#curvas-roc-y-punto-de-corte-óptimo",
+    "href": "sesion10.html#curvas-roc-y-punto-de-corte-óptimo",
+    "title": "Sesión 10: Pruebas Diagnósticas II",
+    "section": "",
+    "text": "Carga de librerías y datos\n\n\nCode\nlibrary(pROC)\nlibrary(ggplot2)\n\n# Dataset aSAH: Evaluación del biomarcador s100b para mal pronóstico (outcome)\ndata(aSAH)\nhead(aSAH)\n\n\n   gos6 outcome gender age wfns s100b  ndka\n29    5    Good Female  42    1  0.13  3.01\n30    5    Good Female  37    1  0.14  8.54\n31    5    Good Female  42    1  0.10  8.09\n32    5    Good Female  27    1  0.04 10.42\n33    1    Poor Female  42    3  0.13 17.40\n34    1    Poor   Male  48    2  0.10 12.75\n\n\n\n\nConstrucción de la curva ROC y cálculo del AUC\n\n\nCode\n# Objeto ROC (outcome: 'Good' vs 'Poor')\nroc_s100b &lt;- roc(\n  response = aSAH$outcome,\n  predictor = aSAH$s100b,\n  levels = c(\"Good\", \"Poor\"), # Control / Caso\n  direction = \"&lt;\"             # \"&lt;\" indica que valores más altos sugieren el caso (\"Poor\")\n)\n\n# Área bajo la curva (AUC)\nauc(roc_s100b)\n\n\nArea under the curve: 0.7314\n\n\nCode\n# Intervalo de confianza al 95% para el AUC (Delong)\nci.auc(roc_s100b)\n\n\n95% CI: 0.6301-0.8326 (DeLong)\n\n\n\n\nRepresentación gráfica de la curva ROC\n\n\nCode\nplot(\n  roc_s100b,\n  main = \"Evaluación Diagnóstica: S100b\",\n  col = \"#2E9FDF\",\n  lwd = 3,\n  print.auc = TRUE,\n  print.auc.x = 0.4,\n  print.auc.y = 0.2,\n  auc.polygon = TRUE,\n  auc.polygon.col = \"#2E9FDF22\",\n  grid = TRUE\n)\n\n# Añadir IC del 95% dibujado sobre la curva\nci_sp &lt;- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))\nplot(ci_sp, type = \"shape\", col = \"#2E9FDF11\")\n\n\nWarning in plot.ci.se(ci_sp, type = \"shape\", col = \"#2E9FDF11\"): Low definition\nshape.\n\n\n\n\n\n\n\n\nFigure 1: Curva ROC para el biomarcador S100b con intervalo de confianza\n\n\n\n\n\n\n\nDeterminación del Punto de Corte Óptimo (Índice de Youden)\nEl índice de Youden maximiza la distancia vertical respecto a la diagonal de azar (\\(J = \\text{Sensibilidad} + \\text{Especificidad} - 1\\)):\n\n\nCode\n# Extracción del punto de corte óptimo por el método de Youden\ncorte_optimo &lt;- coords(\n  roc_s100b, \n  x = \"best\", \n  best.method = \"youden\",\n  ret = c(\"threshold\", \"sensitivity\", \"specificity\", \"ppv\", \"npv\")\n)\n\ncorte_optimo\n\n\n          threshold sensitivity specificity  ppv       npv\nthreshold     0.205   0.6341463   0.8055556 0.65 0.7945205\n\n\n\n\n\nInterpretación Clínica\n\nPunto de corte óptimo: 0.205\nSensibilidad: 63.4%\nEspecificidad: 80.6%",
     "crumbs": [
       "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
     ]
   },
   {
-    "objectID": "sesion10.html#construcción-de-la-curva-roc-y-cálculo-del-auc",
-    "href": "sesion10.html#construcción-de-la-curva-roc-y-cálculo-del-auc",
-    "title": "3  Sesión 10: Pruebas Diagnósticas II",
-    "section": "4.2 2. Construcción de la curva ROC y cálculo del AUC",
-    "text": "4.2 2. Construcción de la curva ROC y cálculo del AUC\n\n\nCode\n# Objeto ROC (outcome: 'Good' vs 'Poor')\nroc_s100b &lt;- roc(\n  response = aSAH$outcome,\n  predictor = aSAH$s100b,\n  levels = c(\"Good\", \"Poor\"), # Control / Caso\n  direction = \"&lt;\"             # \"&lt;\" indica que valores más altos sugieren el caso (\"Poor\")\n)\n\n# Área bajo la curva (AUC)\nauc(roc_s100b)\n\n\nArea under the curve: 0.7314\n\n\nCode\n# Intervalo de confianza al 95% para el AUC (Delong)\nci.auc(roc_s100b)\n\n\n95% CI: 0.6301-0.8326 (DeLong)",
+    "objectID": "sesion11.html",
+    "href": "sesion11.html",
+    "title": "Sesión 11: Análisis de Supervivencia I",
+    "section": "",
+    "text": "Análisis de Supervivencia: Estimador de Kaplan-Meier\nEn esta sesión abordaremos el análisis de datos de tiempo hasta el evento, la gestión de la censura a la derecha y la estimación no paramétrica de la función de supervivencia \\(S(t)\\).",
     "crumbs": [
-      "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 11: Análisis de Supervivencia I</span>"
     ]
   },
   {
-    "objectID": "sesion10.html#representación-gráfica-de-la-curva-roc",
-    "href": "sesion10.html#representación-gráfica-de-la-curva-roc",
-    "title": "3  Sesión 10: Pruebas Diagnósticas II",
-    "section": "4.3 3. Representación gráfica de la curva ROC",
-    "text": "4.3 3. Representación gráfica de la curva ROC\n\n\nCode\nplot(\n  roc_s100b,\n  main = \"Evaluación Diagnóstica: S100b\",\n  col = \"#2E9FDF\",\n  lwd = 3,\n  print.auc = TRUE,\n  print.auc.x = 0.4,\n  print.auc.y = 0.2,\n  auc.polygon = TRUE,\n  auc.polygon.col = \"#2E9FDF22\",\n  grid = TRUE\n)\n\n# Añadir IC del 95% dibujado sobre la curva\nci_sp &lt;- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))\nplot(ci_sp, type = \"shape\", col = \"#2E9FDF11\")\n\n\nWarning in plot.ci.se(ci_sp, type = \"shape\", col = \"#2E9FDF11\"): Low definition\nshape.\n\n\n\n\n\n\n\n\nFigure 4.1: Curva ROC para el biomarcador S100b con intervalo de confianza",
+    "objectID": "sesion11.html#carga-de-paquetes-y-datos",
+    "href": "sesion11.html#carga-de-paquetes-y-datos",
+    "title": "Sesión 11: Análisis de Supervivencia I",
+    "section": "Carga de paquetes y datos",
+    "text": "Carga de paquetes y datos\n\n\nCode\nlibrary(survival)\nlibrary(survminer)\n\n# Dataset 'lung': cáncer de pulmón en estadio avanzado\n# Nota sobre la variable status: 1 = censurado, 2 = evento (fallecimiento)\ndata(lung)\nhead(lung)\n\n\n  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss\n1    3  306      2  74   1       1       90       100     1175      NA\n2    3  455      2  68   1       0       90        90     1225      15\n3    3 1010      1  56   1       0       90        90       NA      15\n4    5  210      2  57   1       1       90        60     1150      11\n5    1  883      2  60   1       0      100        90       NA       0\n6   12 1022      1  74   1       1       50        80      513       0",
     "crumbs": [
-      "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 11: Análisis de Supervivencia I</span>"
     ]
   },
   {
-    "objectID": "sesion10.html#determinación-del-punto-de-corte-óptimo-índice-de-youden",
-    "href": "sesion10.html#determinación-del-punto-de-corte-óptimo-índice-de-youden",
-    "title": "3  Sesión 10: Pruebas Diagnósticas II",
-    "section": "4.4 4. Determinación del Punto de Corte Óptimo (Índice de Youden)",
-    "text": "4.4 4. Determinación del Punto de Corte Óptimo (Índice de Youden)\nEl índice de Youden maximiza la distancia vertical respecto a la diagonal de azar (\\(J = \\text{Sensibilidad} + \\text{Especificidad} - 1\\)):\n\n\nCode\n# Extracción del punto de corte óptimo por el método de Youden\ncorte_optimo &lt;- coords(\n  roc_s100b, \n  x = \"best\", \n  best.method = \"youden\",\n  ret = c(\"threshold\", \"sensitivity\", \"specificity\", \"ppv\", \"npv\")\n)\n\ncorte_optimo\n\n\n          threshold sensitivity specificity  ppv       npv\nthreshold     0.205   0.6341463   0.8055556 0.65 0.7945205\n\n\n\n\n4.4.1 Interpretación Clínica\n\nPunto de corte óptimo: 0.205\nSensibilidad: 63.4%\nEspecificidad: 80.6%",
+    "objectID": "sesion11.html#creación-del-objeto-de-supervivencia-y-ajuste-no-paramétrico",
+    "href": "sesion11.html#creación-del-objeto-de-supervivencia-y-ajuste-no-paramétrico",
+    "title": "Sesión 11: Análisis de Supervivencia I",
+    "section": "Creación del objeto de supervivencia y ajuste no paramétrico",
+    "text": "Creación del objeto de supervivencia y ajuste no paramétrico\nEl objeto Surv() combina el tiempo de seguimiento y el indicador del evento.\n\n\nCode\n# Creación del objeto Surv\nsurv_obj &lt;- Surv(time = lung$time, event = lung$status == 2)\n\n# Ajuste global de Kaplan-Meier\nfit_global &lt;- survfit(surv_obj ~ 1, data = lung)\nsummary(fit_global, times = c(100, 300, 500))\n\n\nCall: survfit(formula = surv_obj ~ 1, data = lung)\n\n time n.risk n.event survival std.err lower 95% CI upper 95% CI\n  100    196      31    0.864  0.0227        0.821        0.910\n  300     92      70    0.531  0.0346        0.467        0.603\n  500     41      37    0.293  0.0351        0.232        0.371\n\n\nCode\n# Ajuste estratificado por sexo (1 = Hombre, 2 = Mujer)\nfit_sex &lt;- survfit(Surv(time, status == 2) ~ sex, data = lung)",
     "crumbs": [
-      "Bloque IV: Validación Diagnóstica",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 10: Pruebas Diagnósticas II</span>"
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 11: Análisis de Supervivencia I</span>"
+    ]
+  },
+  {
+    "objectID": "sesion11.html#estimación-de-la-mediana-de-supervivencia-y-test-de-log-rank",
+    "href": "sesion11.html#estimación-de-la-mediana-de-supervivencia-y-test-de-log-rank",
+    "title": "Sesión 11: Análisis de Supervivencia I",
+    "section": "Estimación de la mediana de supervivencia y test de Log-Rank",
+    "text": "Estimación de la mediana de supervivencia y test de Log-Rank\nLa comparación no paramétrica entre grupos se realiza mediante la prueba de Log-Rank (survdiff).\n\n\nCode\n# Mediana de supervivencia e intervalos de confianza al 95%\nsurv_median(fit_sex)\n\n\n  strata median lower upper\n1  sex=1    270   212   310\n2  sex=2    426   348   550\n\n\nCode\n# Test de Log-Rank\nlogrank_test &lt;- survdiff(Surv(time, status == 2) ~ sex, data = lung)\nlogrank_test\n\n\nCall:\nsurvdiff(formula = Surv(time, status == 2) ~ sex, data = lung)\n\n        N Observed Expected (O-E)^2/E (O-E)^2/V\nsex=1 138      112     91.6      4.55      10.3\nsex=2  90       53     73.4      5.68      10.3\n\n Chisq= 10.3  on 1 degrees of freedom, p= 0.001",
+    "crumbs": [
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 11: Análisis de Supervivencia I</span>"
+    ]
+  },
+  {
+    "objectID": "sesion11.html#representación-gráfica-detallada",
+    "href": "sesion11.html#representación-gráfica-detallada",
+    "title": "Sesión 11: Análisis de Supervivencia I",
+    "section": "Representación gráfica detallada",
+    "text": "Representación gráfica detallada\n\n\nCode\nggsurvplot(\n  fit_sex,\n  data = lung,\n  pval = TRUE,             # P-valor del test de Log-Rank\n  conf.int = TRUE,         # Banda de confianza al 95%\n  risk.table = TRUE,       # Tabla de sujetos en riesgo\n  risk.table.height = 0.25,\n  legend.labs = c(\"Hombre\", \"Mujer\"),\n  legend.title = \"Sexo\",\n  palette = c(\"#E7B800\", \"#2E9FDF\"),\n  xlab = \"Tiempo (días)\",\n  ylab = \"Probabilidad de supervivencia S(t)\",\n  ggtheme = theme_minimal()\n)\n\n\nIgnoring unknown labels:\n• colour : \"Sexo\"\n\n\n\n\n\n\n\n\nFigure 1: Curvas de supervivencia de Kaplan-Meier estratificadas por sexo\n\n\n\n\n\n\n\nInterpretación Clínica\n\nMediana de supervivencia en Hombres: 270 días.\nMediana de supervivencia en Mujeres: 426 días.\nExiste una diferencia estadísticamente significativa en la supervivencia entre hombres y mujeres (\\(p &lt; 0.001\\)).",
+    "crumbs": [
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Sesión 11: Análisis de Supervivencia I</span>"
+    ]
+  },
+  {
+    "objectID": "sesion12.html",
+    "href": "sesion12.html",
+    "title": "Sesión 12: Análisis de Supervivencia II",
+    "section": "",
+    "text": "Regresión de Cox y Modelos Semiparamétricos\nEl modelo de riesgos proporcionales de Cox permite evaluar simultáneamente el efecto de múltiples variables continuas y categóricas sobre la tasa de riesgo instántaneo \\(\\lambda(t)\\).\n\\[\\lambda(t \\vert{} X) = \\lambda_0(t) \\exp(\\beta_1 X_1 + \\beta_2 X_2 + \\dots + \\beta_p X_p)\\]",
+    "crumbs": [
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sesión 12: Análisis de Supervivencia II</span>"
+    ]
+  },
+  {
+    "objectID": "sesion12.html#ajuste-del-modelo-multivariado",
+    "href": "sesion12.html#ajuste-del-modelo-multivariado",
+    "title": "Sesión 12: Análisis de Supervivencia II",
+    "section": "Ajuste del Modelo Multivariado",
+    "text": "Ajuste del Modelo Multivariado\nAjustamos un modelo para evaluar el efecto de la edad, el sexo y la escala funcional ECOG (ph.ecog) sobre la supervivencia en cáncer de pulmón.\n\nlibrary(survival)\nlibrary(survminer)\n\n# Ajuste del modelo de Cox multivariado\nfit_cox &lt;- coxph(\n  Surv(time, status == 2) ~ age + sex + ph.ecog, \n  data = lung\n)\n\n# Resumen del modelo (Hazard Ratios, IC 95% y p-valores)\nsummary(fit_cox)\n\nCall:\ncoxph(formula = Surv(time, status == 2) ~ age + sex + ph.ecog, \n    data = lung)\n\n  n= 227, number of events= 164 \n   (1 observation deleted due to missingness)\n\n             coef exp(coef)  se(coef)      z Pr(&gt;|z|)    \nage      0.011067  1.011128  0.009267  1.194 0.232416    \nsex     -0.552612  0.575445  0.167739 -3.294 0.000986 ***\nph.ecog  0.463728  1.589991  0.113577  4.083 4.45e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n        exp(coef) exp(-coef) lower .95 upper .95\nage        1.0111     0.9890    0.9929    1.0297\nsex        0.5754     1.7378    0.4142    0.7994\nph.ecog    1.5900     0.6289    1.2727    1.9864\n\nConcordance= 0.637  (se = 0.025 )\nLikelihood ratio test= 30.5  on 3 df,   p=1e-06\nWald test            = 29.93  on 3 df,   p=1e-06\nScore (logrank) test = 30.5  on 3 df,   p=1e-06",
+    "crumbs": [
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sesión 12: Análisis de Supervivencia II</span>"
+    ]
+  },
+  {
+    "objectID": "sesion12.html#representación-gráfica-de-hazard-ratios-forest-plot",
+    "href": "sesion12.html#representación-gráfica-de-hazard-ratios-forest-plot",
+    "title": "Sesión 12: Análisis de Supervivencia II",
+    "section": "Representación Gráfica de Hazard Ratios (Forest Plot)",
+    "text": "Representación Gráfica de Hazard Ratios (Forest Plot)\n\nggforest(\n  fit_cox, \n  data = lung,\n  main = \"Hazard Ratios (IC 95%)\"#,\n  # cLocations = c(0.02, 0.22, 0.4),\n  # fontSize = 0.8\n)\n\n\n\n\n\n\n\nFigure 1: Forest plot de los Hazard Ratios estimados por el modelo multivariado de Cox",
+    "crumbs": [
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sesión 12: Análisis de Supervivencia II</span>"
+    ]
+  },
+  {
+    "objectID": "sesion12.html#evaluación-del-supuesto-de-riesgos-proporcionales",
+    "href": "sesion12.html#evaluación-del-supuesto-de-riesgos-proporcionales",
+    "title": "Sesión 12: Análisis de Supervivencia II",
+    "section": "Evaluación del Supuesto de Riesgos Proporcionales",
+    "text": "Evaluación del Supuesto de Riesgos Proporcionales\nEl supuesto fundamental del modelo establece que la razón de riesgos (\\(HR\\)) permanece constante a lo largo del tiempo. Lo evaluamos mediante los residuos de Schoenfeld.\n\n# Test estadístico de residuos de Schoenfeld (H0: riesgos proporcionales)\ntest_ph &lt;- cox.zph(fit_cox)\ntest_ph\n\n        chisq df    p\nage     0.188  1 0.66\nsex     2.305  1 0.13\nph.ecog 2.054  1 0.15\nGLOBAL  4.464  3 0.22\n\n\n\n# Gráfico de residuos a lo largo del tiempo\nggcoxzph(test_ph)\n\n\n\n\n\n\n\nFigure 2: Diagnóstico gráfico del supuesto de riesgos proporcionales (residuos de Schoenfeld)\n\n\n\n\n\n\n\nConclusiones del Diagnóstico\n\nSexo: Presenta un efecto protector estadísticamente significativo en mujeres frente a hombres (\\(HR &lt; 1\\), \\(p &lt; 0.001\\)).\nEscala ECOG: Un mayor deterioro funcional se asocia de forma independiente con un mayor riesgo de fallecimiento (\\(HR &gt; 1\\)).\nEvaluación del supuesto: El p-valor global del test cox.zph es mayor a 0.05, lo que confirma que el modelo cumple el supuesto de riesgos proporcionales.",
+    "crumbs": [
+      "Bloque V: Análisis de Supervivencia",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Sesión 12: Análisis de Supervivencia II</span>"
     ]
   }
 ]

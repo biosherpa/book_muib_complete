@@ -2,32 +2,27 @@
 title: "Sesión 9: Pruebas Diagnósticas I"
 subtitle: "Tablas 2x2, Métricas de Rendimiento y Teorema de Bayes"
 author: "Jesús Esteban Hernández"
-institute: "URJC | Máster en Investigación Biomédica"
+date: last-modified
 format:
-  beamer:
-    theme: Madrid
-    colortheme: dolphin
-    fonttheme: structurebold
-    aspectratio: 169
-    incremental: false
-header-includes:
-  - \setbeamerfont{institute}{size=\small}
-lang: es
+  html:
+    toc: true
+    code-fold: show
+    number-sections: false
 ---
 
-# Objetivos de la Sesión
-
-## Objetivos de Aprendizaje
-* Comprender los fundamentos de la validación diagnóstica en biomedicina y medicina de precisión.
-* Construir e interpretar correctamente tablas de contingencia de $2 \times 2$.
-* Calcular e interpretar analíticamente la sensibilidad, la especificidad, el valor predictivo positivo (VPP) y el valor predictivo negativo (VPN).
-* Analizar el impacto crítico de la prevalencia de la enfermedad mediante el Teorema de Bayes aplicado a la práctica clínica.
+## Objetivos de aprendizaje.
+ 
+  * Comprender los fundamentos de la validación diagnóstica en biomedicina y medicina de precisión.
+  * Construir e interpretar correctamente tablas de contingencia de $2 \times 2$.
+  * Calcular e interpretar analíticamente la sensibilidad, la especificidad, el valor predictivo positivo (VPP) y el valor predictivo negativo (VPN).
+  * Analizar el impacto crítico de la prevalencia de la enfermedad mediante el Teorema de Bayes aplicado a la práctica clínica.
 
 ---
 
-# 1. Validación Diagnóstica y Matrices de Confusión
+## Validación Diagnóstica y Matrices de Confusión 
 
-## Estructura de la Matriz $2 \times 2$
+### Estructura de la Matriz $2\times2$
+
 En investigación clínica, validar una nueva prueba diagnóstica requiere contrastar sus resultados frente a un patrón de referencia u *gold standard*. La estructura básica se resume en la siguiente tabla:
 
 | | Enfermo ($D+$) | Sano ($D-$) | Total |
@@ -38,37 +33,42 @@ En investigación clínica, validar una nueva prueba diagnóstica requiere contr
 
 ---
 
-## Parámetros Principales de Rendimiento
-* **Sensibilidad (Se):** Probabilidad de que la prueba sea positiva en pacientes enfermos.
-  $$\text{Se} = \frac{VP}{VP + FN}$$
-* **Especificidad (Sp):** Probabilidad de que la prueba sea negativa en pacientes sanos.
-  $$\text{Sp} = \frac{VN}{FP + VN}$$
-* **Valor Predictivo Positivo (VPP):** Probabilidad de que un paciente con resultado positivo esté realmente enfermo.
-  $$\text{VPP} = \frac{VP}{VP + FP}$$
-* **Valor Predictivo Negativo (VPN):** Probabilidad de que un paciente con resultado negativo esté realmente sano.
-  $$\text{VPN} = \frac{VN}{FN + VN}$$
+### Parámetros Principales de Rendimiento
+  
+  * **Sensibilidad (Se):** Probabilidad de que la prueba sea positiva en pacientes enfermos.
+    $$\text{Se} = \frac{VP}{VP + FN}$$
+  * **Especificidad (Sp):** Probabilidad de que la prueba sea negativa en pacientes sanos.
+    $$\text{Sp} = \frac{VN}{FP + VN}$$
+  * **Valor Predictivo Positivo (VPP):** Probabilidad de que un paciente con resultado positivo esté realmente enfermo.
+    $$\text{VPP} = \frac{VP}{VP + FP}$$
+  * **Valor Predictivo Negativo (VPN):** Probabilidad de que un paciente con resultado negativo esté realmente sano.
+    $$\text{VPN} = \frac{VN}{FN + VN}$$
 
 ---
 
-# 2. El Teorema de Bayes en la Clínica
+## El Teorema de Bayes en la Clínica
 
-## Influencia Crítica de la Prevalencia
-* **Independencia analítica:** La sensibilidad y la especificidad son propiedades intrínsecas de la prueba diagnóstica y no varían según la población.
-* **Dependencia predictiva:** Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio.
-  $$\text{VPP} = \frac{\text{Se} \times \text{Prevalencia}}{(\text{Se} \times \text{Prevalencia}) + ((1 - \text{Sp}) \times (1 - \text{Prevalencia}))}$$
-* **Implicación práctica:** En escenarios de cribado (*screening* con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.
+### Influencia Crítica de la Prevalencia
+  
+  * **Independencia analítica:** La sensibilidad y la especificidad son propiedades intrínsecas de la prueba diagnóstica y no varían según la población.
+  * **Dependencia predictiva:** Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio.
+    $$\text{VPP} = \frac{\text{Se} \times \text{Prevalencia}}{(\text{Se} \times \text{Prevalencia}) + ((1 - \text{Sp}) \times (1 - \text{Prevalencia}))}$$
+  * **Implicación práctica:** En escenarios de cribado (*screening* con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.
 
 ---
 
-# 3. Caso Práctico en R (`epiR`)
+## Caso Práctico en R (`epiR`)
 
-## Simulación y Análisis de una Cohorte Clínica
+### Simulación y Análisis de una Cohorte Clínica
+
 
 ```{r}
 #| label: practica-sesion9-epir
 #| echo: true
 #| message: false
 #| warning: false
+ 
+
 
 library(epiR)
 
@@ -95,5 +95,7 @@ rownames(matriz_epir) <- c("Test +", "Test -")
 
 # Evaluación diagnóstica automatizada con intervalos de confianza
 resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
-print(resultados_diagnosticos$res[c("se", "sp", "pv.pos", "pv.neg"), c("est", "lower", "upper")])
+# Muestra directamente la tabla de métricas con estimación e IC95%
+print(resultados_diagnosticos$detail)
 ```
+

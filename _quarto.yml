@@ -10,17 +10,23 @@ book:
       chapters:
         - sesion09.qmd
         - sesion10.qmd
-     - part: "Bloque V: Análisis de Supervivencia"
+    - part: "Bloque V: Análisis de Supervivencia"
       chapters:
-       - sesion11.qmd
-       - sesion12.qmd
+        - sesion11.qmd
+        - sesion12.qmd
+
+# Elimina el prefijo del capítulo en la numeración interna y referencias
+crossref:
+  chapters: false
 
 format:
   html:
     theme: cosmo
     toc: true
     code-fold: true
+    number-sections: false
+    number-depth: 3
   pdf:
     documentclass: scrreprt
     toc: true
-    number-sections: true
+    number-sections: false

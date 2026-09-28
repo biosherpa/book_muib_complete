@@ -6,7 +6,8 @@ date: last-modified
 format:
   html:
     toc: true
-    code-fold: show
+    code-fold: false
+    number-sections: false
 ---
 
 # Regresión de Cox y Modelos Semiparamétricos
@@ -15,7 +16,7 @@ El modelo de riesgos proporcionales de Cox permite evaluar simultáneamente el e
 
 $$\lambda(t \vert{} X) = \lambda_0(t) \exp(\beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)$$
 
-## 1. Ajuste del Modelo Multivariado
+## Ajuste del Modelo Multivariado
 
 Ajustamos un modelo para evaluar el efecto de la edad, el sexo y la escala funcional ECOG (`ph.ecog`) sobre la supervivencia en cáncer de pulmón.
 
@@ -37,7 +38,7 @@ fit_cox <- coxph(
 summary(fit_cox)
 ```
 
-## 2. Representación Gráfica de Hazard Ratios (Forest Plot)
+## Representación Gráfica de Hazard Ratios (Forest Plot)
 
 ```{r}
 #| label: fig-cox-forest
@@ -46,13 +47,13 @@ summary(fit_cox)
 ggforest(
   fit_cox, 
   data = lung,
-  main = "Hazard Ratios (IC 95%)",
-  cLocations = c(0.02, 0.22, 0.4),
-  fontSize = 0.8
+  main = "Hazard Ratios (IC 95%)"#,
+  # cLocations = c(0.02, 0.22, 0.4),
+  # fontSize = 0.8
 )
 ```
 
-## 3. Evaluación del Supuesto de Riesgos Proporcionales
+## Evaluación del Supuesto de Riesgos Proporcionales
 
 El supuesto fundamental del modelo establece que la razón de riesgos ($HR$) permanece constante a lo largo del tiempo. Lo evaluamos mediante los residuos de Schoenfeld.
 
