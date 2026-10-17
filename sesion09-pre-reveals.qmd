@@ -1,0 +1,484 @@
+---
+title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Teorema de Bayes: validación y rendimiento de una prueba diagnóstica"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  revealjs:
+    # theme: [default, custom.scss]
+    theme: [simple, custom.scss]
+    # theme: [moon, custom.scss]
+    # theme: simple
+    slide-number: true
+    incremental: false
+    transition: slide
+    background-transition: fade
+    # embed-resources: true
+    fig-cap-location: bottom
+    code-fold: show
+    code-line-numbers: true
+    code-overflow: wrap
+    width: 1280
+    height: 800
+    margin: 0.08
+    controls: true
+    progress: true
+    history: true
+    center: false
+    menu:
+      side: right
+    chalkboard: true
+editor: source
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+```
+
+## La validez como aproximación a la verdad {.title-slide}
+
+### Marco conceptual de la validación en ciencias de la salud
+
+#### Jesús Esteban Hernández
+
+::: {.notes}
+**Notas del presentador — Portada**
+  
+  Esta sesión es el marco conceptual que sostiene todo lo que vimos en la Sesión 9. Allí calculamos sensibilidad, especificidad, VPP, VPN. Aquí nos preguntamos: **¿qué significa que un instrumento sea "válido"?** y **¿cómo se relaciona esa validez con la idea de verdad?**
+  
+  Duración estimada: 60 minutos.
+
+Pregunta inicial: "¿Puede un instrumento ser fiable pero no válido?" La respuesta (sí) vertebra toda la sesión.
+:::
+  
+## La pregunta de fondo
+  
+  **¿Qué significa que un instrumento mida lo que dice medir?**
+  
+  - No hay una respuesta binaria (válido / no válido).
+- La validez es **gradual**, **contextual** y **acumulativa**.
+- Es un **argumento**, no un coeficiente.
+
+::: {.notes}
+**Notas del presentador — La pregunta de fondo**
+  
+  Insistir: la validez no es una propiedad dicotómica del instrumento. Es una **propiedad de la interpretación** de las puntuaciones, en un contexto de uso concreto.
+
+Un mismo test puede ser válido para una población y no para otra, para un propósito y no para otro.
+
+Ejemplo: el PSA es válido para seguimiento de cáncer de próstata ya diagnosticado, pero problemático como cribado poblacional.
+:::
+  
+## Verdad y medición: el problema filosófico
+  
+  - **Realismo científico**: existe una realidad independiente del observador.
+- **Constructos latentes**: la enfermedad, la ansiedad, la inteligencia no son directamente observables.
+- **Indicadores**: las puntuaciones de los tests son **manifestaciones imperfectas** de esos constructos.
+- **Error de medida**: toda medición contiene una parte de verdad + una parte de error.
+
+$$X = T + E$$
+  
+  donde $X$ es la puntuación observada, $T$ la verdadera y $E$ el error.
+
+::: {.notes}
+**Notas del presentador — Verdad y medición**
+  
+  Aquí está la clave filosófica: **nunca observamos la verdad directamente**. Observamos indicadores con error.
+
+La teoría clásica de los tests (Spearman, 1904) formaliza esto: $X = T + E$. La validez es el grado en que $X$ se aproxima a $T$.
+
+Pero ojo: $T$ tampoco es "la verdad absoluta", es la puntuación verdadera **en el constructo tal como lo hemos definido**.
+
+Preguntar: "¿Podemos medir la inteligencia?" Respuesta: podemos medir **algo** que correlaciona con lo que llamamos inteligencia, pero el constructo mismo es una construcción teórica.
+:::
+  
+## Los tres pilares de la medición
+  
+  | Pilar | Pregunta | Concepto técnico |
+  |---|---|---|
+  | **Fiabilidad** | ¿Mide con consistencia? | Precisión, reproducibilidad |
+  | **Validez** | ¿Mide lo que dice medir? | Aproximación al constructo |
+  | **Utilidad** | ¿Sirve para tomar decisiones? | Valor clínico, coste-beneficio |
+  
+  **La fiabilidad es condición necesaria pero no suficiente para la validez.**
+  
+::: {.notes}
+**Notas del presentador — Los tres pilares**
+  
+  Aquí el punto clave: **fiabilidad ≠ validez**.
+
+Analogía clásica: una balanza descalibrada que siempre marca 2 kg de más es **fiable** (da siempre el mismo resultado) pero **no válida** (no mide el peso real).
+
+En clínica: un test que da siempre el mismo resultado en el mismo paciente es fiable, pero si no detecta la enfermedad, no es válido.
+
+La utilidad es el tercer pilar: un test válido y fiable puede ser inútil si es caro, invasivo o lento.
+:::
+  
+## Fiabilidad no implica validez
+  
+  **Ejemplo visual**:
+  
+  - Diana A: todos los tiros juntos pero desviados del centro → **fiable, no válido**.
+- Diana B: tiros dispersos pero centrados → **no fiable, no válido**.
+- Diana C: tiros juntos y en el centro → **fiable y válido**.
+
+::: {.notes}
+**Notas del presentador — Diana**
+  
+  La metáfora de la diana es la más clara. Si tienes tiempo, dibújala en la pizarra.
+
+- **Diana A**: el instrumento es consistente pero mide otra cosa.
+- **Diana B**: el instrumento apunta al constructo pero con mucho error aleatorio.
+- **Diana C**: lo ideal.
+
+**Ningún instrumento es perfecto**, pero se busca acercarse a C.
+:::
+  
+## El giro histórico: de "tipos" a "fuentes"
+  
+  **Antes (1950-1980)**: tres tipos de validez como compartimentos estancos.
+
+- Contenido
+- Constructo
+- Criterio
+
+**Ahora (Messick, 1989; AERA-APA-NCME, 2014)**: la validez es **un concepto unitario** con **cinco fuentes de evidencia**.
+
+::: {.notes}
+**Notas del presentador — El giro histórico**
+  
+  Cronbach y Meehl (1955) separaron los "tipos" de validez. Durante décadas se habló de "validez de contenido", "validez de constructo", "validez de criterio" como si fueran cosas distintas.
+
+Messick (1989) da el giro: **todo es validez de constructo**, y los "tipos" son solo **fuentes de evidencia** que contribuyen al argumento global.
+
+Los *Standards* (2014) consolidan esta visión.
+
+Consecuencia práctica: ya no se dice "este test tiene validez de criterio", se dice "hay evidencia de criterio que respalda la interpretación de las puntuaciones".
+:::
+  
+## Las cinco fuentes de evidencia
+  
+  | Fuente | Pregunta | Método típico |
+  |---|---|---|
+  | **Contenido** | ¿Cubre el dominio? | Juicio de expertos |
+  | **Procesos de respuesta** | ¿Se razona como se espera? | Entrevistas cognitivas |
+  | **Estructura interna** | ¿Los ítems son coherentes? | Análisis factorial |
+  | **Relaciones externas** | ¿Correlaciona con lo que debe? | Convergencia, criterio |
+  | **Consecuencias** | ¿Qué efectos produce su uso? | Estudios de impacto |
+  
+::: {.notes}
+**Notas del presentador — Las cinco fuentes**
+  
+  Estas son las cinco fuentes que los *Standards* proponen. **No son tipos**, son **fuentes** que alimentan un único argumento de validez.
+
+En la Sesión 9 trabajamos **relaciones externas**, específicamente prueba-criterio.
+
+Las otras cuatro se trabajan en otras fases de la validación de un instrumento.
+:::
+  
+## Fuente 1: Evidencia de contenido
+  
+  **Pregunta**: ¿los ítems o medidas cubren todos los aspectos del constructo?
+  
+  **Métodos**:
+  
+  - Juicio de expertos.
+- Índice de validez de contenido (CVI, Lawshe).
+- Método Delphi.
+- Mapeo del dominio conceptual.
+
+**Riesgo**: constructo **infrarrepresentado** (faltan dimensiones) o **sobrerrepresentado** (ítems irrelevantes).
+
+::: {.notes}
+**Notas del presentador — Contenido**
+  
+  Ejemplo: si haces un cuestionario de depresión con 20 ítems sobre síntomas somáticos y ninguno sobre estado de ánimo, el contenido está sesgado.
+
+En diagnóstico: si tu biomarcador solo detecta la enfermedad en fase avanzada, el contenido del "constructo diagnóstico" está incompleto.
+
+Preguntar: "¿Cómo se valida el contenido de un examen médico?" Respuesta: con un comité de expertos que revisa el temario.
+:::
+  
+## Fuente 2: Evidencia de procesos de respuesta
+  
+  **Pregunta**: ¿los sujetos razonan de la forma que el modelo teórico predice?
+  
+  **Métodos**:
+  
+  - Entrevistas cognitivas (think-aloud).
+- Análisis de tiempos de respuesta.
+- Modelos de teoría de respuesta al ítem (TRI).
+
+**Aplicación clínica**: ¿el paciente entiende la pregunta del cuestionario como el investigador cree?
+  
+::: {.notes}
+**Notas del presentador — Procesos de respuesta**
+  
+  Ejemplo clásico: un ítem de "¿Se siente triste?" puede interpretarse como "¿está clínicamente deprimido?" o "¿está triste hoy?".
+
+La evidencia de proceso verifica que los sujetos interpretan el ítem como se pretende.
+
+En biomarcadores continuos no aplica (no hay "razonamiento"), pero sí en cuestionarios, entrevistas y escalas.
+:::
+  
+## Fuente 3: Evidencia de estructura interna
+  
+  **Pregunta**: ¿los ítems se agrupan según el modelo teórico?
+  
+  **Métodos**:
+  
+  - Análisis factorial exploratorio (EFA).
+- Análisis factorial confirmatorio (CFA).
+- Análisis de componentes principales.
+- Modelos de ecuaciones estructurales (SEM).
+
+**Índices de ajuste**: CFI/TLI ≥ 0.95, RMSEA ≤ 0.06, SRMR ≤ 0.08.
+
+::: {.notes}
+**Notas del presentador — Estructura interna**
+  
+  Ejemplo: si tu cuestionario de ansiedad tiene 3 subescalas teóricas (cognitiva, somática, conductual), el análisis factorial debería mostrar 3 factores.
+
+Si aparecen 5 factores, o solo 1, la estructura empírica no coincide con la teórica → problema de validez estructural.
+
+En biomarcadores continuos no aplica, pero sí en escalas multi-ítem.
+:::
+  
+## Fuente 4: Evidencia de relaciones externas
+  
+  **Pregunta**: ¿el instrumento se relaciona con otras variables como la teoría predice?
+  
+  Tres subcategorías:
+  
+  - **Convergente**: correlaciona con medidas del mismo constructo.
+- **Discriminante**: **no** correlaciona con constructos distintos.
+- **Criterio**: predice o correlaciona con un gold standard.
+
+::: {.notes}
+**Notas del presentador — Relaciones externas**
+  
+  **AQUÍ ESTÁ LA SESIÓN 9.** La validación diagnóstica es evidencia de criterio.
+
+- **Convergente**: tu test de depresión correlaciona con el BDI-II (otro test de depresión).
+- **Discriminante**: tu test de depresión NO correlaciona con el test de ansiedad (constructo distinto).
+- **Criterio**: tu test de depresión predice el diagnóstico clínico (gold standard).
+
+Matriz multirrasgo-multimétodo (MTMM) es la herramienta clásica para evaluar convergente y discriminante simultáneamente.
+:::
+  
+## Subcategorías de validez de criterio
+  
+  | Subcategoría | Temporalidad | Ejemplo |
+  |---|---|---|
+  | **Concurrente** | Simultánea | Biomarcador vs. biopsia hoy |
+  | **Predictiva** | Futuro | Test hoy vs. diagnóstico en 5 años |
+  | **Retrospectiva** | Pasado | Test hoy vs. diagnóstico hace 2 años |
+  
+  Tu Sesión 9, con la matriz 2×2 y el gold standard, es **validez de criterio concurrente**.
+
+::: {.notes}
+**Notas del presentador — Subcategorías de criterio**
+  
+  La diferencia es la **temporalidad**.
+
+- **Concurrente**: mides ambos a la vez. Es lo que hicimos con el biomarcador.
+- **Predictiva**: el test predice algo que aún no ha pasado. Cribado, pronóstico.
+- **Retrospectiva**: el criterio ya ocurrió. Se usa cuando no puedes esperar.
+
+En la práctica clínica la validez predictiva es la más valiosa (permite intervenir antes), pero la concurrente es la más fácil de estudiar.
+:::
+  
+## Cómo se construye el argumento de validez
+  
+  No es un cálculo único, es una **argumentación acumulativa**:
+  
+  1. **Definir el constructo** con precisión.
+2. **Definir el dominio** de contenido.
+3. **Especificar el uso previsto** (diagnóstico, cribado, pronóstico).
+4. **Recoger evidencia** de las cinco fuentes.
+5. **Evaluar consecuencias** del uso.
+6. **Revisar el argumento** a la luz de nueva evidencia.
+
+::: {.notes}
+**Notas del presentador — El argumento**
+  
+  Kane (2013) formaliza esto como "argumento de validez": una cadena de inferencias desde la puntuación observada hasta la decisión clínica.
+
+Cada eslabón necesita evidencia. Si un eslabón falla, todo el argumento se debilita.
+
+Ejemplo: puntuación del biomarcador → presencia de enfermedad → decisión de tratar → beneficio para el paciente. Cada flecha necesita evidencia.
+:::
+  
+## Fuente 5: Evidencia de consecuencias
+  
+  **Pregunta**: ¿qué efectos produce el uso del instrumento?
+  
+  - **Beneficios**: detección temprana, tratamiento oportuno.
+- **Daños**: falsos positivos, ansiedad, sobretratamiento.
+- **Equidad**: ¿funciona igual en distintos subgrupos?
+  - **Coste**: económico, humano, de oportunidad.
+
+::: {.notes}
+**Notas del presentador — Consecuencias**
+  
+  Este es el punto más "ético" del argumento.
+
+Un test puede ser técnicamente válido y aun así **hacer más daño que bien** si:
+  - Genera muchos falsos positivos (ansiedad, pruebas invasivas).
+- Funciona peor en minorías (inequidad).
+- Es tan caro que desplaza otros recursos.
+
+Messick insistía: la validez incluye las **consecuencias sociales** del uso del test.
+:::
+  
+## El caso del cribado: validez vs. utilidad
+  
+  | | Alta prevalencia | Baja prevalencia |
+  |---|---|---|
+  | Sensibilidad | Igual | Igual |
+  | Especificidad | Igual | Igual |
+  | **VPP** | Alto | **Bajo** |
+  | **Utilidad clínica** | Alta | **Cuestionable** |
+  
+  El mismo test puede ser válido en un contexto e inútil en otro.
+
+::: {.notes}
+**Notas del presentador — Cribado**
+  
+  Aquí se conecta directamente con la Sesión 9.
+
+La validez del test (sensibilidad, especificidad) es **la misma** en ambas poblaciones. Pero el VPP cambia drásticamente.
+
+Consecuencia: la validez **no es una propiedad absoluta del test**, es una propiedad del test **en un contexto de uso**.
+
+Esto explica por qué el cribado poblacional es tan controvertido: en enfermedades raras, el VPP puede ser del 5% → 95% de los positivos son falsos.
+:::
+  
+## Validez como aproximación asintótica a la verdad
+  
+  **Idea central**: ningún instrumento es perfectamente válido, pero podemos acercarnos progresivamente a la verdad mediante:
+  
+  - Acumulación de evidencia de múltiples fuentes.
+- Refinamiento iterativo del constructo.
+- Corrección de sesgos conocidos.
+- Triangulación metodológica.
+
+$$V_{\text{observada}} \xrightarrow{\text{evidencia acumulada}} V_{\text{verdadera}}$$
+  
+::: {.notes}
+**Notas del presentador — Aproximación a la verdad**
+  
+  Esta es la metáfora central de la sesión: la validez como **proceso asintótico**.
+
+Nunca llegamos a la verdad perfecta, pero con evidencia acumulada nos acercamos.
+
+En ciencias de la salud esto es especialmente relevante: el "gold standard" **también tiene error**. La biopsia, el diagnóstico clínico, incluso la autopsia, no son 100% perfectos.
+
+Por tanto, nuestra validez es **relativa al gold standard disponible**, no a la verdad absoluta.
+
+Frase para cerrar: "La validez no es un destino, es un camino."
+:::
+  
+## Implicaciones prácticas
+  
+  **Para el investigador**:
+  
+  - No basta con calcular un coeficiente; hay que construir un argumento.
+- La evidencia se acumula con el tiempo y con distintos estudios.
+- El gold standard imperfecto limita la validez observada.
+
+**Para el clínico**:
+  
+  - Un test "validado" en un estudio no es válido en cualquier contexto.
+- La prevalencia local condiciona la utilidad.
+- Las consecuencias del uso son parte de la validez.
+
+::: {.notes}
+**Notas del presentador — Implicaciones**
+  
+  Para el investigador: reportar validez es reportar un **argumento completo**, no solo un número.
+
+Para el clínico: leer un artículo de validación requiere entender en qué población, con qué gold standard, con qué consecuencias.
+
+Preguntar: "¿Cómo leeríais un artículo que dice 'nuestro test tiene 95% de sensibilidad'?" Respuesta: hay que ver la población, el gold standard, y las consecuencias de aplicar ese test.
+:::
+  
+## Resumen visual
+  
+  ```
+VALIDEZ (argumento unificado sobre lo que significan las puntuaciones)
+│
+├── CONTENIDO            → ¿cubre el dominio?
+  ├── PROCESOS             → ¿se razona como se espera?
+  ├── ESTRUCTURA INTERNA   → ¿los ítems son coherentes?
+  ├── RELACIONES EXTERNAS  → ¿correlaciona como debe?
+  │   ├── Convergente
+│   ├── Discriminante
+│   └── CRITERIO  ← ★ Sesión 9
+│       ├── Concurrente  ← ★ tu caso
+│       ├── Predictiva
+│       └── Retrospectiva
+└── CONSECUENCIAS        → ¿qué efectos produce?
+  ```
+
+::: {.notes}
+**Notas del presentador — Resumen visual**
+  
+  Esta diapositiva es el mapa completo. Si los alumnos se llevan una sola cosa, que sea este árbol.
+
+**Sesión 9 = rama "CRITERIO / Concurrente"**.
+
+Las otras cuatro fuentes se trabajan en otros momentos del proceso de validación.
+:::
+  
+## Referencias clave
+  
+  - **Cronbach, L.J. & Meehl, P.E. (1955)**. Construct validity in psychological tests. *Psychological Bulletin*, 52(4), 281-302.
+
+- **Messick, S. (1989)**. Validity. En R.L. Linn (Ed.), *Educational Measurement* (3ª ed.). Macmillan.
+
+- **AERA, APA & NCME (2014)**. *Standards for Educational and Psychological Testing*. Washington, DC.
+
+- **Kane, M.T. (2013)**. Validating the interpretations and uses of test scores. *Journal of Educational Measurement*, 50(1), 1-73.
+
+- **COSMIN** (2018). COnsensus-based Standards for the selection of health Measurement INstruments.
+
+::: {.notes}
+**Notas del presentador — Referencias**
+  
+  Estas cinco son las referencias canónicas del campo.
+
+- **Cronbach & Meehl (1955)**: fundacional.
+- **Messick (1989)**: marco unificado moderno.
+- **AERA-APA-NCME (2014)**: estándar normativo actual.
+- **Kane (2013)**: argumento de validez en la práctica.
+- **COSMIN**: estándares específicos para propiedades de medición en salud.
+
+Para quien quiera profundizar: el manual de *Educational Measurement* (4ª ed., 2006) tiene capítulos excelentes.
+:::
+  
+## Cierre
+  
+  **Tres ideas para llevarse**:
+  
+  1. La validez **no es un coeficiente**, es un argumento acumulativo.
+2. Fiabilidad y validez son **cosas distintas**: se puede ser fiable sin ser válido.
+3. La validez es **contextual**: un test válido en un contexto puede ser inútil en otro.
+
+**Y una pregunta abierta**: si el gold standard también tiene error, ¿qué significa exactamente "aproximarse a la verdad"?
+  
+::: {.notes}
+**Notas del presentador — Cierre**
+  
+  Cerrar con la pregunta abierta. Es una invitación a seguir pensando.
+
+La próxima sesión (o la discusión) puede retomar esa pregunta: ¿cómo validar un test cuando no hay gold standard perfecto? Respuesta: con métodos de "gold standard imperfecto" (latent class analysis, modelos de mezcla, consenso de expertos).
+
+Agradecer y abrir preguntas.
+:::

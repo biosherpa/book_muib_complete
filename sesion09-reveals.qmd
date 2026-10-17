@@ -1,0 +1,669 @@
+---
+title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Teorema de Bayes: validación y rendimiento de una prueba diagnóstica"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  revealjs:
+    # theme: [default, custom.scss]
+    theme: [simple, custom.scss]
+    # theme: [moon, custom.scss]
+    # theme: simple
+    slide-number: true
+    incremental: false
+    transition: slide
+    background-transition: fade
+    # embed-resources: true
+    fig-cap-location: bottom
+    code-fold: show
+    code-line-numbers: true
+    code-overflow: wrap
+    width: 1280
+    height: 800
+    margin: 0.08
+    controls: true
+    progress: true
+    history: true
+    center: false
+    menu:
+      side: right
+    chalkboard: true
+editor: source
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+```
+
+## Sesión 9: Pruebas Diagnósticas I {.title-slide}
+
+### Teorema de Bayes: validación y rendimiento de una prueba diagnóstica
+
+#### Jesús Esteban Hernández
+
+::: {.notes}
+
+**Notas del presentador — Slide de portada**
+  
+  Bienvenida a la Sesión 9. Hoy cerramos el bloque de probabilidad aplicándolo a un problema central en biomedicina: **¿cómo sabemos si una prueba diagnóstica es buena?**
+  
+  Pregunta inicial para romper el hielo:
+  
+  - "Si un test da positivo y tiene una sensibilidad del 99%, ¿podemos asegurar que el paciente está enfermo?"
+
+La respuesta suele sorprender: **NO necesariamente**. Depende de la prevalencia. Esa es la idea que vertebra toda la sesión.
+
+Duración estimada: 90 minutos.
+:::
+  
+## Objetivos de aprendizaje
+  
+  - Comprender los fundamentos de la **validación diagnóstica** en biomedicina.
+
+  - Construir e interpretar **tablas de contingencia $2 \times 2$**.
+
+  - Calcular e interpretar **sensibilidad, especificidad, VPP y VPN**.
+
+  - Analizar el impacto de la **prevalencia** mediante el **Teorema de Bayes**.
+
+::: {.notes}
+
+**Notas del presentador — Objetivos**
+  
+  Recalcar que el objetivo NO es memorizar fórmulas, sino **entender la lógica**.
+
+Preguntar al grupo: ¿alguien ha visto antes la paradoja del falso positivo? Es el ejemplo clásico que motiva toda la sesión.
+
+Conectar con su práctica clínica: cada vez que piden una prueba, están aplicando Bayes sin saberlo.
+
+:::
+  
+## Repaso: Experimento Aleatorio y Espacio Muestral
+  
+  **Experimento Aleatorio**:
+  
+  - Repetible en las mismas condiciones.
+- Resultados distintos con mismas condiciones iniciales.
+- Todos los resultados posibles se conocen *a priori*.
+- No se puede predecir el resultado particular.
+
+**Espacio Muestral ($\Omega$)**: conjunto de todos los resultados posibles.
+
+- *Resultado elemental* ($\omega \in \Omega$): desenlace individual.
+- *Ejemplo*: dado, $\Omega = \{1, 2, 3, 4, 5, 6\}$.
+
+::: {.notes}
+
+**Notas del presentador — Repaso**
+  
+  Esto es repaso puro. No dedicar más de 2 minutos.
+
+Pregunta rápida al grupo: "¿El resultado de un análisis de sangre es un experimento aleatorio?" Respuesta: sí, porque no podemos predecir el valor exacto antes de medirlo.
+
+Si el grupo está perdido, recordar el dado: no sabemos qué saldrá, pero sí el conjunto de posibles resultados.
+:::
+  
+## Tipos de Espacios Muestrales
+  
+  | Tipo | Ejemplo Biomédico | $\Omega$ | Suceso de Interés |
+  | :--- | :--- | :--- | :--- |
+  | **Finito** | Grupo sanguíneo | $\{A, B, AB, O\}$ | Compatibilidad con A |
+  | **Infinito Numerable** | Crisis asmáticas/año | $\{0, 1, 2, \dots\}$ | Más de 3 crisis |
+  | **No Numerable** | Glucosa en ayunas | $(0, +\infty)$ | Criterio diabetes |
+  
+::: {.notes}
+**Notas del presentador — Tipos de espacios**
+  
+  Ejemplo clave: la **glucosa** es continua, pero el criterio de diabetes la discretiza (≥126 mg/dL). Eso es una **dicotomización** artificial pero clínicamente útil.
+
+Aquí se introduce sin decirlo la idea de "punto de corte" que aparecerá más tarde.
+
+Preguntar: "¿Perdemos información al dicotomizar?" Sí, pero ganamos decisión clínica.
+
+:::
+  
+## Espacio Probabilístico $(\Omega, \mathcal{A}, P)$
+  
+  Estructura matemática que modela un experimento aleatorio:
+  
+  1. **$\Omega$**: espacio muestral.
+  2. **$\mathcal{A}$**: $\sigma$-álgebra de sucesos.
+  3. **$P$**: medida de probabilidad $P: \mathcal{A} \rightarrow [0,1]$.
+
+::: {.notes}
+**Notas del presentador — Espacio probabilístico**
+  
+  No detenerse demasiado. La $\sigma$-álgebra es un formalismo matemático.
+
+Mensaje clave: **necesitamos los tres elementos** para hacer probabilidad rigurosa.
+
+Si preguntan por qué $\sigma$-álgebra y no cualquier conjunto: porque necesitamos cerrar bajo complementario y uniones numerables para que la probabilidad funcione.
+:::
+  
+## Axiomas de Kolmogorov
+  
+  - **A1**: $P(A) \ge 0, \quad \forall A \in \mathcal{A}$
+  - **A2**: $P(\Omega) = 1$
+  - **A3**: Para sucesos mutuamente disjuntos:
+  
+  $$P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i)$$
+  
+::: {.notes}
+**Notas del presentador — Axiomas**
+  
+  Los tres axiomas de Kolmogorov (1933) son la base de TODA la probabilidad moderna.
+
+Analogía: son como las reglas de un juego. Si las respetas, todo lo demás se deduce.
+
+A2 es clave: la probabilidad de "algo pasa" es 1.
+:::
+  
+## Propiedades Fundamentales
+  
+  1. $P(A') = 1 - P(A)$
+2. $P(\emptyset) = 0$
+3. $A \subset B \implies P(A) \le P(B)$
+4. $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+
+::: {.notes}
+**Notas del presentador — Propiedades**
+
+La propiedad 4 (ley aditiva) es **CRÍTICA** porque es la base del teorema de la probabilidad total que veremos después.
+
+Ejemplo: si A = "tener gripe" y B = "tener fiebre", P(A∪B) cuenta a los que tienen una, otra o ambas, sin contar dos veces a los que tienen las dos.
+:::
+
+## Independencia de Sucesos
+
+$A$ y $B$ **independientes**:
+
+$$P(B \mid A) = P(B) \iff P(A \cap B) = P(A) \cdot P(B)$$
+
+::: {.callout-warning}
+**¡Atención!**
+
+- **Disjuntos**: $A \cap B = \emptyset \implies P(A \cap B) = 0$.
+- Dos sucesos incompatibles con $P(A), P(B) > 0$ **NUNCA** son independientes.
+:::
+
+::: {.notes}
+**Notas del presentador — Independencia**
+
+**ESTE ES UN CONCEPTO QUE CONFUNDE MUCHO.** Insistir.
+
+Disjuntos = no pueden ocurrir juntos.
+Independientes = saber uno no cambia la probabilidad del otro.
+
+Ejemplo clínico: "tener gripe" y "tener COVID" son **disjuntos** en el sentido de que un diagnóstico excluye al otro clínicamente, pero **no son independientes** en la población (comparten factores de riesgo).
+
+Preguntar: "¿Dos enfermedades raras son independientes?" Depende. La hemofilia y el daltonismo están ligadas al cromosoma X → NO independientes.
+:::
+
+## Probabilidad Condicionada
+
+$$P(B \mid A) = \frac{P(A \cap B)}{P(A)}, \quad P(A) > 0$$
+
+**Ley multiplicativa**:
+
+$$P(A \cap B) = P(A) \cdot P(B \mid A)$$
+
+Para $n$ eventos:
+
+$$P(A_1 \cap \dots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdots P(A_n \mid A_1 \cap \dots \cap A_{n-1})$$
+
+::: {.notes}
+**Notas del presentador — Probabilidad condicionada**
+
+Es el corazón del razonamiento diagnóstico: "¿cuál es la probabilidad de estar enfermo DADO que el test dio positivo?"
+
+La ley multiplicativa se usa para calcular probabilidades conjuntas cuando conocemos las condicionadas.
+:::
+
+## Visualización de una Partición de $\Omega$
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+#| echo: false
+
+library(ggplot2)
+
+centros <- data.frame(
+  suceso = paste0("A", 1:9),
+  cx = rep(c(2.0, 5.0, 8.0), each = 3),
+  cy = rep(c(8.0, 5.0, 2.0), times = 3)
+)
+
+grid <- expand.grid(
+  x = seq(0, 10, length.out = 120),
+  y = seq(0, 10, length.out = 120)
+)
+
+grid$x_dist <- grid$x + 0.45 * sin(grid$y * pi / 3) + 0.25 * cos(grid$x * pi / 2)
+grid$y_dist <- grid$y + 0.45 * cos(grid$x * pi / 3) + 0.25 * sin(grid$y * pi / 2)
+
+grid$region <- apply(grid[, c("x_dist", "y_dist")], 1, function(p) {
+  dists <- (centros$cx - p[1])^2 + (centros$cy - p[2])^2
+  which.min(dists)
+})
+grid$suceso <- paste0("A", grid$region)
+
+t <- seq(0, 2 * pi, length.out = 300)
+a <- 3.8; b <- 2.2; angle <- pi / 6
+x0 <- 5; y0 <- 5
+df_elipse <- data.frame(
+  x = x0 + a * cos(t) * cos(angle) - b * sin(t) * sin(angle),
+  y = y0 + a * cos(t) * sin(angle) + b * sin(t) * cos(angle)
+)
+
+ggplot() +
+  geom_raster(data = grid, aes(x = x, y = y, fill = suceso), alpha = 0.4) +
+  geom_contour(data = grid, aes(x = x, y = y, z = region),
+               breaks = 1.5:8.5, color = "gray25", linewidth = 0.8) +
+  geom_rect(aes(xmin = 0, xmax = 10, ymin = 0, ymax = 10),
+            fill = NA, color = "black", linewidth = 1.2) +
+  geom_polygon(data = df_elipse, aes(x = x, y = y),
+               fill = "navyblue", alpha = 0.35, color = "darkblue", linewidth = 1.2) +
+  geom_text(data = centros, aes(x = cx, y = cy, label = suceso),
+            size = 5.5, fontface = "bold", color = "gray10") +
+  annotate("text", x = 4.5, y = 5.5, label = "B", size = 8, color = "darkblue", fontface = "bold") +
+  annotate("text", x = 0.4, y = 9.6, label = "Ω", size = 8, fontface = "bold.italic") +
+  scale_fill_brewer(palette = "Set3") +
+  coord_fixed(expand = FALSE, xlim = c(-0.05, 10.05), ylim = c(-0.05, 10.05)) +
+  theme_void() + theme(legend.position = "none")
+```
+
+::: {.notes}
+**Notas del presentador — Partición visual**
+
+La elipse azul (B) "corta" las nueve regiones A1...A9.
+
+Esto ilustra el **teorema de la probabilidad total**: B se puede descomponer como $B = (B \cap A_1) \cup (B \cap A_2) \cup \dots \cup (B \cap A_9)$, y como son disjuntos, las probabilidades se suman.
+
+Ejemplo clínico: B = "test positivo", A_i = "estadio de la enfermedad" o "grupo de riesgo". El test positivo en cada subgrupo se suma para dar el total.
+
+Si los colores no se ven bien en proyector, avisar: bajar luminosidad de la sala.
+:::
+
+## Teorema de la Probabilidad Total
+
+Sea $A_1, \dots, A_k$ una partición de $\Omega$:
+
+$$P(B) = \sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)$$
+
+::: {.notes}
+**Notas del presentador — Probabilidad total**
+
+Esta fórmula "descompone" la probabilidad de B según las causas posibles.
+
+Ejemplo: "probabilidad de test positivo" = suma de (prob. de estar enfermo × prob. de positivo si enfermo) + (prob. de estar sano × prob. de positivo si sano).
+
+¡Esto es exactamente el denominador de Bayes!
+:::
+
+## Teorema de Bayes
+
+$$P(A_j \mid B) = \frac{P(A_j) \cdot P(B \mid A_j)}{\sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)}$$
+
+::: {.notes}
+**Notas del presentador — Teorema de Bayes**
+
+El teorema de Bayes es "dar la vuelta" a la condicional:
+
+- Lo que sabemos: $P(B \mid A)$ (probabilidad del test dado el estado).
+- Lo que queremos: $P(A \mid B)$ (probabilidad del estado dado el test).
+
+Es la herramienta matemática central del **razonamiento diagnóstico**.
+
+Aquí hacer pausa y decir: "Todo lo que viene ahora es Bayes disfrazado de términos clínicos".
+:::
+
+## Bayes aplicado al diagnóstico
+
+Con causa binaria $(E, \bar{E})$:
+
+$$P(E \mid S) = \frac{P(E) \cdot P(S \mid E)}{P(E) \cdot P(S \mid E) + P(\bar{E}) \cdot P(S \mid \bar{E})}$$
+
+**Conclusiones clave**:
+
+1. La posterior $P(E \mid S)$ depende de la previa $P(E)$.
+2. Un síntoma solo ayuda a diagnosticar si **no es independiente** de la enfermedad.
+3. Los síntomas útiles **discriminan**, no son los más frecuentes.
+
+::: {.notes}
+**Notas del presentador — Bayes diagnóstico**
+
+Aquí está la esencia clínica. Recalcar las tres conclusiones:
+
+1. **Sin prevalencia no hay diagnóstico.** Un test bueno en población de alto riesgo puede ser malo en cribado poblacional.
+
+2. **Si síntoma y enfermedad son independientes**, el test no aporta NADA. Esto es contraintuitivo pero fundamental.
+
+3. **Síntomas frecuentes ≠ síntomas útiles.** La tos es frecuentísima pero poco discriminante. La hemoptisis es rara pero muy sugestiva.
+
+Preguntar al grupo: "¿Ejemplos de síntomas frecuentes pero poco útiles?" Esperado: fiebre, malestar general, cefalea.
+:::
+
+## Matriz de Confusión $2 \times 2$
+
+| | Enfermo ($D+$) | Sano ($D-$) | Total |
+| :--- | :---: | :---: | :---: |
+| **Positivo ($T+$)** | $VP$ | $FP$ | $VP + FP$ |
+| **Negativo ($T-$)** | $FN$ | $VN$ | $FN + VN$ |
+| **Total** | $VP + FN$ | $FP + VN$ | $N$ |
+
+- $VP$: Verdaderos Positivos
+- $FP$: Falsos Positivos
+- $FN$: Falsos Negativos
+- $VN$: Verdaderos Negativos
+
+::: {.notes}
+**Notas del presentador — Matriz de confusión**
+
+Esta tabla es LA herramienta central. Repetirla cada vez que aparezca una fórmula.
+
+Truco mnemotécnico:
+
+- **VP**: enfermo que da positivo → ¡acierto!
+- **FP**: sano que da positivo → falsa alarma.
+- **FN**: enfermo que da negativo → ¡error grave!
+- **VN**: sano que da negativo → ¡acierto!
+
+En clínica, **FN** suele ser el peor error (enfermo no detectado), excepto en cribados donde un FP puede causar ansiedad iatrogénica.
+:::
+
+## Sensibilidad y Especificidad
+
+**Sensibilidad (s)**: probabilidad de positivo en enfermos.
+
+$$s = \frac{VP}{VP + FN}$$
+
+**Especificidad (e)**: probabilidad de negativo en sanos.
+
+$$e = \frac{VN}{FP + VN}$$
+
+*Propiedades intrínsecas de la prueba* (no dependen de la prevalencia).
+
+::: {.notes}
+**Notas del presentador — S y E**
+
+Idea clave: **s y e son propiedades del test**, no de la población.
+
+Analogía: la sensibilidad es como "cuántos enfermos detecta el test". La especificidad es "cuántos sanos respeta".
+
+Preguntar: "¿Puede un test tener s = 100% y ser inútil?" Sí, si e = 0% (marca a todos como positivos).
+
+**Ideal**: s alta para no perder enfermos, e alta para no asustar sanos. Difícil tener ambas.
+:::
+
+## Valores Predictivos
+
+**VPP**: probabilidad de estar enfermo dado positivo.
+
+$$\text{VPP} = \frac{VP}{VP + FP}$$
+
+**VPN**: probabilidad de estar sano dado negativo.
+
+$$\text{VPN} = \frac{VN}{FN + VN}$$
+
+*Dependen de la prevalencia de la enfermedad.*
+
+::: {.notes}
+**Notas del presentador — Valores predictivos**
+
+**DIFERENCIA CRÍTICA** con s y e:
+
+- s y e: condicionadas al estado de la enfermedad.
+- VPP y VPN: condicionadas al resultado del test.
+
+En clínica lo que importa es VPP y VPN porque son la pregunta del paciente: "Dado que el test dio positivo, ¿estoy enfermo?"
+
+Pero VPP depende de la prevalencia, lo que complica todo.
+:::
+
+## Factor de Bayes
+
+$$Odd(E \mid S) = Odd(E) \cdot \frac{P(S \mid E)}{P(S \mid \bar{E})} = Odd(E) \cdot \text{FB}$$
+
+El **factor de Bayes** (Razón de Verosimilitud, *LR*) cuantifica cuánto cambia la *odds*:
+
+- **RV+**: $s / (1 - e)$
+- **RV−**: $(1 - s) / e$
+
+::: {.notes}
+**Notas del presentador — Factor de Bayes**
+
+El factor de Bayes es **super intuitivo**:
+
+- **RV+ > 10**: test muy útil cuando sale positivo.
+- **RV+ entre 5 y 10**: útil.
+- **RV+ entre 2 y 5**: poco útil.
+- **RV+ entre 1 y 2**: prácticamente inútil.
+- **RV+ = 1**: no aporta nada (independiente).
+
+Ejemplo: test con RV+ = 5 → la odds se multiplica por 5. Si partíamos de una odds previa de 1:1, ahora es 5:1 → probabilidad ~83%.
+
+Aquí está la potencia real del test: **cambiar la odds**.
+:::
+
+## RV en función de s y e
+
+$$Odd(E \mid S) = Odd(E) \cdot \frac{s}{1 - e}$$
+
+- Solo depende de la **validez del test** y de la **previa**.
+- Simplifica enormemente el uso clínico del Teorema de Bayes.
+
+::: {.notes}
+**Notas del presentador — RV en función de s y e**
+
+Ventaja: en la cabecera del paciente anotamos **odds previa** y multiplicamos por RV.
+
+Ejemplo: odds previa 1:4 (probabilidad 20%), RV+ = 5 → odds posterior = 5:4 → probabilidad ~55%.
+
+Cambio enorme: de 20% a 55%. El test fue muy informativo.
+
+Nueva pregunta: ¿y si la probabilidad previa era 1%? → odds 1:99 → ×5 = 5:99 → ~4.8%. El cambio es pequeño en absoluto pero proporcional en odds.
+:::
+
+## Influencia de la Prevalencia
+
+- **Se y Sp**: propiedades **intrínsecas** de la prueba.
+- **VPP y VPN**: **dependen** de la prevalencia.
+
+$$\text{VPP} = \frac{s \cdot p}{(s \cdot p) + ((1 - e)(1 - p))}$$
+
+::: {.callout-important}
+En **cribado** (prevalencia baja), el VPP cae drásticamente → muchos falsos positivos requieren confirmación.
+:::
+
+::: {.notes}
+**Notas del presentador — Prevalencia**
+
+**ESTE ES EL MENSAJE CENTRAL DE LA SESIÓN.**
+
+Ejemplo clásico: test con s = 99% y e = 99%.
+
+- Si prevalencia = 10% → VPP ≈ 92% (excelente).
+- Si prevalencia = 1% → VPP ≈ 50% (regular).
+- Si prevalencia = 0.1% → VPP ≈ 9% (malo).
+
+**Implicación**: en cribado, un positivo NO significa enfermedad.
+
+Esto explica por qué las pruebas de cribado masivo siempre necesitan **confirmación**.
+
+Aquí se entiende el famoso problema del COVID, PSA, mamografía, etc.
+:::
+
+## Caso Práctico en R
+
+Trabajaremos con `_data/preven_cc.csv`:
+
+- `gold_std`: Sano / Enfermo
+- `biomarcador`: valor continuo
+
+**Punto de corte**: 52 → Positivo si `biomarcador > 52`.
+
+::: {.notes}
+**Notas del presentador — Introducción al caso**
+
+Explicar el contexto: simulamos una cohorte de 1000 pacientes con un biomarcador hipotético. El *gold standard* es la verdadera enfermedad.
+
+El objetivo es calcular todos los índices con R y ver cómo cambian al mover el corte.
+
+Pedir al grupo que haga la matriz "a mano" primero, con un par de valores.
+:::
+
+## Importar datos y construir la matriz
+
+```{r}
+library(epiR)
+
+punto_corte <- 52
+
+biomark1 <- read.csv("_data/preven_cc.csv")
+
+biomark1$resultado_prueba <- factor(
+  ifelse(biomark1$biomarcador > punto_corte, 1, 0),
+  levels = c(0, 1), labels = c("Negativo", "Positivo")
+)
+
+VP <- sum(biomark1$resultado_prueba == "Positivo" & biomark1$gold_std == "Enfermo")
+FP <- sum(biomark1$resultado_prueba == "Positivo" & biomark1$gold_std == "Sano")
+FN <- sum(biomark1$resultado_prueba == "Negativo" & biomark1$gold_std == "Enfermo")
+VN <- sum(biomark1$resultado_prueba == "Negativo" & biomark1$gold_std == "Sano")
+
+matriz_epir <- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)
+colnames(matriz_epir) <- c("Enfermo", "Sano")
+rownames(matriz_epir) <- c("Test +", "Test -")
+
+print(matriz_epir)
+```
+
+::: {.notes}
+**Notas del presentador — Código matriz**
+
+Aquí ejecutar en vivo. La matriz sale algo como:
+
+```
+        Enfermo Sano
+Test +      135    50
+Test -       15   800
+```
+
+Preguntar: "¿Cuál es la sensibilidad?" 135/(135+15) = 90%. "¿Y la especificidad?" 800/(800+50) = 94%.
+
+**Estos números hay que interpretarlos, no solo calcularlos.**
+:::
+
+## Cálculo manual de s y e
+
+```{r}
+s <- VP / (VP + FN)
+e <- VN / (VN + FP)
+
+print(c(sensibilidad = s, especificidad = e))
+```
+
+::: {.notes}
+**Notas del presentador — Cálculo manual**
+
+Reforzar el cálculo a mano antes de usar epiR.
+
+El grupo debe poder repetir esto en un examen.
+
+Preguntar: "Si cambiamos el corte a 45, ¿qué pasa con s y e?" → s sube, e baja (trade-off clásico).
+:::
+
+## Evaluación con `epiR`
+
+```{r}
+tabla <- table(biomark1$resultado_prueba, biomark1$gold_std)
+resultados <- epi.tests(tabla, conf.level = 0.95)
+print(resultados$detail)
+```
+
+::: {.notes}
+**Notas del presentador — epiR**
+
+`epiR` da TODO con intervalos de confianza. Enfatizar la importancia del IC95%.
+
+Ejemplo: si s = 0.90 [0.85, 0.95], es una estimación precisa. Si es s = 0.90 [0.70, 1.00], tenemos incertidumbre alta → la muestra es pequeña.
+
+**Moraleja**: en validación de tests, el tamaño muestral importa muchísimo.
+:::
+
+## Alternativa con `cut()`
+
+```{r}
+biomark1$resultado_prueba2 <- cut(
+  biomark1$biomarcador,
+  breaks = c(0, 52, Inf),
+  labels = c("Negativo", "Positivo")
+)
+
+tabla2 <- table(biomark1$resultado_prueba2, biomark1$gold_std)
+epi.tests(tabla2, conf.level = 0.95)
+```
+
+::: {.notes}
+**Notas del presentador — cut()**
+
+`cut()` es útil cuando trabajas con varios puntos de corte.
+
+Advertencia: `cut()` con `Inf` es una mala práctica si `biomarcador` puede ser negativo. Alternativa más robusta: `breaks = c(-Inf, 52, Inf)`.
+
+Mencionar que más adelante verán la **curva ROC**, que automatiza esto para todos los cortes posibles.
+:::
+
+## Discusión
+
+1. ¿Cómo cambia el VPP si la prevalencia fuese del **1%** en lugar del **15%**?
+
+2. ¿Merece la pena aplicar este test a toda la población o solo a grupos de riesgo?
+
+3. ¿Qué pasa si bajamos el punto de corte a **45**?
+
+::: {.callout-note}
+**Tarea**: repite el análisis con distintos puntos de corte y construye la **curva ROC**.
+:::
+
+::: {.notes}
+**Notas del presentador — Discusión**
+
+Dar 5-10 minutos para discutir en grupos.
+
+**Pregunta 1**: con prevalencia 1%, VPP cae de ~73% a ~11%. Impacto brutal. Discutir implicaciones para cribado.
+
+**Pregunta 2**: en cribado poblacional, muchos FP → ansiedad, costes, pruebas invasivas. El test solo se justifica en grupos de riesgo donde la prevalencia es mayor.
+
+**Pregunta 3**: bajar el corte sube s pero baja e. Trade-off clásico. Si la enfermedad es grave y tratable, priorizar s (no perder casos). Si el tratamiento es agresivo, priorizar e (evitar FP).
+
+**Tarea**: la curva ROC es la herramienta estándar para elegir el corte óptimo. Se verá en la Sesión 10.
+:::
+
+## Referencias
+
+- `epiR`: Stevenson M et al. (2024). *epiR: Tools for the Analysis of Epidemiological Data*.
+
+- Pepe, M.S. (2003). *The Statistical Evaluation of Medical Tests for Classification and Prediction*. Oxford.
+
+- Zhou, X.H. et al. (2011). *Statistical Methods in Diagnostic Medicine*. Wiley.
+
+::: {.notes}
+**Notas del presentador — Cierre**
+
+Resumen de los 3 puntos clave de la sesión:
+
+1. **s y e** son propiedades del test.
+2. **VPP y VPN** dependen de la prevalencia.
+3. **Bayes** conecta todo y explica la paradoja del cribado.
+
+Anunciar la Sesión 10 (curvas ROC, comparación de tests, meta-análisis diagnóstico).
+
+Agradecer y abrir preguntas.
+:::

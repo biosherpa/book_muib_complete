@@ -1,0 +1,253 @@
+---
+title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Teorema de Bayes: validación y rendimiento de una prueba diagnóstica"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  beamer:
+    theme: Madrid
+    colortheme: default
+    fonttheme: professionalfonts
+    aspectratio: 169
+    navigation: frame
+    section-titles: true
+    toc: false
+    incremental: false
+    slide-level: 3
+    keep-tex: true
+editor: source
+---
+  
+  ## Objetivos de aprendizaje {.allowframebreaks}
+  
+  - Comprender los fundamentos de la **validación diagnóstica**.
+  - Construir e interpretar **tablas de contingencia $2 \times 2$**.
+  - Calcular e interpretar **sensibilidad, especificidad, VPP y VPN**.
+  - Analizar el impacto de la **prevalencia** mediante el **Teorema de Bayes**.
+
+---
+  
+  # Repaso de probabilidad
+  
+  ## Experimento Aleatorio y Espacio Muestral
+  
+  **Experimento Aleatorio**:
+  
+  - Repetible en las mismas condiciones.
+  - Resultados distintos con mismas condiciones.
+  - Todos los resultados conocidos *a priori*.
+  - No se puede predecir el resultado particular.
+
+  **Espacio Muestral ($\Omega$)**: todos los resultados posibles.
+
+---
+  
+  ## Tipos de Espacios Muestrales
+  
+  \begin{tabular}{llll}
+\toprule
+Tipo & Ejemplo & $\Omega$ & Suceso \\
+\midrule
+Finito & Grupo sanguíneo & $\{A,B,AB,O\}$ & Compatibilidad \\
+Numerable & Crisis/año & $\{0,1,2,\dots\}$ & $>3$ crisis \\
+Continuo & Glucosa & $(0,+\infty)$ & Diabetes \\
+\bottomrule
+\end{tabular}
+
+---
+  
+  ## Espacio Probabilístico $(\Omega, \mathcal{A}, P)$
+  
+  1. $\Omega$: espacio muestral.
+2. $\mathcal{A}$: $\sigma$-álgebra de sucesos.
+3. $P$: medida de probabilidad $P: \mathcal{A} \to [0,1]$.
+
+---
+  
+  ## Axiomas de Kolmogorov
+  
+  - **A1**: $P(A) \ge 0$
+  - **A2**: $P(\Omega) = 1$
+  - **A3**: Si $A_i \cap A_j = \emptyset$:
+  $$P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$$
+  
+  ---
+  
+  ## Propiedades Fundamentales
+  
+  1. $P(A') = 1 - P(A)$
+2. $P(\emptyset) = 0$
+3. $A \subset B \implies P(A) \le P(B)$
+4. $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+
+---
+
+## Independencia
+
+$A \perp B \iff P(A \cap B) = P(A)P(B)$
+
+**Ojo**: disjuntos $\ne$ independientes.
+
+---
+
+## Probabilidad Condicionada
+
+$$P(B \mid A) = \frac{P(A \cap B)}{P(A)}, \quad P(A) > 0$$
+
+**Ley multiplicativa**:
+
+$$P(A \cap B) = P(A) \cdot P(B \mid A)$$
+
+---
+
+## Sistema Completo de Sucesos
+
+Partición de $\Omega$: sucesos incompatibles dos a dos cuya unión es $\Omega$.
+
+---
+
+# Teorema de Bayes
+
+## Probabilidad Total
+
+$$P(B) = \sum_{i=1}^{k} P(A_i) P(B \mid A_i)$$
+
+## Teorema de Bayes
+
+$$P(A_j \mid B) = \frac{P(A_j) P(B \mid A_j)}{\sum_i P(A_i) P(B \mid A_i)}$$
+
+---
+
+## Bayes aplicado al diagnóstico
+
+$$P(E \mid S) = \frac{P(E) P(S \mid E)}{P(E)P(S\mid E) + P(\bar{E})P(S \mid \bar{E})}$$
+
+1. Depende de la previa $P(E)$.
+2. El síntoma debe **no ser independiente** de la enfermedad.
+3. Los síntomas útiles **discriminan**, no son los más frecuentes.
+
+---
+
+# Validación Diagnóstica
+
+## Matriz de Confusión $2 \times 2$
+
+\begin{tabular}{lccc}
+\toprule
+ & $D+$ & $D-$ & Total \\
+\midrule
+$T+$ & $VP$ & $FP$ & $VP+FP$ \\
+$T-$ & $FN$ & $VN$ & $FN+VN$ \\
+\midrule
+Total & $VP+FN$ & $FP+VN$ & $N$ \\
+\bottomrule
+\end{tabular}
+
+---
+
+## Sensibilidad y Especificidad
+
+$$s = \frac{VP}{VP+FN} \qquad e = \frac{VN}{FP+VN}$$
+
+*No dependen de la prevalencia* (en teoría).
+
+---
+
+## Valores Predictivos
+
+$$\text{VPP} = \frac{VP}{VP+FP} \qquad \text{VPN} = \frac{VN}{FN+VN}$$
+
+*Sí dependen de la prevalencia.*
+
+---
+
+## Factor de Bayes
+
+$$Odd(E \mid S) = Odd(E) \cdot \frac{P(S \mid E)}{P(S \mid \bar{E})} = Odd(E) \cdot \text{FB}$$
+
+En función de $s$ y $e$:
+
+$$Odd(E \mid S) = Odd(E) \cdot \frac{s}{1-e}$$
+
+---
+
+## Impacto de la Prevalencia
+
+$$\text{VPP} = \frac{s \cdot p}{s \cdot p + (1-e)(1-p)}$$
+
+::: {.block}
+**En cribado** (prevalencia baja) el VPP cae drásticamente.
+:::
+
+---
+
+# Caso práctico en R
+
+## Datos
+
+`_data/preven_cc.csv`:
+
+- `gold_std`: Sano / Enfermo
+- `biomarcador`: continuo
+
+Punto de corte: **52**.
+
+---
+
+## Código
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+library(epiR)
+biomark1 <- read.csv("_data/preven_cc.csv")
+biomark1$resultado_prueba <- factor(
+  ifelse(biomark1$biomarcador > 52, 1, 0),
+  levels = c(0,1), labels = c("Negativo","Positivo")
+)
+
+VP <- sum(biomark1$resultado_prueba=="Positivo" & biomark1$gold_std=="Enfermo")
+FP <- sum(biomark1$resultado_prueba=="Positivo" & biomark1$gold_std=="Sano")
+FN <- sum(biomark1$resultado_prueba=="Negativo" & biomark1$gold_std=="Enfermo")
+VN <- sum(biomark1$resultado_prueba=="Negativo" & biomark1$gold_std=="Sano")
+```
+
+---
+
+## Matriz y s, e
+
+```{r}
+matriz <- matrix(c(VP,FP,FN,VN), nrow=2, byrow=TRUE,
+                 dimnames=list(c("Test+","Test-"), c("Enfermo","Sano")))
+print(matriz)
+
+s <- VP/(VP+FN); e <- VN/(VN+FP)
+print(c(sensibilidad=s, especificidad=e))
+```
+
+---
+
+## `epi.tests`
+
+```{r}
+tabla <- table(biomark1$resultado_prueba, biomark1$gold_std)
+print(epi.tests(tabla, conf.level = 0.95)$detail)
+```
+
+---
+
+## Discusión
+
+1. ¿Qué pasa con el VPP si prevalencia = 1\%?
+2. ¿A quién aplicaríamos el test?
+3. ¿Y si el corte fuese 45?
+
+---
+
+## Referencias
+
+- Pepe, M.S. (2003). *The Statistical Evaluation of Medical Tests*. Oxford.
+- Zhou, X.H. et al. (2011). *Statistical Methods in Diagnostic Medicine*. Wiley.
+- Stevenson M. et al. (2024). *epiR*.

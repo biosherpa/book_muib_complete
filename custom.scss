@@ -1,0 +1,16 @@
+/*-- scss:defaults --*/
+// Aquí van SOLO variables (colores, fuentes, tamaños)
+$body-bg: #fafafa;
+$presentation-heading-color: #1f4e79;
+$link-color: #1f4e79;
+
+/*-- scss:rules --*/
+// Aquí van reglas CSS normales (selectores, clases)
+.reveal h2 {
+  border-bottom: 2px solid #1f4e79;
+  padding-bottom: 0.2em;
+}
+
+.reveal .slides section {
+  text-align: left;
+}

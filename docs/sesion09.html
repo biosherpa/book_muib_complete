@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jesús Esteban Hernández">
-<meta name="dcterms.date" content="2026-09-28">
+<meta name="dcterms.date" content="2026-10-12">
 
 <title>Sesión 9: Pruebas Diagnósticas I – Método Científico y Análisis de Datos</title>
 <style>
@@ -235,18 +235,36 @@ window.Quarto = {
    
   <ul>
   <li><a href="#objetivos-de-aprendizaje." id="toc-objetivos-de-aprendizaje." class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje.">Objetivos de aprendizaje.</a></li>
-  <li><a href="#validación-diagnóstica-y-matrices-de-confusión" id="toc-validación-diagnóstica-y-matrices-de-confusión" class="nav-link" data-scroll-target="#validación-diagnóstica-y-matrices-de-confusión">Validación Diagnóstica y Matrices de Confusión</a>
+  <li><a href="#introducción." id="toc-introducción." class="nav-link" data-scroll-target="#introducción.">Introducción.</a>
+  <ul class="collapse">
+  <li><a href="#repaso-de-conceptos-de-probabilidad-necesarios." id="toc-repaso-de-conceptos-de-probabilidad-necesarios." class="nav-link" data-scroll-target="#repaso-de-conceptos-de-probabilidad-necesarios.">Repaso de conceptos de probabilidad necesarios.</a></li>
+  </ul></li>
+  <li><a href="#experimento-aleatorio-y-espacio-muestral" id="toc-experimento-aleatorio-y-espacio-muestral" class="nav-link" data-scroll-target="#experimento-aleatorio-y-espacio-muestral">Experimento Aleatorio y Espacio Muestral</a></li>
+  <li><a href="#tipos-de-espacios-muestrales" id="toc-tipos-de-espacios-muestrales" class="nav-link" data-scroll-target="#tipos-de-espacios-muestrales">Tipos de Espacios Muestrales</a></li>
+  <li><a href="#espacio-probabilístico-omega-mathcala-p" id="toc-espacio-probabilístico-omega-mathcala-p" class="nav-link" data-scroll-target="#espacio-probabilístico-omega-mathcala-p">Espacio Probabilístico <span class="math inline">\((\Omega, \mathcal{A}, P)\)</span></a></li>
+  <li><a href="#estructura-algebraica-álgebra-y-sigma-álgebra" id="toc-estructura-algebraica-álgebra-y-sigma-álgebra" class="nav-link" data-scroll-target="#estructura-algebraica-álgebra-y-sigma-álgebra">Estructura Algebraica: Álgebra y <span class="math inline">\(\sigma\)</span>-Álgebra</a></li>
+  <li><a href="#operaciones-lógicas-con-sucesos" id="toc-operaciones-lógicas-con-sucesos" class="nav-link" data-scroll-target="#operaciones-lógicas-con-sucesos">Operaciones Lógicas con Sucesos</a></li>
+  <li><a href="#definiciones-y-axiomas-de-probabilidad" id="toc-definiciones-y-axiomas-de-probabilidad" class="nav-link" data-scroll-target="#definiciones-y-axiomas-de-probabilidad">Definiciones y Axiomas de Probabilidad</a>
+  <ul class="collapse">
+  <li><a href="#enfoques-de-probabilidad" id="toc-enfoques-de-probabilidad" class="nav-link" data-scroll-target="#enfoques-de-probabilidad">Enfoques de Probabilidad</a></li>
+  <li><a href="#axiomas-de-kolmogorov" id="toc-axiomas-de-kolmogorov" class="nav-link" data-scroll-target="#axiomas-de-kolmogorov">Axiomas de Kolmogorov</a></li>
+  <li><a href="#propiedades-y-teoremas-fundamentales" id="toc-propiedades-y-teoremas-fundamentales" class="nav-link" data-scroll-target="#propiedades-y-teoremas-fundamentales">Propiedades y Teoremas Fundamentales</a></li>
+  </ul></li>
+  <li><a href="#probabilidad-condicionada-e-independencia" id="toc-probabilidad-condicionada-e-independencia" class="nav-link" data-scroll-target="#probabilidad-condicionada-e-independencia">Probabilidad Condicionada e Independencia</a>
+  <ul class="collapse">
+  <li><a href="#independencia-de-sucesos" id="toc-independencia-de-sucesos" class="nav-link" data-scroll-target="#independencia-de-sucesos">Independencia de Sucesos</a></li>
+  <li><a href="#probabilidad-condicionada-y-ley-multiplicativa-de-la-probabilidad." id="toc-probabilidad-condicionada-y-ley-multiplicativa-de-la-probabilidad." class="nav-link" data-scroll-target="#probabilidad-condicionada-y-ley-multiplicativa-de-la-probabilidad.">Probabilidad Condicionada y ley multiplicativa de la probabilidad.</a>
+  <ul class="collapse">
+  <li><a href="#sistema-completo-de-sucesos." id="toc-sistema-completo-de-sucesos." class="nav-link" data-scroll-target="#sistema-completo-de-sucesos.">Sistema completo de sucesos.</a></li>
+  </ul></li>
+  <li><a href="#teorema-de-la-probabilidad-total-y-teorema-de-bayes" id="toc-teorema-de-la-probabilidad-total-y-teorema-de-bayes" class="nav-link" data-scroll-target="#teorema-de-la-probabilidad-total-y-teorema-de-bayes">Teorema de la Probabilidad Total y Teorema de Bayes</a></li>
+  <li><a href="#validación-diagnóstica-y-matrices-de-confusión." id="toc-validación-diagnóstica-y-matrices-de-confusión." class="nav-link" data-scroll-target="#validación-diagnóstica-y-matrices-de-confusión.">Validación Diagnóstica y Matrices de Confusión.</a>
   <ul class="collapse">
   <li><a href="#estructura-de-la-matriz-2times2" id="toc-estructura-de-la-matriz-2times2" class="nav-link" data-scroll-target="#estructura-de-la-matriz-2times2">Estructura de la Matriz <span class="math inline">\(2\times2\)</span></a></li>
-  <li><a href="#parámetros-principales-de-rendimiento" id="toc-parámetros-principales-de-rendimiento" class="nav-link" data-scroll-target="#parámetros-principales-de-rendimiento">Parámetros Principales de Rendimiento</a></li>
-  </ul></li>
-  <li><a href="#el-teorema-de-bayes-en-la-clínica" id="toc-el-teorema-de-bayes-en-la-clínica" class="nav-link" data-scroll-target="#el-teorema-de-bayes-en-la-clínica">El Teorema de Bayes en la Clínica</a>
-  <ul class="collapse">
+  <li><a href="#parámetros-principales-de-validez-y-rendimiento-" id="toc-parámetros-principales-de-validez-y-rendimiento-" class="nav-link" data-scroll-target="#parámetros-principales-de-validez-y-rendimiento-">Parámetros Principales de validez y rendimiento-</a></li>
   <li><a href="#influencia-crítica-de-la-prevalencia" id="toc-influencia-crítica-de-la-prevalencia" class="nav-link" data-scroll-target="#influencia-crítica-de-la-prevalencia">Influencia Crítica de la Prevalencia</a></li>
   </ul></li>
-  <li><a href="#caso-práctico-en-r-epir" id="toc-caso-práctico-en-r-epir" class="nav-link" data-scroll-target="#caso-práctico-en-r-epir">Caso Práctico en R (<code>epiR</code>)</a>
-  <ul class="collapse">
-  <li><a href="#simulación-y-análisis-de-una-cohorte-clínica" id="toc-simulación-y-análisis-de-una-cohorte-clínica" class="nav-link" data-scroll-target="#simulación-y-análisis-de-una-cohorte-clínica">Simulación y Análisis de una Cohorte Clínica</a></li>
+  <li><a href="#caso-práctico-en-r-epir" id="toc-caso-práctico-en-r-epir" class="nav-link" data-scroll-target="#caso-práctico-en-r-epir">Caso Práctico en R (<code>epiR</code>)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -257,7 +275,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sesion09.html">Bloque IV: Validación Diagnóstica</a></li><li class="breadcrumb-item"><a href="./sesion09.html"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Sesión 9: Pruebas Diagnósticas I</span></h1>
-<p class="subtitle lead">Tablas 2x2, Métricas de Rendimiento y Teorema de Bayes</p>
+<p class="subtitle lead">Teorema de Bayes: validación y rendimiento de una prueba diagnóstica</p>
 </div>
 
 
@@ -274,7 +292,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 28, 2026</p>
+      <p class="date">October 12, 2026</p>
     </div>
   </div>
   
@@ -289,25 +307,278 @@ window.Quarto = {
 <section id="objetivos-de-aprendizaje." class="level2">
 <h2 class="anchored" data-anchor-id="objetivos-de-aprendizaje.">Objetivos de aprendizaje.</h2>
 <ul>
-<li>Comprender los fundamentos de la validación diagnóstica en biomedicina y medicina de precisión.</li>
+<li>Comprender los fundamentos de la validación diagnóstica en biomedicina.</li>
 <li>Construir e interpretar correctamente tablas de contingencia de <span class="math inline">\(2 \times 2\)</span>.</li>
 <li>Calcular e interpretar analíticamente la sensibilidad, la especificidad, el valor predictivo positivo (VPP) y el valor predictivo negativo (VPN).</li>
 <li>Analizar el impacto crítico de la prevalencia de la enfermedad mediante el Teorema de Bayes aplicado a la práctica clínica.</li>
 </ul>
 <hr>
 </section>
-<section id="validación-diagnóstica-y-matrices-de-confusión" class="level2">
-<h2 class="anchored" data-anchor-id="validación-diagnóstica-y-matrices-de-confusión">Validación Diagnóstica y Matrices de Confusión</h2>
-<section id="estructura-de-la-matriz-2times2" class="level3">
-<h3 class="anchored" data-anchor-id="estructura-de-la-matriz-2times2">Estructura de la Matriz <span class="math inline">\(2\times2\)</span></h3>
-<p>En investigación clínica, validar una nueva prueba diagnóstica requiere contrastar sus resultados frente a un patrón de referencia u <em>gold standard</em>. La estructura básica se resume en la siguiente tabla:</p>
+<section id="introducción." class="level2">
+<h2 class="anchored" data-anchor-id="introducción.">Introducción.</h2>
+<section id="repaso-de-conceptos-de-probabilidad-necesarios." class="level3">
+<h3 class="anchored" data-anchor-id="repaso-de-conceptos-de-probabilidad-necesarios.">Repaso de conceptos de probabilidad necesarios.</h3>
+<p>El cálculo de probabilidades es la teoría matemática que nos permite analizar los fenómenos en los que interviene el azar. Para ello, utiliza el concepto de espacio probabilístico <span class="math inline">\(\{\Omega,\mathcal{A},P\}\)</span> que puede ser un espacio totalmente especificado (como el lanzamiento de un dado perfecto), pero también permite construir espacios probabilísticos adaptados a situaciones experimentales concretas.</p>
+<p>Para este último objetivo, para construir espacios adaptados a situaciones concretas, necesitamos realizar observaciones sobre la realidad, en realidad, una observación limitada de la misma, y es aquí donde entra en juego la estadística inferencial.</p>
+<p>La estadística inferencial nos permiteo obtener información acerca de la ley de probabilidad que gobierna un fenómeno a partir de la observación no exhaustiva de l mismo. Aunque solemos distuingir entre estadística descriptiva e inferencial, el objetivo de la estadística es hablar de la población lo que en el fondo supone inferir sobre la población a partir de nuestra limitada muestra.</p>
+</section>
+</section>
+<section id="experimento-aleatorio-y-espacio-muestral" class="level2">
+<h2 class="anchored" data-anchor-id="experimento-aleatorio-y-espacio-muestral">Experimento Aleatorio y Espacio Muestral</h2>
+<ul>
+<li><p><strong>Experimento Aleatorio</strong>:</p>
+<ul>
+<li>Se puede repetir en las mismas condiciones indefinidamente.</li>
+<li>Partiendo de las mismas condiciones iniciales, pueden darse resultados diferentes.</li>
+<li>Todos los resultados posibles se conocen por anticipado.</li>
+<li>No se puede predecir cuál ocurrirá en una experiencia en particular.</li>
+<li>La frecuencia relativa con la que aparece un determinado suceso, tiende a su probabilidad.</li>
+</ul></li>
+<li><p><strong>Espacio Muestral (<span class="math inline">\(\Omega\)</span>)</strong>: Conjunto compuesto por todos los resultados posibles del experimento aleatorio.</p>
+<ul>
+<li><em>Resultado elemental</em> (<span class="math inline">\(\omega \in \Omega\)</span>): Desenlace individual e indivisible.</li>
+<li><em>Ejemplo</em>: Lanzamiento de un dado, <span class="math inline">\(\Omega = \{1, 2, 3, 4, 5, 6\}\)</span>.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="tipos-de-espacios-muestrales" class="level2">
+<h2 class="anchored" data-anchor-id="tipos-de-espacios-muestrales">Tipos de Espacios Muestrales</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 21%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipo de Espacio</th>
+<th style="text-align: left;">Ejemplo Biomédico</th>
+<th style="text-align: left;">Espacio Muestral (<span class="math inline">\(\Omega\)</span>)</th>
+<th style="text-align: left;">Suceso de Interés (<span class="math inline">\(A \in \mathcal{A}\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Finito</strong></td>
+<td style="text-align: left;">Grupo sanguíneo</td>
+<td style="text-align: left;"><span class="math inline">\(\Omega = \{A, B, AB, O\}\)</span></td>
+<td style="text-align: left;">“Compatibilidad con A” <span class="math inline">\(\rightarrow A=\{A, O\}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Infinito Numerable</strong></td>
+<td style="text-align: left;">Nº de crisis asmáticas/año</td>
+<td style="text-align: left;"><span class="math inline">\(\Omega = \{0, 1, 2, 3, \dots\}\)</span></td>
+<td style="text-align: left;">“Más de 3 crisis” <span class="math inline">\(\rightarrow A=\{4, 5, 6, \dots\}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>No Numerable (Continuo)</strong></td>
+<td style="text-align: left;">Glucosa en ayunas (mg/dL)</td>
+<td style="text-align: left;"><span class="math inline">\(\Omega = (0, +\infty)\)</span></td>
+<td style="text-align: left;">“Criterio de diabetes” <span class="math inline">\(\rightarrow A = [126, +\infty)\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="espacio-probabilístico-omega-mathcala-p" class="level2">
+<h2 class="anchored" data-anchor-id="espacio-probabilístico-omega-mathcala-p">Espacio Probabilístico <span class="math inline">\((\Omega, \mathcal{A}, P)\)</span></h2>
+<p>Un <strong>espacio probabilístico</strong> es la estructura matemática que modela un experimento aleatorio definida por la terna <span class="math inline">\((\Omega, \mathcal{A}, P)\)</span>:</p>
+<ol type="1">
+<li><strong><span class="math inline">\(\Omega\)</span></strong>: Espacio muestral (todos los resultados elementales).</li>
+<li><strong><span class="math inline">\(\mathcal{A}\)</span></strong>: <span class="math inline">\(\sigma\)</span>-álgebra de sucesos (colección de subconjuntos de <span class="math inline">\(\Omega\)</span> cerrada respecto al complementario y uniones numerables).</li>
+<li><strong><span class="math inline">\(P\)</span></strong>: Medida de probabilidad <span class="math inline">\(P: \mathcal{A} \rightarrow [0,1]\)</span> que satisface los axiomas.</li>
+</ol>
+<hr>
+</section>
+<section id="estructura-algebraica-álgebra-y-sigma-álgebra" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-algebraica-álgebra-y-sigma-álgebra">Estructura Algebraica: Álgebra y <span class="math inline">\(\sigma\)</span>-Álgebra</h2>
+<p><strong>Álgebra de Sucesos (<span class="math inline">\(\mathcal{A}\)</span>)</strong>:</p>
+<ul>
+<li>Contiene a <span class="math inline">\(\Omega\)</span> (y por tanto a <span class="math inline">\(\emptyset\)</span>).</li>
+<li>Cerrada bajo complementación (<span class="math inline">\(A \in \mathcal{A} \implies A^c \in \mathcal{A}\)</span>).</li>
+<li>Cerrada bajo uniones finitas (<span class="math inline">\(A_1, \dots, A_n \in \mathcal{A} \implies \bigcup_{i=1}^n A_i \in \mathcal{A}\)</span>).</li>
+</ul>
+<p><strong><span class="math inline">\(\sigma\)</span>-Álgebra de Sucesos (<span class="math inline">\(\mathcal{A}\)</span>)</strong>:</p>
+<ul>
+<li>Mismas propiedades, pero cerrada bajo <strong>uniones numerables infinitas</strong>:</li>
+</ul>
+<p><span class="math display">\[A_1, A_2, \dots \in \mathcal{A} \implies \bigcup_{i=1}^{\infty} A_i \in \mathcal{A}\]</span></p>
+<hr>
+</section>
+<section id="operaciones-lógicas-con-sucesos" class="level2">
+<h2 class="anchored" data-anchor-id="operaciones-lógicas-con-sucesos">Operaciones Lógicas con Sucesos</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Unión (<span class="math inline">\(\cup\)</span>)</th>
+<th style="text-align: left;">Intersección (<span class="math inline">\(\cap\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Conmutativa</strong></td>
+<td style="text-align: left;"><span class="math inline">\(A \cup B = B \cup A\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A \cap B = B \cap A\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Asociativa</strong></td>
+<td style="text-align: left;"><span class="math inline">\((A \cup B) \cup C = A \cup (B \cup C)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((A \cap B) \cap C = A \cap (B \cap C)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Distributiva</strong></td>
+<td style="text-align: left;"><span class="math inline">\(A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Leyes de De Morgan</strong></td>
+<td style="text-align: left;"><span class="math inline">\((A \cup B)^c = A^c \cap B^c\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((A \cap B)^c = A^c \cup B^c\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Elemento Neutro</strong></td>
+<td style="text-align: left;"><span class="math inline">\(A \cup \emptyset = A\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A \cap \Omega = A\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Absorción</strong></td>
+<td style="text-align: left;"><span class="math inline">\(A \cup \Omega = \Omega\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(A \cap \emptyset = \emptyset\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="definiciones-y-axiomas-de-probabilidad" class="level1">
+<h1>Definiciones y Axiomas de Probabilidad</h1>
+<section id="enfoques-de-probabilidad" class="level2">
+<h2 class="anchored" data-anchor-id="enfoques-de-probabilidad">Enfoques de Probabilidad</h2>
+<ol type="1">
+<li><strong>Clásica (Laplace)</strong>: Para sucesos equiprobables, <span class="math display">\[P(A) = \frac{\text{Número de casos favorables}}{\text{Número de casos posibles}}\]</span></li>
+<li><strong>Frecuentista (Empírica / Objetiva)</strong>: <span class="math inline">\(\textit{a posteriori}\)</span>. <span class="math display">\[P(A) = \lim_{n \to \infty} \frac{n_A}{n}\]</span></li>
+<li><strong>Bayesiano (Subjetiva)</strong>: <span class="math inline">\(\textit{a priori}\)</span>. Representa el grado de creencia o certeza sobre la ocurrencia de un suceso.</li>
+</ol>
+<hr>
+</section>
+<section id="axiomas-de-kolmogorov" class="level2">
+<h2 class="anchored" data-anchor-id="axiomas-de-kolmogorov">Axiomas de Kolmogorov</h2>
+<p>Sea <span class="math inline">\((\Omega, \mathcal{A}, P)\)</span> un espacio probabilístico:</p>
+<ul>
+<li><p><strong>Axioma 1</strong>: <span class="math inline">\(P(A) \ge 0, \quad \forall A \in \mathcal{A}\)</span></p></li>
+<li><p><strong>Axioma 2</strong>: <span class="math inline">\(P(\Omega) = 1\)</span></p></li>
+<li><p><strong>Axioma 3</strong>: Para cualquier sucesión de sucesos mutuamente disjuntos (<span class="math inline">\(A_i \cap A_j = \emptyset, \, i \ne j\)</span>):</p>
+<p><span class="math display">\[P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i)\]</span></p></li>
+</ul>
+<hr>
+</section>
+<section id="propiedades-y-teoremas-fundamentales" class="level2">
+<h2 class="anchored" data-anchor-id="propiedades-y-teoremas-fundamentales">Propiedades y Teoremas Fundamentales</h2>
+<ol type="1">
+<li><p><strong>Suceso Complementario</strong>: <span class="math inline">\(P(A') = 1 - P(A)\)</span></p></li>
+<li><p><strong>Suceso Imposible</strong>: <span class="math inline">\(P(\emptyset) = 0\)</span></p></li>
+<li><p><strong>Inclusión</strong>: Si <span class="math inline">\(A \subset B \implies P(A) \le P(B)\)</span> y <span class="math inline">\(P(B \setminus A) = P(B) - P(A)\)</span></p></li>
+<li><p><strong>Acotación</strong>: <span class="math inline">\(0 \le P(A) \le 1\)</span></p></li>
+<li><p><strong>Ley aditiva de la probabilidad</strong>:</p>
+<p><span class="math display">\[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</span></p></li>
+<li><p><strong>Para 3 sucesos</strong>:</p>
+<p><span class="math display">\[P(A_1 \cup A_2 \cup A_3) = P(A_1) + P(A_2) + P(A_3) - P(A_1 \cap A_2) - P(A_1 \cap A_3) - P(A_2 \cap A_3) + P(A_1 \cap A_2 \cap A_3)\]</span></p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="probabilidad-condicionada-e-independencia" class="level1">
+<h1>Probabilidad Condicionada e Independencia</h1>
+<section id="independencia-de-sucesos" class="level2">
+<h2 class="anchored" data-anchor-id="independencia-de-sucesos">Independencia de Sucesos</h2>
+<p>Dos sucesos <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span> son <strong>independientes</strong> si la ocurrencia de uno no modifica la probabilidad del otro:</p>
+<p><span class="math display">\[P(B \mid A) = P(B) \iff P(A \cap B) = P(A) \cdot P(B)\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¡Atención!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Disjuntos (Incompatibles)</strong>: <span class="math inline">\(A \cap B = \emptyset \implies P(A \cap B) = 0\)</span>.</li>
+<li>Dos sucesos incompatibles con probabilidades no nulas <strong>NUNCA</strong> son independientes, pues saber que ocurrió uno implica que no puede ocurrir el otro.</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+<section id="probabilidad-condicionada-y-ley-multiplicativa-de-la-probabilidad." class="level2">
+<h2 class="anchored" data-anchor-id="probabilidad-condicionada-y-ley-multiplicativa-de-la-probabilidad.">Probabilidad Condicionada y ley multiplicativa de la probabilidad.</h2>
+<p>La probabilidad del suceso <span class="math inline">\(B\)</span> dado que ha ocurrido <span class="math inline">\(A\)</span> (con <span class="math inline">\(P(A) &gt; 0\)</span>) es:</p>
+<p><span class="math display">\[P(B \mid A) = \frac{P(A \cap B)}{P(A)}\]</span></p>
+<p>De aquí se deriva la <strong>ley multiplicativa</strong>:</p>
+<p><span class="math display">\[P(A \cap B) = P(A) \cdot P(B \mid A)\]</span></p>
+<p>Para <span class="math inline">\(n\)</span> eventos:</p>
+<p><span class="math display">\[P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid \bigcap_{i=1}^{n-1} A_i)\]</span></p>
+<hr>
+<section id="sistema-completo-de-sucesos." class="level3">
+<h3 class="anchored" data-anchor-id="sistema-completo-de-sucesos.">Sistema completo de sucesos.</h3>
+<p>Un sistema completo de sucesos es un espacio de sucesos en el que:</p>
+<ul>
+<li>Todos los sucesos son incompatibles entre sí.</li>
+<li>La unión de todos es el espacio completo de sucesos.</li>
+</ul>
+<p><span class="math display">\[P\Big( \bigcup_{i=1}^{k} A_{i,j}\Big) = P(\Omega)  \]</span></p>
+<p><span class="math display">\[P(A_i \cap A_j)=P(\emptyset)\]</span></p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="sesion09_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="teorema-de-la-probabilidad-total-y-teorema-de-bayes" class="level2">
+<h2 class="anchored" data-anchor-id="teorema-de-la-probabilidad-total-y-teorema-de-bayes">Teorema de la Probabilidad Total y Teorema de Bayes</h2>
+<p>Sea <span class="math inline">\(A_1, A_2, \dots, A_k\)</span> una partición de <span class="math inline">\(\Omega\)</span> (sistema completo de sucesos disjuntos cuya unión es <span class="math inline">\(\Omega\)</span>):</p>
+<ul>
+<li><p><strong>Probabilidad Total</strong>:</p>
+<p><span class="math display">\[P(B) = \sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)\]</span></p></li>
+<li><p><strong>Teorema de Bayes</strong>:</p>
+<p><span class="math display">\[P(A_j \mid B) = \frac{P(A_j) \cdot P(B \mid A_j)}{\sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)}\]</span></p></li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>Teorema de Bayes aplicado al diagnóstico</strong>:</p>
+<p>El T. de Bayes aplicado a una causa binaria <span class="math inline">\((E , \bar{E})\)</span> permite entender los factores que relacionan la probabilidad anterior <span class="math inline">\(P(E)\)</span> y la <span class="math inline">\(P({E  \mid S})\)</span>.</p>
+<p><span class="math display">\[P(E \mid S) = \frac{P(E) \cdot P(S \mid E)}{P(E) \cdot P(S \mid E)+P(\bar{E}) \cdot P(S \mid \bar{E})}\]</span> Como se puede ver:</p>
+<ol type="1">
+<li>La probabilidad posterior <span class="math inline">\(P({E  \mid S})\)</span> depende de la probabilidad anterior <span class="math inline">\(P(E)\)</span>.</li>
+<li>Un síntoma o un resultado diagnóstico solo contribuye a detectar la enfermedad si este y la enfermedad NO SON INDEPENDIENTES.</li>
+<li>Siendo cierta la anterior, los síntomas que ayudan a diagnosticar enfermedades no son los más frecuentes en los pacientes sino aquellos cuya frecuencia es muy diferente en enfermos <span class="math inline">\((E)\)</span> y no enfermos <span class="math inline">\((\bar{E})\)</span> .</li>
+</ol></li>
+</ul>
+</section>
+<section id="validación-diagnóstica-y-matrices-de-confusión." class="level2">
+<h2 class="anchored" data-anchor-id="validación-diagnóstica-y-matrices-de-confusión.">Validación Diagnóstica y Matrices de Confusión.</h2>
+<p>Todas las probabilidades condicionadas que aparecen en la formulación anterior puede calcularse en tablas de contingencia que enfrenten el resultado del test diagnóstico o el síntoma con el <em>gold standar</em> que define la enfermedad, en teoría, no siempre, de manera inequívoca.</p>
+<section id="estructura-de-la-matriz-2times2" class="level3">
+<h3 class="anchored" data-anchor-id="estructura-de-la-matriz-2times2">Estructura de la Matriz <span class="math inline">\(2\times2\)</span></h3>
+<p>En investigación clínica, validar una nueva prueba diagnóstica requiere enfrentar su resultado frente a un patrón de referencia u <em>gold standard</em> (patrón oro).</p>
+<p>La estructura básica se resume en la siguiente tabla<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>En función de la relación entre el resultado y la verdad, al menos la verdad medida por el <em>gold standard</em>.</p>
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -318,15 +589,15 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Prueba Positiva (<span class="math inline">\(T+\)</span>)</strong></td>
-<td style="text-align: center;">Verdaderos Positivos (<span class="math inline">\(VP\)</span>)</td>
-<td style="text-align: center;">Falsos Positivos (<span class="math inline">\(FP\)</span>)</td>
+<td style="text-align: left;"><strong>Positivo (<span class="math inline">\(T+\)</span>)</strong></td>
+<td style="text-align: center;"><span class="math inline">\(VP\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(FP\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(VP + FP\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Prueba Negativa (<span class="math inline">\(T-\)</span>)</strong></td>
-<td style="text-align: center;">Falsos Negativos (<span class="math inline">\(FN\)</span>)</td>
-<td style="text-align: center;">Verdaderos Negativos (<span class="math inline">\(VN\)</span>)</td>
+<td style="text-align: left;"><strong>Negativo (<span class="math inline">\(T-\)</span>)</strong></td>
+<td style="text-align: center;"><span class="math inline">\(FN\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(VN\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(FN + VN\)</span></td>
 </tr>
 <tr class="odd">
@@ -337,65 +608,104 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+<p><span class="math inline">\(VP\)</span>: Verdaderos Positivos <span class="math inline">\(FP\)</span>: Falsos Positivos <span class="math inline">\(FN\)</span>: Falsos Negativos <span class="math inline">\(VN\)</span>. Verdaderos Negativos</p>
 <hr>
 </section>
-<section id="parámetros-principales-de-rendimiento" class="level3">
-<h3 class="anchored" data-anchor-id="parámetros-principales-de-rendimiento">Parámetros Principales de Rendimiento</h3>
+<section id="parámetros-principales-de-validez-y-rendimiento-" class="level3">
+<h3 class="anchored" data-anchor-id="parámetros-principales-de-validez-y-rendimiento-">Parámetros Principales de validez y rendimiento-</h3>
+<p>En una prueba que devuelve un resultado binario (presencia/ausencia; positivo/negativo…) podemos estimar la validez de dicha prueba mediante dos medidas (en el fondo frecuencias relativas): la sensibilidad (s) y la especificidad. La primera habla de los sujetos que, según el <em>Gold Standard</em>, tienen la enfermedad y la segunda de los sujetos que no la tienen, son por tanto probabilidades condicionadas al grupo a la pertenencia a uno u otro grupo.</p>
 <ul>
-<li><strong>Sensibilidad (Se):</strong> Probabilidad de que la prueba sea positiva en pacientes enfermos. <span class="math display">\[\text{Se} = \frac{VP}{VP + FN}\]</span></li>
-<li><strong>Especificidad (Sp):</strong> Probabilidad de que la prueba sea negativa en pacientes sanos. <span class="math display">\[\text{Sp} = \frac{VN}{FP + VN}\]</span></li>
-<li><strong>Valor Predictivo Positivo (VPP):</strong> Probabilidad de que un paciente con resultado positivo esté realmente enfermo. <span class="math display">\[\text{VPP} = \frac{VP}{VP + FP}\]</span></li>
-<li><strong>Valor Predictivo Negativo (VPN):</strong> Probabilidad de que un paciente con resultado negativo esté realmente sano. <span class="math display">\[\text{VPN} = \frac{VN}{FN + VN}\]</span></li>
+<li><p><strong>Sensibilidad (Se):</strong> Probabilidad de que la prueba sea positiva en pacientes enfermos. <span class="math display">\[\text{s} = \frac{VP}{VP + FN}\]</span></p></li>
+<li><p><strong>Especificidad (Sp):</strong> Probabilidad de que la prueba sea negativa en pacientes sanos. <span class="math display">\[\text{e} = \frac{VN}{FP + VN}\]</span></p></li>
 </ul>
+<p>Por su parte, los valores predictivos son también probabilides condicionadas, en los que la condicion es el resultado obtenido.</p>
+<ul>
+<li><p><strong>Valor Predictivo Positivo (VPP):</strong> Probabilidad de que un paciente con resultado positivo esté realmente enfermo. <span class="math display">\[\text{VPP} = \frac{VP}{VP + FP}\]</span></p></li>
+<li><p><strong>Valor Predictivo Negativo (VPN):</strong> Probabilidad de que un paciente con resultado negativo esté realmente sano. <span class="math display">\[\text{VPN} = \frac{VN}{FN + VN}\]</span></p></li>
+</ul>
+<p>Se suele aceptar que la sensibilidad y la especificidad de la prueba son las mismas siempre. En realidad esto es solo teórico, porque la validez del test viene condicionado por otras circunstancias como la pericia de los técnicos, las condiciones del laboratorio (humedad, temperatura) o características biológicas (conocidas o no) que también lo afecten.</p>
+<p>Lo que sí es cierto es que si eliminásemos todos estos condicionantes, la validez de la prueba no dependería de la frecuencia de la enfermedad, algo que sí afecta a la probabilidad posterior (los valores predictivos en este ejemplo).</p>
+<section id="factor-de-bayes" class="level4">
+<h4 class="anchored" data-anchor-id="factor-de-bayes">Factor de Bayes</h4>
+<p>El factor de Bayes, permite relacionar de una manera mucho más cercana la probabilidad previa (<em>a priori</em>) con la probabilidad posterior (<em>a posteriori</em>).</p>
+<p>Es necesario recordar aquí el concepto de <code>odd</code>.</p>
+<p><span class="math display">\[odd = \frac{p}{1-p}\]</span> <span class="math display">\[{Odd(E \mid S)}=\frac{P(E \mid S)}{P(\bar{E}\mid S)}\]</span> <span class="math display">\[Odd(E \mid S)=\frac{\frac{P(E \cap S)}{P(S)}}{\frac{P(\bar{E} \cap S)}{P(S)}}\]</span></p>
+<p><span class="math display">\[Odd(E \mid S)=\frac{\frac{P(E)·P(S|E)}{P(S)}}{\frac{P(\bar{E})·P(S|\bar{E})}{P(S)}}\]</span></p>
+<p><span class="math display">\[Odd(E \mid S)=\frac{P(E)·P(S|E)}{P(\bar{E})·P(S|\bar{E})}\]</span> <span class="math display">\[Odd(E \mid S) = Odd(E)·\frac{P(S|E)}{P(S|\bar{E})}\]</span></p>
+<p><span class="math display">\[Odd(E \mid S) = Odd(E)·\text{fb}\]</span></p>
+<p>En epidemiología, el factor bayes se llama Razón de Verosimilitud (RV), Likelihood Ratio (LR) en inglés.</p>
+<p>Para facilitar se interpretación se suele hablar de Razón de verosimilitud positiva (test + ) o negativa (test -).</p>
+<p>Pero lo importante, es entender que el factor de bayes es una razón de probabilidades sobre la presencia de un resultado (+ o -), de un síntoma <span class="math inline">\({S}\)</span> y <span class="math inline">\(\bar{S}\)</span> o de cualquier característica, en los enfermos (en general, cualquier característica no independiente del resultado del test, síntoma, característica…).</p>
+<p>Si hablamos de la presencia de un síntoma no independiente, es decir, más probable en enfermos que en sanos, de la enfermedad, y sabiendo que:</p>
+<ul>
+<li><p><strong>Sensibilidad (Se):</strong> Probabilidad de que la prueba sea positiva en pacientes enfermos. <span class="math display">\[\text{s} = \frac{VP}{VP + FN}\]</span></p></li>
+<li><p><strong>Especificidad (Sp):</strong> Probabilidad de que la prueba sea negativa en pacientes sanos. <span class="math display">\[\text{e} = \frac{VN}{FP + VN}\]</span></p></li>
+</ul>
+<p>La odd quedaría así:</p>
+<p><span class="math display">\[Odd(E \mid S) = Odd(E)·\frac{s}{1-e}\]</span> Algo que, en principio, depende solo de la validez del test.</p>
+<p>Como se puede observar, esto simplifica la aplicación del teorema de Bayes, dado que depende solo de la probabilidad previa <span class="math inline">\(P(E)\)</span> y de la capacidad del test para identificar, para clasificar correctamente, para discriminar entre un enfermo y un seno.</p>
 <hr>
 </section>
 </section>
-<section id="el-teorema-de-bayes-en-la-clínica" class="level2">
-<h2 class="anchored" data-anchor-id="el-teorema-de-bayes-en-la-clínica">El Teorema de Bayes en la Clínica</h2>
 <section id="influencia-crítica-de-la-prevalencia" class="level3">
 <h3 class="anchored" data-anchor-id="influencia-crítica-de-la-prevalencia">Influencia Crítica de la Prevalencia</h3>
 <ul>
-<li><strong>Independencia analítica:</strong> La sensibilidad y la especificidad son propiedades intrínsecas de la prueba diagnóstica y no varían según la población.</li>
-<li><strong>Dependencia predictiva:</strong> Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio. <span class="math display">\[\text{VPP} = \frac{\text{Se} \times \text{Prevalencia}}{(\text{Se} \times \text{Prevalencia}) + ((1 - \text{Sp}) \times (1 - \text{Prevalencia}))}\]</span></li>
-<li><strong>Implicación práctica:</strong> En escenarios de cribado (<em>screening</em> con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.</li>
+<li><p><strong>Independencia analítica:</strong> La sensibilidad y la especificidad son, con los condicionantes comentados, propiedades intrínsecas de la prueba diagnóstica y no varían según la prevalencia de la enfermedad que se pretende diagnosticar en la población.</p></li>
+<li><p><strong>Dependencia predictiva:</strong> Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio.</p>
+<p><span class="math display">\[\text{VPP} = \frac{\text{s} \times \text{Prevalencia}}{(\text{s} \times \text{Prevalencia}) + ((1 - \text{e}) \times (1 - \text{Prevalencia}))}\]</span></p></li>
+<li><p><strong>Implicación práctica:</strong> En escenarios de cribado (<em>screening</em> con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.</p></li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="caso-práctico-en-r-epir" class="level2">
 <h2 class="anchored" data-anchor-id="caso-práctico-en-r-epir">Caso Práctico en R (<code>epiR</code>)</h2>
-<section id="simulación-y-análisis-de-una-cohorte-clínica" class="level3">
-<h3 class="anchored" data-anchor-id="simulación-y-análisis-de-una-cohorte-clínica">Simulación y Análisis de una Cohorte Clínica</h3>
+<p>Veamos un ejemplo de análisis.</p>
+<p>Para ello, vamos a utilizar un dataset propio que encontrará en la carpeta <code>_data</code>.</p>
+<p>La base de datos solo contiene dos variables: <code>gold_std</code> y <code>biomarcador</code></p>
+<p>Para poder convertir el resultado del biomarcador en algo binario, necesitamos un punto de corte.</p>
+<p>Supongamos que un <strong>nivel por encima de 52</strong> es considerado un resultado “Positivo” lo que indicaría que el paciente tiene el tumor que estamos tratando de detectar.</p>
+<p>Realicemos todos los pasos desde la importación de datos hasta el análisis de la validez.</p>
+<ol type="1">
+<li>Importar los datos.</li>
+<li>Construir la variable categórica “Positivo”/“Negativo” utilizando el corte 52.</li>
+<li>Obtener los indicadores de validez de la prueba: sensibilidad (s) y especificidad (e)</li>
+</ol>
+<p>Primero veremos un ejemplo de cálculo manual y luego utilizaremos uno de los paquetes (<code>epiR</code>) que contiene funciones para poder obtener todo de una manera más fácil.</p>
+<p>La matriz sería la siguiente</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiR)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>punto_corte <span class="ot">&lt;-</span> <span class="dv">52</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulación de datos clínicos (Cohorte de enfermedad coronaria)</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>prevalencia_real <span class="ot">&lt;-</span> <span class="fl">0.15</span> <span class="co"># 15% de pacientes enfermos en la población</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>estado_real <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rbinom</span>(n, <span class="dv">1</span>, prevalencia_real), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Sano"</span>, <span class="st">"Enfermo"</span>))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>biomarcador <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">40</span> <span class="sc">+</span> <span class="dv">12</span> <span class="sc">*</span> <span class="fu">as.numeric</span>(estado_real), <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>punto_corte <span class="ot">&lt;-</span> <span class="dv">52</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>resultado_prueba <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(biomarcador <span class="sc">&gt;</span> punto_corte, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Negativo"</span>, <span class="st">"Positivo"</span>))</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Construcción de la matriz de contingencia para epi.tests</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>VP <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Positivo"</span> <span class="sc">&amp;</span> estado_real <span class="sc">==</span> <span class="st">"Enfermo"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>FP <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Positivo"</span> <span class="sc">&amp;</span> estado_real <span class="sc">==</span> <span class="st">"Sano"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>FN <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Negativo"</span> <span class="sc">&amp;</span> estado_real <span class="sc">==</span> <span class="st">"Enfermo"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>VN <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Negativo"</span> <span class="sc">&amp;</span> estado_real <span class="sc">==</span> <span class="st">"Sano"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>matriz_epir <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(VP, FP, FN, VN), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_epir) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Enfermo"</span>, <span class="st">"Sano"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_epir) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Test +"</span>, <span class="st">"Test -"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluación diagnóstica automatizada con intervalos de confianza</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>resultados_diagnosticos <span class="ot">&lt;-</span> <span class="fu">epi.tests</span>(matriz_epir, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Muestra directamente la tabla de métricas con estimación e IC95%</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados_diagnosticos<span class="sc">$</span>detail)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>resultado_prueba <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(biomarcador <span class="sc">&gt;</span> punto_corte, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Negativo"</span>, <span class="st">"Positivo"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Construcción de la matriz de contingencia para epi.tests</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>VP <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Positivo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Enfermo"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>FP <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Positivo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Sano"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>FN <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Negativo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Enfermo"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>VN <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Negativo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Sano"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>matriz_epir <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(VP, FP, FN, VN), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_epir) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Enfermo"</span>, <span class="st">"Sano"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_epir) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Test +"</span>, <span class="st">"Test -"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matriz_epir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Enfermo Sano
+Test +     137  408
+Test -      20  435</code></pre>
+</div>
+</div>
+<p>Obengamos sensibilidad, especificidad y valores predictivos.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluación diagnóstica automatizada con intervalos de confianza</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>resultados_diagnosticos <span class="ot">&lt;-</span> <span class="fu">epi.tests</span>(matriz_epir, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Muestra directamente la tabla de métricas con estimación e IC95%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados_diagnosticos<span class="sc">$</span>detail) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   statistic        est      lower       upper
@@ -419,9 +729,204 @@ window.Quarto = {
 18    p.dptn 0.04395604 0.02705301  0.06707227</code></pre>
 </div>
 </div>
+<p>El mismo ejercicios, pero usando un dataframe.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>biomark1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/preven_cc.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>biomark1<span class="sc">$</span>resultado_prueba <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(biomarcador <span class="sc">&gt;</span> punto_corte, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Negativo"</span>, <span class="st">"Positivo"</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Método alternativo.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>biomark1<span class="sc">$</span>resultado_prueba2 <span class="ot">&lt;-</span> <span class="fu">cut</span>(biomark1<span class="sc">$</span>biomarcador,<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">52</span>,<span class="cn">Inf</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Negativo"</span>, <span class="st">"Positivo"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                  )</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>biomark1<span class="sc">$</span>resultado_prueba3 <span class="ot">&lt;-</span><span class="fu">relevel</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  biomark1<span class="sc">$</span>resultado_prueba2,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref =</span> <span class="st">"Positivo"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Construcción de la matriz de contingencia para epi.tests</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>VP <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Positivo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Enfermo"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>FP <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Positivo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Sano"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>FN <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Negativo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Enfermo"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>VN <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_prueba <span class="sc">==</span> <span class="st">"Negativo"</span> <span class="sc">&amp;</span> gold_std <span class="sc">==</span> <span class="st">"Sano"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> VP<span class="sc">/</span>(VP<span class="sc">+</span>FN)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> VN<span class="sc">/</span>(VN<span class="sc">+</span>FP)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">sensibilidad =</span> s, <span class="at">especificidad =</span> e))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> sensibilidad especificidad 
+    0.8726115     0.5160142 </code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>matriz_epir <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(VP, FP, FN, VN), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_epir) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Enfermo"</span>, <span class="st">"Sano"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_epir) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Test +"</span>, <span class="st">"Test -"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluación diagnóstica automatizada con intervalos de confianza</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>resultados_diagnosticos <span class="ot">&lt;-</span> <span class="fu">epi.tests</span>(matriz_epir, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Muestra directamente la tabla de métricas con estimación e IC95%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados_diagnosticos<span class="sc">$</span>detail)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   statistic        est      lower       upper
+1         ap 0.54500000 0.51354179  0.57619255
+2         tp 0.15700000 0.13498766  0.18105255
+3         se 0.87261146 0.81013444  0.92042091
+4         sp 0.51601423 0.48168030  0.55023586
+5    diag.ac 0.57200000 0.54065880  0.60291610
+6    diag.or 7.30330882 4.48216955 11.90011203
+7       nndx 2.57317002 2.12469057  3.42683175
+8     youden 0.38862570 0.29181474  0.47065677
+9     pv.pos 0.25137615 0.21547007  0.29000267
+10    pv.neg 0.95604396 0.93292773  0.97294699
+11    lr.pos 1.80296928 1.64479815  1.97635085
+12    lr.neg 0.24687020 0.16308632  0.37369715
+13    p.rout 0.45500000 0.42380745  0.48645821
+14     p.rin 0.54500000 0.51354179  0.57619255
+15    p.tpdn 0.48398577 0.44976414  0.51831970
+16    p.tndp 0.12738854 0.07957909  0.18986556
+17    p.dntp 0.74862385 0.70999733  0.78452993
+18    p.dptn 0.04395604 0.02705301  0.06707227</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># o mejor</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>table_epir <span class="ot">&lt;-</span> <span class="fu">table</span>(biomark1<span class="sc">$</span>resultado_prueba,biomark1<span class="sc">$</span>gold_std)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">epi.tests</span>(table_epir,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Outcome +    Outcome -      Total
+Test +           20          435        455
+Test -          137          408        545
+Total           157          843       1000
+
+Point estimates and 95% CIs:
+--------------------------------------------------------------
+Apparent prevalence *                  0.46 (0.42, 0.49)
+True prevalence *                      0.16 (0.13, 0.18)
+Sensitivity *                          0.13 (0.08, 0.19)
+Specificity *                          0.48 (0.45, 0.52)
+Positive predictive value *            0.04 (0.03, 0.07)
+Negative predictive value *            0.75 (0.71, 0.78)
+Positive likelihood ratio              0.25 (0.16, 0.37)
+Negative likelihood ratio              1.80 (1.64, 1.98)
+False T+ proportion for true D- *      0.52 (0.48, 0.55)
+False T- proportion for true D+ *      0.87 (0.81, 0.92)
+False T+ proportion for T+ *           0.96 (0.93, 0.97)
+False T- proportion for T- *           0.25 (0.22, 0.29)
+Correctly classified proportion *      0.43 (0.40, 0.46)
+--------------------------------------------------------------
+* Exact CIs</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>table_epir2 <span class="ot">&lt;-</span> <span class="fu">table</span>(biomark1<span class="sc">$</span>resultado_prueba2,biomark1<span class="sc">$</span>gold_std)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">epi.tests</span>(table_epir2,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Outcome +    Outcome -      Total
+Test +           20          435        455
+Test -          137          408        545
+Total           157          843       1000
+
+Point estimates and 95% CIs:
+--------------------------------------------------------------
+Apparent prevalence *                  0.46 (0.42, 0.49)
+True prevalence *                      0.16 (0.13, 0.18)
+Sensitivity *                          0.13 (0.08, 0.19)
+Specificity *                          0.48 (0.45, 0.52)
+Positive predictive value *            0.04 (0.03, 0.07)
+Negative predictive value *            0.75 (0.71, 0.78)
+Positive likelihood ratio              0.25 (0.16, 0.37)
+Negative likelihood ratio              1.80 (1.64, 1.98)
+False T+ proportion for true D- *      0.52 (0.48, 0.55)
+False T- proportion for true D+ *      0.87 (0.81, 0.92)
+False T+ proportion for T+ *           0.96 (0.93, 0.97)
+False T- proportion for T- *           0.25 (0.22, 0.29)
+Correctly classified proportion *      0.43 (0.40, 0.46)
+--------------------------------------------------------------
+* Exact CIs</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>table_epir3 <span class="ot">&lt;-</span> <span class="fu">table</span>(biomark1<span class="sc">$</span>resultado_prueba3,biomark1<span class="sc">$</span>gold_std)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">epi.tests</span>(table_epir3,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Outcome +    Outcome -      Total
+Test +          137          408        545
+Test -           20          435        455
+Total           157          843       1000
+
+Point estimates and 95% CIs:
+--------------------------------------------------------------
+Apparent prevalence *                  0.54 (0.51, 0.58)
+True prevalence *                      0.16 (0.13, 0.18)
+Sensitivity *                          0.87 (0.81, 0.92)
+Specificity *                          0.52 (0.48, 0.55)
+Positive predictive value *            0.25 (0.22, 0.29)
+Negative predictive value *            0.96 (0.93, 0.97)
+Positive likelihood ratio              1.80 (1.64, 1.98)
+Negative likelihood ratio              0.25 (0.16, 0.37)
+False T+ proportion for true D- *      0.48 (0.45, 0.52)
+False T- proportion for true D+ *      0.13 (0.08, 0.19)
+False T+ proportion for T+ *           0.75 (0.71, 0.78)
+False T- proportion for T- *           0.04 (0.03, 0.07)
+Correctly classified proportion *      0.57 (0.54, 0.60)
+--------------------------------------------------------------
+* Exact CIs</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(table_epir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Enfermo Sano
+  Negativo      20  435
+  Positivo     137  408</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(table_epir2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Enfermo Sano
+  Negativo      20  435
+  Positivo     137  408</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matriz_epir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Enfermo Sano
+Test +     137  408
+Test -      20  435</code></pre>
+</div>
+</div>
 
 
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Aunque la siguiente tabla utiliza el resultado de un test, positivo podría ser en realidad cualquier característica (p.ej. un síntoma, una característica..) que se asocie con la aparición de la enfermedad, y el resultado negativo sería su complementario (no tener el síntoma, la característica…) :<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
