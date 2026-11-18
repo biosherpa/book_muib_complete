@@ -1,0 +1,224 @@
+---
+title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Solucionario. Tarea intersesión"
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  html:
+    toc: true
+    code-fold: show
+    number-sections: false
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{cancel}
+---
+
+## 1. Resolución en R (`epiR`)
+
+```{r}
+#| label: carga-y-matriz
+#| message: false
+#| warning: false
+
+library(epiR)
+
+# 1. Carga e inspección de datos 
+prevecor <- read.csv("_data/prevecor.csv", stringsAsFactors = TRUE)
+
+# 2. Construcción de la Matriz 2x2 para epiR
+prevecor$evento_fac <- factor(
+  prevecor$evento_cv,
+  levels = c(1, 0),
+  labels = c("Enfermo", "Sano")
+)
+
+# Test Dicotomizado: Forzamos Nivel 1 = "Positivo" para que ocupe la Fila 1 en table()
+prevecor$test_pcr <- factor(
+  cut(prevecor$pcr_hs, breaks = c(-Inf, 3.0, Inf), labels = c("Negativo", "Positivo")),
+  levels = c("Positivo", "Negativo")
+)
+
+matriz_2x2 <- table(prevecor$test_pcr, prevecor$evento_fac)
+print(matriz_2x2)
+
+# 3. Cálculo de Índices Diagnósticos con epiR
+res_diag <- epi.tests(matriz_2x2, conf.level = 0.95)
+print(res_diag)
+
+```
+
+
+Podemos darle algo de formato. 
+
+Para ejecutar esta parte de la solución debe tener instaladas las librerías `tidyverse` y `knitr`
+
+
+```{r}
+#| label: tabla-knitr
+#| message: false
+#| echo: false
+
+library(tidyverse)
+library(knitr)
+
+# 4. Tabulación de resultados ------------------------------------------------
+metricas_clave <- c("se", "sp", "pv.pos", "pv.neg", "lr.pos", "lr.neg")
+etiquetas <- c(
+  "se"     = "Sensibilidad (s)",
+  "sp"     = "Especificidad (e)",
+  "pv.pos" = "Valor Predictivo Positivo (VPP)",
+  "pv.neg" = "Valor Predictivo Negativo (VPN)",
+  "lr.pos" = "Razón de Verosimilitud (+)",
+  "lr.neg" = "Razón de Verosimilitud (-)"
+)
+
+tabla_final <- res_diag$detail %>%
+  filter(statistic %in% metricas_clave) %>%
+  mutate(
+    Indicador = etiquetas[statistic],
+    `Estimación Puntual` = round(est, 3),
+    `IC 95%` = sprintf("[%.3f – %.3f]", lower, upper)
+  ) %>%
+  select(Indicador, `Estimación Puntual`, `IC 95%`)
+
+kable(
+  tabla_final,
+  align = c("l", "c", "c"),
+  caption = "Resultados de la Validación Diagnóstica (hs-PCR >= 3.0 mg/L)"
+)
+
+```
+
+
+
+# Solucionario y Claves de Evaluación — Tarea Intersesión (Sesión 9)
+
+### Apartado 1: Caracterización del rendimiento en la cohorte clínica
+
+- **1.1. Comparación entre especificidad y sensibilidad, y tipo de error minimizado:**  
+
+  * **Comparación de métricas:** La prueba presenta una **especificidad muy elevada ($\text{e} = 94.2\%$)** frente a una **sensibilidad moderada-baja ($\text{s} = 58.4\%$)** (una diferencia de $35.8$ puntos porcentuales). Esto significa que el test clasifica correctamente a casi la totalidad de los individuos sanos, pero deja sin detectar a más de 4 de cada 10 enfermos reales.
+  
+  * **Error minimizado prioritariamente:** Al situar el punto de corte en $3.0\text{ mg/L}$, la prueba está optimizada para **minimizar prioritariamente los Falsos Positivos ($FP$)**, cuya tasa es de tan solo el $5.8\%$ ($1 - \text{e} = 1 - 0.942 = 0.058$). Como contrapartida inevitable del equilibrio entre ambas métricas (*trade-off*), asume una tasa elevada de **Falsos Negativos ($FN$)** del $41.6\%$ ($1 - \text{s} = 1 - 0.584 = 0.416$).
+
+- **1.2. Significado de $\text{LR}^+ = 10.04$ en términos de ganancia diagnóstica *post-test*:**  
+
+  * **Significado del Factor de Bayes ($\text{fb}_+$ / $\text{LR}^+$):** Un valor de $\text{LR}^+ = 10.04$ indica que obtener un resultado positivo ($\text{hs-PCR} \ge 3.0\text{ mg/L}$) es aproximadamente **10 veces más probable en un paciente con enfermedad coronaria que en uno sano** ($P(T+ \mid E) / P(T+ \mid \bar{E}) = 10.04$). En epidemiología clínica, una $\text{LR}^+ > 10$ se considera evidencia diagnóstica muy fuerte.
+  * **Cuantificación de la ganancia diagnóstica (*pre-test* $\rightarrow$ *post-test*):** Este factor multiplica directamente la oportunidad (*odd*) previa de padecer la enfermedad:
+    1. **Situación *pre-test* (probabilidad *a priori*):** Partiendo de una prevalencia basal del $30\%$ ($P(E) = 0.30$), la *odd* previa es:
+       $$\text{Odd}(E) = \frac{P(E)}{1 - P(E)} = \frac{0.30}{0.70} \approx 0.4286$$
+    2. **Situación *post-test* tras un resultado positivo:** Multiplicando por $\text{LR}^+ = 10.04$:
+       $$\text{Odd}(E \mid T+) = \text{Odd}(E) \cdot \text{LR}^+ = 0.4286 \times 10.04 \approx 4.303$$
+    3. **Conversión a probabilidad *post-test* ($\text{VPP}$):**
+       $$P(E \mid T+) = \frac{\text{Odd}(E \mid T+)}{1 + \text{Odd}(E \mid T+)} = \frac{4.303}{1 + 4.303} \approx 0.8114 \quad (\mathbf{81.1\%})$$
+    *(Nota: En la muestra concreta de $N=400$ pacientes, la prevalencia observada fue ligeramente superior al $30\%$ teórico debido al muestreo aleatorio, lo que sitúa el $\text{VPP}$ empírico de `epiR` en el $\mathbf{82.0\%}$).*
+  * **Conclusión clínica:** Un resultado positivo produce una **ganancia diagnóstica neta superior a 50 puntos porcentuales**, elevando la certeza diagnóstica desde una sospecha inicial del **$30.0\%$** hasta más del **$81\%$** tras aplicar la prueba.
+---
+
+### Apartado 2: Impacto del cambio de escenario epidemiológico
+
+#### Método A: Mediante probabilidad directa (Teorema de Bayes con prevalencia y validez)
+
+- **2.1. Cálculo de VPP y VPN con Prevalencia del 3% ($P = 0.03$):**  
+  Partiendo de los valores del enunciado ($\text{s} = 0.584$, $\text{e} = 0.942$ y $P = 0.03$):
+
+  - **Valor Predictivo Positivo ($\text{VPP}$):**
+    $$\text{VPP} = P(E \mid T+) = \frac{\text{s} \times P}{(\text{s} \times P) + ((1 - \text{e}) \times (1 - P))} = \frac{0.584 \times 0.03}{(0.584 \times 0.03) + (0.058 \times 0.97)} = \frac{0.01752}{0.07378} \approx 0.2375 \quad (\mathbf{23.7\%})$$
+
+  - **Valor Predictivo Negativo ($\text{VPN}$):**
+    $$\text{VPN} = P(\bar{E} \mid T-) = \frac{\text{e} \times (1 - P)}{(\text{e} \times (1 - P)) + ((1 - \text{s}) \times P)} = \frac{0.942 \times 0.97}{(0.942 \times 0.97) + (0.416 \times 0.03)} = \frac{0.91374}{0.92622} \approx 0.9865 \quad (\mathbf{98.7\%})$$
+
+- **2.2. Proporción de Falsos Positivos entre los Test ($+$):**  
+  $$\text{Proporción de FP} = 1 - \text{VPP} = 1 - 0.2375 = 0.7625 \quad (\mathbf{76.3\%})$$
+  *(El $76.3\%$ de las personas que den positivo en el cribado estarán realmente sanas).*
+
+---
+
+#### Método B: Mediante escala de *Odds* y Factor de Bayes ($\text{fb}_+$ y $\text{fb}_-$)
+
+- **2.1. Cálculo de VPP y VPN con Prevalencia del 3% ($P = 0.03$):**  
+  Transformamos la prevalencia a *odd* previa y calculamos los Factores de Bayes a partir de $\text{s} = 0.584$ y $\text{e} = 0.942$:
+
+  - **Odd previa (*pre-test*) y Factores de Bayes:**
+    $$\text{Odd}(E) = \frac{P(E)}{1 - P(E)} = \frac{0.03}{1 - 0.03} = \frac{0.03}{0.97} \approx 0.03093$$
+    $$\text{fb}_+ = \frac{\text{s}}{1 - \text{e}} = \frac{0.584}{1 - 0.942} = \frac{0.584}{0.058} \approx 10.069 \qquad \text{fb}_- = \frac{1 - \text{s}}{\text{e}} = \frac{1 - 0.584}{0.942} = \frac{0.416}{0.942} \approx 0.4416$$
+
+  - **Valor Predictivo Positivo ($\text{VPP}$):**
+    $$\text{Odd}(E \mid T+) = \text{Odd}(E) \cdot \text{fb}_+ = \frac{0.03}{0.97} \cdot \frac{0.584}{0.058} \approx 0.31141$$
+    $$\text{VPP} = P(E \mid T+) = \frac{\text{Odd}(E \mid T+)}{1 + \text{Odd}(E \mid T+)} = \frac{0.31141}{1 + 0.31141} \approx 0.2375 \quad (\mathbf{23.7\%})$$
+
+  - **Valor Predictivo Negativo ($\text{VPN}$):**
+    $$\text{Odd}(E \mid T-) = \text{Odd}(E) \cdot \text{fb}_- = \frac{0.03}{0.97} \cdot \frac{0.416}{0.942} \approx 0.01366$$
+    $$P(E \mid T-) = \frac{\text{Odd}(E \mid T-)}{1 + \text{Odd}(E \mid T-)} = \frac{0.01366}{1 + 0.01366} \approx 0.0135 \implies \text{VPN} = 1 - 0.0135 = 0.9865 \quad (\mathbf{98.7\%})$$
+
+- **2.2. Proporción de Falsos Positivos entre los Test ($+$):**  
+  $$\text{Proporción de FP} = 1 - \text{VPP} = 1 - 0.2375 = 0.7625 \quad (\mathbf{76.3\%})$$
+  *(El $76.3\%$ de las personas que den positivo en el cribado estarán realmente sanas).*
+
+---
+
+### Apartado 3: Discusión y juicio de decisión clínica
+
+  * **3.1. Impacto clínico de los falsos positivos:**  
+ 
+  En un cribado poblacional de baja prevalencia, más de 3 de cada 4 positivos son sanos. Esto conlleva una elevada carga de **cascada diagnóstica innecesaria** (sobrepruebas de imagen coronaria, angiografías, TACs), **ansiedad en el paciente** e **ineficiencia económica** para el sistema sanitario.
+
+  * **3.2. Clasificación operativa (Screening vs. Rule-In):**  
+  Es una prueba **de confirmación (*Rule-In*)**, NO de cribado.  
+  * Para cribado (*Rule-Out*) se exigen pruebas de alta sensibilidad (cercanas al $95\%-100\%$) para no "dejar escapar" enfermos.  
+  * Con $s = 58.4\%$, el test falla en detectar a más del $40\%$ de los enfermos.  
+  * Su valor clínico real reside en su **alta especificidad ($94.2\%$)** y $\text{LR}^+ \ge 10$: si da positivo en un paciente con sospecha previa, prácticamente confirma el diagnóstico (*Rule-In*).
+
+  
+
+## Ready for publication tables.
+
+Trasladar nuestros resultados a la tabla del artículo de manera manual es una tarea tediosa, pero sobre todo peligrosa. Una coma, un punto, es fácil que se pierdan al copiar y pegar. 
+
+Por ello, en R hay diversos paquetes que ayudan a construir tablas casí listas para publicación desde el propio código.
+
+En mi opinión, el paquete `gt` es muy útil en este propósito. Aunque no es contenido evaluable de la asignatura, me ha parecido importante dejar un ejemplo de las posibilidades que ofrece.
+
+
+
+```{r}
+library(epiR)
+library(dplyr)
+library(gt)
+
+
+
+res_diag$detail %>%
+  filter(statistic %in% c("se", "sp", "pv.pos", "pv.neg", "lr.pos", "lr.neg")) %>%
+  mutate(
+    metric = factor(statistic, 
+                     levels = c("se", "sp", "pv.pos", "pv.neg", "lr.pos", "lr.neg"),
+                     labels = c("Sensibilidad (s)", "Especificidad (e)", 
+                                "Valor Predictivo Positivo (VPP)", "Valor Predictivo Negativo (VPN)",
+                                "Razón de Verosimilitud (+)", "Razón de Verosimilitud (-)"))
+  ) %>%
+  select(metric, est, lower, upper) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Evaluación de la Prueba Diagnóstica**"),
+    subtitle = "Estimación puntual e Intervalos de Confianza al 95%"
+  ) %>%
+  fmt_number(
+    columns = c(est, lower, upper),
+    decimals = 3
+  ) %>%
+    gt::cols_merge(
+   columns =  c(est,lower, upper),
+   pattern = "<<{1} ({2} - {3})>>"
+  ) %>% 
+ 
+  cols_label(
+    metric = "Indicador Diagnóstico",
+    est = "Estimación Puntual (IC95%)"
+  ) %>%
+  cols_align(align = "center", columns = c(est)) %>%
+    cols_align(align = "left", columns = c(metric)) %>%
+
+  tab_options(table.width = pct(85))
+```

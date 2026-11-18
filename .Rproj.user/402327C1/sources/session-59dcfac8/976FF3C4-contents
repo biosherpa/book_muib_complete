@@ -1,0 +1,483 @@
+#--------------------------------------#
+#       Práctica 6                     #
+#   MODELIZACIÓN LINEAL                #
+#      MULTIVARIABLE                   #
+#--------------------------------------#
+
+# Método Científico y Análisis de Datos
+# Máster Universitario en Investigación Biomédica
+# Universidad Rey Juan Carlos
+# Dr. Carlos Lara Romero
+
+# Pregunta guía:
+#
+# ¿Cómo cambian nuestras conclusiones
+# cuando analizamos varias variables
+# simultáneamente?
+
+#--------------------------------------#
+#### 1. CONFIGURACIÓN INICIAL         ####
+#--------------------------------------#
+
+library(ggplot2)
+
+theme_set(theme_classic(base_size = 12))
+
+# Comprobar directorio de trabajo
+
+getwd()
+
+
+#### CARGAR DATOS ####
+
+
+birthwt <- read.csv(
+  "data/birthwt.csv"
+)
+
+#Transformar lwt y bwt a kg
+birthwt$lwt <- birthwt$lwt * 0.453592 # 1 lb = 0.453592 kg
+birthwt$bwt <- birthwt$bwt / 1000 # 1 kg  = 1000 gr
+
+
+#--------------------------------------#
+#### 2. FACTORES CON MÁS DE       ####
+#### DOS NIVELES                 ####
+#--------------------------------------#
+
+#### Visualización
+
+grafico_race <- ggplot(
+  birthwt,
+  aes(
+    x = race,
+    y = bwt,
+    fill = race
+  )
+) +
+  geom_boxplot() +
+  labs(
+    title = "Peso al nacer según grupo racial",
+    x = "Grupo racial",
+    y = "Peso al nacer (g)"
+  )
+
+print(grafico_race)
+
+#### Modelo lineal
+
+modelo_race <- lm(
+  bwt ~ race,
+  data = birthwt
+)
+
+summary(modelo_race)
+
+#Pregunta: ¿Hay diferencias entre "Negra" y "Otra"?
+
+
+#### 2.1 Análisis de la varianza ####
+
+#ANOVA es una herramienta para evaluar el efecto global
+#de un factor dentro de un modelo lineal.
+anova(modelo_race)
+
+#### Reflexión
+
+# ANOVA significa:
+#
+# Analysis Of Variance
+#
+# Análisis de la varianza.
+#
+# ¿Qué está comparando ANOVA?
+#
+# ¿Existen diferencias globales
+# entre los tres grupos?
+#
+# ¿Entre qué grupos se encuentran estas diferencias?
+#
+
+#### 2.2 Análisis post-hoc ####
+
+# Si el ANOVA indica diferencias globales,
+# podemos realizar comparaciones post-hoc
+
+
+test.pairwise <- pairwise.t.test(
+  birthwt$bwt,
+  birthwt$race,
+  p.adjust.method = "bonferroni"
+)
+
+
+print(test.pairwise)
+
+#Pregunta: ¿ Ahora podemos responder a la pregunta de 
+# si hay diferencias entre "Negra" y "Otra"?
+
+
+#--------------------------------------#
+#### 3. COMBINAR VARIABLES        ####
+#### CONTINUAS Y FACTORES         ####
+#--------------------------------------#
+
+# Pregunta biomédica:
+#
+# ¿Cambia el efecto del tabaquismo
+# cuando tenemos en cuenta otras
+# características maternas?
+#
+# Por ejemplo, la edad y el peso de la madre.
+
+
+#### 2.1 Modelo simple ####
+
+# En la sesión anterior ajustamos:
+modelo_simple <- lm(
+  bwt ~ smoke,
+  data = birthwt
+)
+
+summary(modelo_simple)
+
+# Recordatorio:
+#
+# β1 representa la diferencia media
+# de peso al nacer entre fumadoras
+# y no fumadoras.
+
+
+#### 2.2 Modelo ajustado ####
+
+
+#Fumadora: 0 = No, 1 = Sí
+birthwt$smoke <- factor(
+  birthwt$smoke,
+  levels = c(0,1),
+  labels = c(
+    "No fumadora",
+    "Fumadora"
+  )
+)
+
+#Ajusto modelo
+
+modelo_ajustado <- lm(
+  bwt ~ age + lwt+smoke,
+  data = birthwt
+)
+
+summary(modelo_ajustado)
+
+#### Comparación ####
+
+coef(modelo_simple)
+
+coef(modelo_ajustado)
+
+print(tabla_confusion)
+
+#### Reflexión ####
+
+# ¿Ha cambiado la estimación
+# del efecto del tabaquismo?
+#
+# ¿Qué nos indica esto sobre la
+# presencia de confusión?
+#
+# ¿Por qué es importante ajustar
+# por otras variables?
+
+
+#Raza: 1 = Blanca, 2 = Negra, 3 = Otra
+birthwt$race <- factor(
+  birthwt$race,
+  levels = c(1,2,3),
+  labels = c(
+    "Blanca",
+    "Negra",
+    "Otra"
+  )
+)
+
+modelo_race <- lm(
+  bwt ~ smoke + race,
+  data = birthwt
+)
+
+summary(modelo_race)
+
+
+coef(modelo_simple)[2]
+coef(modelo_race)[2]
+
+tabla_confusion <- data.frame(
+  Modelo = c(
+    "Simple",
+    "Ajustado"
+  ),
+  Beta_smoke = c(
+    coef(modelo_simple)[2],
+    coef(modelo_race)[2]
+  )
+)
+
+print(tabla_confusion)
+# El modelo simple estima una reducción de 284 g.
+# El modelo ajustado estima una reducción de 429 g.
+
+# Conclusión: La estimación del efecto de smoke es sensible a cómo se especifica el modelo
+
+#### Reflexión ####
+
+# ¿Por qué ha cambiado la estimación
+# del efecto del tabaquismo?
+#
+
+# Al mezclar grupos raciales distintos estemos diluyendo la pendiente global.
+#
+#
+#La incorporación de la variable raza modifica sustancialmente
+#el coeficiente del tabaquismo, por lo que puede considerarse una posible
+#variable de confusión.
+#
+# El efecto del tabaquismo puede no ser exactamente el mismo en todos los grupos raciales.
+#
+#¿Estamos observando confusión o estamos detectando que
+# el efecto de fumar no es igual en todos los grupos?
+#
+
+
+#### Ir a Ejercicio 1 ####
+
+#--------------------------------------#
+#### 4. INTERACCIONES             ####
+#--------------------------------------#
+
+# Pregunta:
+#
+# ¿Es el efecto del tabaquismo igual
+# para mujeres jóvenes y mayores?
+
+
+#### 4.1 Ajuste de un modelo con interacción ####
+
+modelo_age <- lm(
+  bwt ~ smoke + age,
+  data = birthwt
+)
+
+
+modelo_interaccion <- lm(
+  bwt ~ smoke * age,
+  data = birthwt
+)
+
+summary(modelo_age)
+summary(modelo_interaccion)
+
+#### Reflexión ####
+# Observa el cambio en el coeficiente de la variable "smoke" y "age"
+# El pvalor también cambia. ¿Qué significa esto?
+
+#### 4.2 Visualización de la interacción ####
+
+grafico_interaccion <- ggplot(
+  birthwt,
+  aes(
+    x = age,
+    y = bwt,
+    colour = smoke
+  )
+) +
+  geom_point(
+    alpha = 0.5
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  labs(
+    title = "Interacción entre edad y tabaquismo",
+    x = "Edad materna",
+    y = "Peso al nacer (g)"
+  )
+
+print(grafico_interaccion)
+
+#### Reflexión ####
+
+# ¿Las líneas parecen paralelas?
+#
+# ¿O muestran pendientes diferentes?
+#
+# ¿Qué significaría biológicamente?
+#
+# ¿Puede el efecto de una variable
+# depender de otra?
+
+#### Ir a Ejercicio 2 ####
+
+#--------------------------------------#
+#### 5. EVALUACIÓN DEL MODELO     ####
+#--------------------------------------#
+
+#### 5.1 Bondad de ajuste (R²) ####
+
+modelo_combinado<- lm(
+  bwt ~ smoke + age + lwt + race,
+  data = birthwt
+)
+
+summary(modelo_combinado)$r.squared
+
+#### Reflexión ####
+
+# ¿Qué porcentaje de la variabilidad
+# del peso al nacer explica el modelo?
+
+
+#### 5.2 DIAGNÓSTICO DEL MODELO    ####
+
+
+# Un modelo ajustado por R
+# no es necesariamente un modelo válido.
+
+#### Residuos frente a ajustados ####
+
+plot(
+  modelo_combinado,
+  which = 1
+)
+
+#### Reflexión ####
+
+# ¿Observas patrones sistemáticos?
+#
+# ¿Los residuos parecen distribuirse
+# aleatoriamente?
+
+#### QQ-plot ####
+
+plot(
+  modelo_combinado,
+  which = 2
+)
+
+#### Reflexión ####
+
+# ¿Los puntos siguen
+# aproximadamente la diagonal?
+#
+# ¿Los residuos parecen
+# razonablemente normales?
+
+#### Observaciones influyentes ####
+
+plot(
+  modelo_combinado,
+  which = 4
+)
+
+#### Reflexión ####
+
+# ¿Existen observaciones
+# especialmente influyentes?
+
+#### Ir a Ejercicio 3 ####
+
+
+#--------------------------------------#
+#### 6. EJERCICIOS PROPUESTOS      ####
+#### Dataset NHANES               ####
+#--------------------------------------#
+
+# Pregunta biomédica:
+#
+# ¿Qué factores se asocian con el índice
+# de masa corporal (IMC) en la población adulta?
+
+#### Preparación ####
+
+nhanes <- read.csv(
+  "data/NHANES.csv"
+)
+
+nhanes <- nhanes[
+  nhanes$Age >= 18 &
+    !is.na(nhanes$BMI) &
+    !is.na(nhanes$Gender) &
+    !is.na(nhanes$Race1),
+]
+
+nhanes$Gender <- factor(nhanes$Gender)
+
+nhanes$Race1 <- factor(nhanes$Race1)
+
+#### Ejercicio 1 ####
+
+# Ajusta un modelo lineal múltiple:
+
+
+#Preguntas:
+#
+# ¿Qué variables permanecen asociadas
+# con el IMC cuando se analizan
+# simultáneamente?
+#
+# ¿Qué coeficientes parecen
+# tener un mayor efecto?
+#
+# ¿Qué nos indica el ANOVA?
+
+
+#### Ejercicio 2 ####
+
+# Ajusta un modelo con interacción:
+
+
+#Preguntas:
+#
+# ¿El efecto de la edad
+# parece igual en hombres
+# y mujeres?
+#
+# ¿La interacción parece importante?
+#
+# ¿Cómo cambian los coeficientes
+# respecto al modelo anterior?
+
+#### Ejercicio 3 ####
+
+# Evalúa el ajuste del modelo:
+
+
+
+#Preguntas
+#
+# ¿Qué porcentaje de la variabilidad
+# del IMC explica el modelo?
+#
+# ¿Los residuos parecen razonablemente
+# compatibles con los supuestos del modelo?
+#
+# ¿Interpretarías este modelo
+# con confianza?
+#
+# ¿Por qué?
+
+#### Reflexión final ####
+
+# Resume en pocas líneas:
+#
+# 1. ¿Qué variables se asocian con el IMC?
+#
+# 2. ¿Existe evidencia de interacción?
+#
+# 3. ¿Qué aporta el ANOVA al análisis?
+#
+# 4. ¿El modelo parece razonablemente válido?
+#
+# 5. ¿Qué limitaciones seguirían existiendo
+#    aunque el modelo ajuste bien?

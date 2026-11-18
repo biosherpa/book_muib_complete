@@ -1,0 +1,3 @@
+"0",""
+"0","ci_sp <- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))"
+"0","plot(ci_sp, type = ""shape"", col = ""#2E9FDF11"")"

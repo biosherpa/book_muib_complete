@@ -1,0 +1,5 @@
+"0","punto_corte <- 52"
+"0","biomark1$resultado_prueba_corr <- factor(ifelse(biomark1$biomarcador > punto_corte, 1, 0), levels = c(1, 0), labels = c(""Positivo"", ""Negativo""))"
+"0","table_epir_corr <- table(biomark1$resultado_prueba_corr,biomark1$gold_std)"
+"0",""
+"0","epi.tests(table_epir_corr,conf.level = 0.95)"

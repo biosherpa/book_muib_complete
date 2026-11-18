@@ -1,0 +1,14 @@
+"0","//| echo: false 
+
+
+html`<div style=""display: flex; gap: 20px; background: #f8f9fa; padding: 12px 16px; border-radius: 8px; border: 1px solid #dee2e6; margin-bottom: 12px; font-family: sans-serif; flex-wrap: wrap;"">
+  <div><strong>Sensibilidad (VP):</strong> <span style=""color: #c0392b; font-size: 1.15em; font-weight: bold;"">${(sens * 100).toFixed(1)}%</span></div>
+  <div><strong>Especificidad (VN):</strong> <span style=""color: #2980b9; font-size: 1.15em; font-weight: bold;"">${(esp * 100).toFixed(1)}%</span></div>
+  <div><strong>Falsos Positivos (1 - E):</strong> <span style=""color: #e67e22; font-weight: bold;"">${(fp * 100).toFixed(1)}%</span></div>
+  <div><strong>Falsos Negativos (1 - S):</strong> <span style=""color: #8e44ad; font-weight: bold;"">${(fn * 100).toFixed(1)}%</span></div>
+  <div><strong>AUC:</strong> <span style=""font-weight: bold;"">${auc.toFixed(3)}</span></div>
+</div>`
+"
+"2","""ojs"" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+"

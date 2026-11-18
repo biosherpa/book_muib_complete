@@ -1,0 +1,301 @@
+---
+title: "Sesión 9: Breve repaso sobre Probabilidad."
+author: "Jesús Esteban Hernández"
+date: last-modified
+format:
+  html:
+    toc: true
+    code-fold: show
+    number-sections: false
+---
+  
+## Repaso de conceptos de probabilidad.
+
+El cálculo de probabilidades es la campo de las matemáticas que nos permite analizar los fenómenos en los que interviene el azar. 
+Para ello, utiliza el concepto de espacio probabilístico $\{\Omega,\mathcal{A},P\}$ que puede ser un espacio totalmente especificado (como el lanzamiento de un dado perfecto), pero también permite construir espacios probabilísticos adaptados a situaciones experimentales concretas. 
+
+Para este último objetivo, para construir espacios adaptados a situaciones concretas, necesitamos realizar observaciones sobre la realidad (obligatoriamente limitada de la misma), y es aquí donde entra en juego la estadística inferencial.
+
+La estadística inferencial nos permite obtener información acerca de la ley de probabilidad que gobierna un fenómeno a partir de la observación no exhaustiva del mismo. 
+
+Aunque solemos distinguir entre estadística descriptiva (resumir mediante un conjunto de números o gráficos las características de nuestra muestra) e inferencial (obtener conclusiones de la población a partir de lo obseravdo en nuestra muestra), en última instancia el objetivo de la estadística es fundamentalmente inferencial, afirmar algo sobre la población a partir de una muestra limitada de la misma.
+
+
+
+### Experimento Aleatorio y Espacio Muestral
+
+- **Experimento Aleatorio**: 
+  
+  * Se puede repetir en las mismas condiciones indefinidamente.
+* Partiendo de las mismas condiciones iniciales, pueden darse resultados diferentes. 
+* Todos los resultados posibles se conocen por anticipado.
+* No se puede predecir cuál ocurrirá en una experiencia en particular.
+* La frecuencia relativa con la que aparece un determinado suceso, tiende a su probabilidad.
+
+- **Espacio Muestral ($\Omega$)**: Conjunto compuesto por todos los resultados posibles del experimento aleatorio.
+- *Resultado elemental* ($\omega \in \Omega$): Desenlace individual e indivisible.
+- *Ejemplo*: Lanzamiento de un dado, $\Omega = \{1, 2, 3, 4, 5, 6\}$.
+
+---
+  
+  ### Tipos de Espacios Muestrales
+  
+  | Tipo de Espacio | Ejemplo Biomédico | Espacio Muestral ($\Omega$) | Suceso de Interés ($A \in \mathcal{A}$) |
+  | :--- | :--- | :--- | :--- |
+  | **Finito** | Grupo sanguíneo | $\Omega = \{A, B, AB, O\}$ | "Compatibilidad con A" $\rightarrow A=\{A, O\}$ |
+  | **Infinito Numerable** | Nº de crisis asmáticas/año | $\Omega = \{0, 1, 2, 3, \dots\}$ | "Más de 3 crisis" $\rightarrow A=\{4, 5, 6, \dots\}$ |
+  | **No Numerable (Continuo)** | Glucosa en ayunas (mg/dL) | $\Omega = (0, +\infty)$ | "Criterio de diabetes" $\rightarrow A = [126, +\infty)$ |
+  
+  ---
+  
+  ### Espacio Probabilístico $(\Omega, \mathcal{A}, P)$
+  
+  Un **espacio probabilístico** es la estructura matemática que modela un experimento aleatorio definida por la terna $(\Omega, \mathcal{A}, P)$:
+  
+  1. **$\Omega$**: Espacio muestral (todos los resultados elementales).
+2. **$\mathcal{A}$**: $\sigma$-álgebra de sucesos (colección de subconjuntos de $\Omega$ cerrada respecto al complementario y uniones numerables).
+3. **$P$**: Medida de probabilidad $P: \mathcal{A} \rightarrow [0,1]$ que satisface los axiomas.
+
+---
+  
+  ### Estructura Algebraica: Álgebra y $\sigma$-Álgebra
+  
+  **Álgebra de Sucesos ($\mathcal{A}$)**:
+  
+  - Contiene a $\Omega$ (y por tanto a $\emptyset$).
+- Cerrada bajo complementación ($A \in \mathcal{A} \implies A^c \in \mathcal{A}$).
+- Cerrada bajo uniones finitas ($A_1, \dots, A_n \in \mathcal{A} \implies \bigcup_{i=1}^n A_i \in \mathcal{A}$).
+
+**$\sigma$-Álgebra de Sucesos ($\mathcal{A}$)**:
+  
+  - Mismas propiedades, pero cerrada bajo **uniones numerables infinitas**:
+  
+  $$A_1, A_2, \dots \in \mathcal{A} \implies \bigcup_{i=1}^{\infty} A_i \in \mathcal{A}$$
+  
+  ---
+  
+  ### Operaciones Lógicas con Sucesos
+  
+  | Propiedad | Unión ($\cup$) | Intersección ($\cap$) |
+  | :--- | :--- | :--- |
+  | **Conmutativa** | $A \cup B = B \cup A$ | $A \cap B = B \cap A$ |
+  | **Asociativa** | $(A \cup B) \cup C = A \cup (B \cup C)$ | $(A \cap B) \cap C = A \cap (B \cap C)$ |
+  | **Distributiva** | $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ | $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ |
+  | **Leyes de De Morgan** | $(A \cup B)^c = A^c \cap B^c$ | $(A \cap B)^c = A^c \cup B^c$ |
+  | **Elemento Neutro** | $A \cup \emptyset = A$ | $A \cap \Omega = A$ |
+  | **Absorción** | $A \cup \Omega = \Omega$ | $A \cap \emptyset = \emptyset$ |
+  
+  ---
+  
+  # Definiciones y Axiomas de Probabilidad
+  
+  ### Enfoques de Probabilidad
+  
+  1. **Clásica (Laplace)**: Para sucesos equiprobables,
+$$P(A) = \frac{\text{Número de casos favorables}}{\text{Número de casos posibles}}$$
+  2. **Frecuentista (Empírica / Objetiva)**: $\textit{a posteriori}$.
+$$P(A) = \lim_{n \to \infty} \frac{n_A}{n}$$
+  3. **Bayesiano (Subjetiva)**: $\textit{a priori}$. Representa el grado de creencia o certeza sobre la ocurrencia de un suceso.
+
+---
+  
+  ### Axiomas de Kolmogorov
+  
+  Sea $(\Omega, \mathcal{A}, P)$ un espacio probabilístico:
+  
+  - **Axioma 1**: $P(A) \ge 0, \quad \forall A \in \mathcal{A}$
+  - **Axioma 2**: $P(\Omega) = 1$
+  - **Axioma 3**: Para cualquier sucesión de sucesos mutuamente disjuntos   ($A_i \cap A_j = \emptyset, \, i \ne j$):
+  
+  $$P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i)$$
+  
+  ---
+  
+  ### Propiedades y Teoremas Fundamentales
+  
+  1. **Suceso Complementario**: $P(A') = 1 - P(A)$
+2. **Suceso Imposible**: $P(\emptyset) = 0$
+3. **Inclusión**: Si $A \subset B \implies P(A) \le P(B)$ y $P(B \setminus A) = P(B) - P(A)$
+4. **Acotación**: $0 \le P(A) \le 1$
+5. **Ley aditiva de la probabilidad**:
+
+   $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+   
+6. **Para 3 sucesos**:
+
+   $$P(A_1 \cup A_2 \cup A_3) = P(A_1) + P(A_2) + P(A_3) - P(A_1 \cap A_2) - P(A_1 \cap A_3) - P(A_2 \cap A_3) + P(A_1 \cap A_2 \cap A_3)$$
+
+---
+
+### Probabilidad Condicionada e Independencia
+
+#### Independencia de Sucesos
+
+Dos sucesos $A$ y $B$ son **independientes** si la ocurrencia de uno no modifica la probabilidad del otro:
+
+$$P(B \mid A) = P(B) \iff P(A \cap B) = P(A) \cdot P(B)$$
+
+::: {.callout-note title = "Disjunto no es lo mismo que independiente"}
+**¡Atención!**
+- **Disjuntos (Incompatibles)**: $A \cap B = \emptyset \implies P(A \cap B) = 0$.
+- Dos sucesos incompatibles con probabilidades no nulas **NUNCA** son independientes, pues saber que ocurrió uno implica que no puede ocurrir el otro.
+:::
+
+---
+
+#### Probabilidad Condicionada y ley multiplicativa de la probabilidad.
+
+La probabilidad del suceso $B$ dado que ha ocurrido $A$ (con $P(A) > 0$) es:
+
+$$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
+
+De aquí se deriva la **ley multiplicativa**:
+
+$$P(A \cap B) = P(A) \cdot P(B \mid A)$$
+
+Para $n$ eventos:
+
+$$P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid \bigcap_{i=1}^{n-1} A_i)$$
+
+---
+
+   
+##### Sistema completo de sucesos.
+
+Un sistema completo de sucesos es un espacio de sucesos en el que:
+
+  - Todos los sucesos son incompatibles entre sí.
+  - La unión de todos es el espacio completo de sucesos.
+  
+  $$P\Big( \bigcup_{i=1}^{k} A_{i,j}\Big) = P(\Omega)  $$
+  
+  $$P(A_i \cap A_j)=P(\emptyset)$$
+
+---
+
+
+
+```{r}
+#| echo: false
+
+library(ggplot2)
+
+# ==============================================================================
+# 1. Definición de centros para los 9 sucesos (A1 a A9) en la matriz 3x3
+# ==============================================================================
+centros <- data.frame(
+  suceso = paste0("A", 1:9),
+  cx = rep(c(2.0, 5.0, 8.0), each = 3),
+  cy = rep(c(8.0, 5.0, 2.0), times = 3)
+)
+
+# ==============================================================================
+# 2. Generación de una malla de puntos y asignación de regiones curvas
+# ==============================================================================
+# Crear una rejilla de alta resolución para todo el espacio Omega [0, 10] x [0, 10]
+grid <- expand.grid(
+  x = seq(0, 10, length.out = 180),
+  y = seq(0, 10, length.out = 180)
+)
+
+# Distorsión armónica/ondulada suave para crear bordes curvos tipo puzle/orgánicos
+grid$x_dist <- grid$x + 0.45 * sin(grid$y * pi / 3) + 0.25 * cos(grid$x * pi / 2)
+grid$y_dist <- grid$y + 0.45 * cos(grid$x * pi / 3) + 0.25 * sin(grid$y * pi / 2)
+
+# Asignar cada punto de la malla al centroide más cercano (Distancia Euclidiana con distorsión)
+grid$region <- apply(grid[, c("x_dist", "y_dist")], 1, function(p) {
+  dists <- (centros$cx - p[1])^2 + (centros$cy - p[2])^2
+  which.min(dists)
+})
+
+grid$suceso <- paste0("A", grid$region)
+
+# ==============================================================================
+# 3. Parametrización de la elipse para el suceso B (rotada pi/6)
+# ==============================================================================
+t <- seq(0, 2 * pi, length.out = 300)
+a <- 3.8        # Semieje mayor
+b <- 2.2        # Semieje menor
+angle <- pi / 6 # Ángulo de inclinación
+x0 <- 5         # Centro X de la elipse
+y0 <- 5         # Centro Y de la elipse
+
+df_elipse <- data.frame(
+  x = x0 + a * cos(t) * cos(angle) - b * sin(t) * sin(angle),
+  y = y0 + a * cos(t) * sin(angle) + b * sin(t) * cos(angle)
+)
+
+# ==============================================================================
+# 4. Construcción del gráfico completo
+# ==============================================================================
+ggplot() +
+  # A) Malla de regiones de fondo con colores pastel para la partición A1..A9
+  geom_raster(data = grid, aes(x = x, y = y, fill = suceso), alpha = 0.4) +
+  
+  # B) Fronteras curvas suaves entre regiones (líneas contorno)
+  geom_contour(data = grid, aes(x = x, y = y, z = region), 
+               breaks = 1.5:8.5, color = "gray25", linewidth = 0.8) +
+  
+  # C) Marco exterior de Omega
+  geom_rect(aes(xmin = 0, xmax = 10, ymin = 0, ymax = 10),
+            fill = NA, color = "black", linewidth = 1.2) +
+  
+  # D) Suceso B (Elipse con transparencia superpuesta)
+  geom_polygon(data = df_elipse, aes(x = x, y = y),
+               fill = "navyblue", alpha = 0.35, color = "darkblue", linewidth = 1.2) +
+  
+  # E) Etiquetas de los sucesos A1 a A9
+  geom_text(data = centros, aes(x = cx, y = cy, label = suceso),
+            size = 5.5, fontface = "bold", color = "gray10") +
+  
+  # F) Etiqueta del suceso B
+  annotate("text", x = 4.5, y = 5.5, label = "B", size = 8, color = "darkblue", fontface = "bold") +
+  
+  # G) Etiqueta del espacio muestral Omega
+  annotate("text", x = 0.4, y = 9.6, label = "Ω", size = 8, fontface = "bold.italic") +
+  
+  # H) Configuración estética general
+  scale_fill_brewer(palette = "Set3") +
+  coord_fixed(expand = FALSE, xlim = c(-0.05, 10.05), ylim = c(-0.05, 10.05)) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
+
+```
+
+---
+
+
+#### Teorema de la Probabilidad Total y Teorema de Bayes
+
+Sea $A_1, A_2, \dots, A_k$ una partición de $\Omega$ (sistema completo de sucesos disjuntos cuya unión es $\Omega$):
+
+- **Probabilidad Total**:
+
+  $$P(B) = \sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)$$
+
+- **Teorema de Bayes**:
+
+  $$P(A_j \mid B) = \frac{P(A_j) \cdot P(B \mid A_j)}{\sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)}$$
+
+---
+
+
+   $$P(A \mid B) = \frac{P(A) \cdot P(B \mid A)}{P(A) \cdot P(B \mid A)+P(\bar{A}) \cdot P(B \mid \bar{A})}$$
+   
+Como se puede observar:
+  
+  1. La probabilidad posterior $P({A  \mid B})$ depende de la probabilidad anterior $P(A)$.
+  2. Una característica $B$ solo mejora nuestro conocimiento de $A$ (y viceversa) si $A$ y $B$ *NO SON INDEPENDIENTES* (recuerde que los sucesos disjuntos de probabilidad no nula, nunca son independientes).
+  3. Siendo cierta la anterior, lo importante no es tanto lo probable que sea $B$ cuando aparece $A$ sino cuán diferente es la probabibilidad de que ocurra $B$ cuando ha ocurrido $A$ comparada con la probabilidad de que ocurra $B$ cuando $A$ no ha ocurrido, es decir  $(P(B|A)$ vs. $P(B\|bar{A})$. 
+  
+    Esta última reflexión se entenderá mejor cuando estudiemos el `factor de bayes`, que no es más que la razón entre la ocurrencia de un suceso $B$ cuando se ha producido otro suceso $A$ (del que no es independiente) y la ocurrencia del mismo suceso $B$ cuando se ha producido el complementario $(\bar{A})$. 
+    
+
+  Su utilidad, como veremos algo después, va más allá del diagnóstico clínico, pero su lógica se entiende mejor cuando trabajamos con `odds` en vez de con probabilidades.
+
+
+
+  

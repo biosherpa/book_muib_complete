@@ -1,0 +1,34 @@
+"0","//| echo: false 
+
+
+html`<div style=""display: grid; grid-template-columns: 1.4fr; align-items: center;"">
+  <div>
+    ${Plot.plot({
+      title: ""Distribuciones en Sanos y Enfermos"",
+      subtitle: ""Positivo si valor ≥ punto de corte"",
+      height: 340,
+      x: { label: ""Valor de la escala / biomarcador"", domain: [0, 10] },
+      y: { label: ""Densidad"", domain: [0, 0.45] },
+      marks: [
+        Plot.areaY(area_VN, { x: ""x"", y: ""y"", fill: ""#3498db"", fillOpacity: 0.25 }),
+        Plot.areaY(area_VP, { x: ""x"", y: ""y"", fill: ""#e74c3c"", fillOpacity: 0.25 }),
+        Plot.areaY(area_FP, { x: ""x"", y: ""y"", fill: ""#f39c12"", fillOpacity: 0.45 }),
+        Plot.areaY(area_FN, { x: ""x"", y: ""y"", fill: ""#9b59b6"", fillOpacity: 0.45 }),
+        Plot.line(curvas, { x: ""x"", y: ""y"", stroke: ""grupo"", strokeWidth: 2.5 }),
+        Plot.ruleX([corte], { stroke: ""#111"", strokeWidth: 2.5, strokeDasharray: ""5,4"" }),
+        Plot.text([{ x: corte, y: 0.42, label: `Corte = ${corte.toFixed(2)}` }], {
+          x: ""x"", y: ""y"", text: ""label"", dx: 6, textAnchor: ""start"", fontWeight: ""bold""
+        })
+      ],
+      color: {
+        domain: [""Sanos (D-)"", ""Enfermos (D+)""],
+        range: [""#2980b9"", ""#c0392b""],
+        legend: true
+      }
+    })}
+  </div>
+
+</div>`"
+"2","""ojs"" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+"

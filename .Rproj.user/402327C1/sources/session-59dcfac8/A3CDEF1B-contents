@@ -1,0 +1,29 @@
+```{r}
+biomark1 <- read.csv("_data/preven_cc.csv")
+punto_corte <- 52
+
+resultado_prueba <- biomark1$gold_std
+
+biomarcador <- biomark1$biomarcador
+
+
+resultado_prueba <- cut(biomarcador, c(0,52,100), labels = c("Negativo", "Positivo"))
+
+#La función cut sirve para categorizar una variable continua usando puntos de corte y devuelve una variable de tipo factor.
+# Esta es una forma más "barroca" para construir el mismo factor 
+#resultado_prueba <- factor(ifelse(biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+
+
+# Construcción de la matriz de contingencia para epi.tests
+VP <- sum(resultado_prueba == "Positivo" & gold_std == "Enfermo")
+FP <- sum(resultado_prueba == "Positivo" & gold_std == "Sano")
+FN <- sum(resultado_prueba == "Negativo" & gold_std == "Enfermo")
+VN <- sum(resultado_prueba == "Negativo" & gold_std == "Sano")
+
+matriz_epir <- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)
+colnames(matriz_epir) <- c("Enfermo", "Sano")
+rownames(matriz_epir) <- c("Test +", "Test -")
+
+print(matriz_epir)
+
+```

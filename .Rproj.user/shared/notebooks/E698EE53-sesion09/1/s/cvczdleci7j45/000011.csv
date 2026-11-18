@@ -1,0 +1,5 @@
+"0","# o mejor"
+"0",""
+"0","table_epir <- table(biomark1$resultado_prueba,biomark1$gold_std)"
+"0",""
+"0","epi.tests(table_epir,conf.level = 0.95)"

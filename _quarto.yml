@@ -9,12 +9,15 @@ book:
     - index.qmd
     - part: "Bloque IV: Validación Diagnóstica"
       chapters:
+        - sesion09_intro.qmd
         - sesion09.qmd
         - sesion10.qmd
     - part: "Bloque V: Análisis de Supervivencia"
       chapters:
         - sesion11.qmd
         - sesion12.qmd
+      appendices:
+        - soluc_tarea_is_s09.qmd
 
 # Elimina el prefijo del capítulo en la numeración interna y referencias
 crossref:
@@ -22,12 +25,23 @@ crossref:
 
 format:
   html:
+    include-in-header:
+      text: |
+        <script>
+          MathJax = {
+            loader: {load: ['[tex]/cancel']},
+            tex: {packages: {'[+]': ['cancel']}}
+          };
+        </script>
     theme: cosmo
     toc: true
     code-fold: true
     number-sections: false
-    number-depth: 3
+    number-depth: 4
   pdf:
     documentclass: scrreprt
+    include-in-header:
+      text: |
+        \usepackage{cancel}
     toc: true
     number-sections: false

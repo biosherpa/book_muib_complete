@@ -1,0 +1,17 @@
+"0","//| echo: false
+viewof corte = Inputs.range([0, 10], {
+  value: 5.0,
+  step: 0.05,
+  label: ""Punto de corte (c):""
+})
+
+viewof mu_enf = Inputs.range([4.5, 8.5], {
+  value: 6.2,
+  step: 0.1,
+  label: ""Media en Enfermos (μ₁):""
+})
+
+"
+"2","""ojs"" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+"

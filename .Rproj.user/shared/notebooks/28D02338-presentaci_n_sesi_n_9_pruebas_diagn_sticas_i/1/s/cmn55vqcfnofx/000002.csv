@@ -1,0 +1,4 @@
+"0","#| code-line-numbers: ""1-5|7-11|13-18"""
+"0","biomark1 <- read.csv(""_data/preven_cc.csv"")"
+"2","Error en file(file, ""rt""): no se puede abrir la conexión
+"

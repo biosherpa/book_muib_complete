@@ -1,0 +1,512 @@
+plot(roc_s100b, main = "Test")
+ci_sp <- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))
+plot(ci_sp, type = "shape")
+```{r}
+#| label: fig-roc-plot
+#| fig-cap: "Curva ROC para el biomarcador S100b con intervalo de confianza al 95%"
+#| echo: false
+#| message: false
+#| warning: false
+#| cache: false
+plot(
+roc_s100b,
+main = "Evaluación Diagnóstica: S100b",
+col = "#2E9FDF",
+lwd = 3,
+print.auc = TRUE,
+print.auc.x = 0.4,
+print.auc.y = 0.2,
+auc.polygon = TRUE,
+auc.polygon.col = "#2E9FDF22",
+grid = TRUE
+)
+ci_sp <- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))
+plot(ci_sp, type = "shape", col = "#2E9FDF11")
+renv::status()
+#| label: practica-sesion9-epir
+#| echo: false
+#| message: false
+#| warning: false
+library(epiR)
+# Simulación de datos clínicos (Cohorte de enfermedad coronaria)
+set.seed(2026)
+n <- 1000
+prevalencia_real <- 0.15 # 15% de pacientes enfermos en la población
+gold_std <- factor(rbinom(n, 1, prevalencia_real), levels = c(0, 1), labels = c("Sano", "Enfermo"))
+biomarcador <- rnorm(n, mean = 40 + 12 * as.numeric(gold_std), sd = 10)
+write.csv(data.frame(id=length(gold_std),
+gold_std = gold_std,
+biomarcador),
+"_data/preven_cc.csv")
+biomark1 <- read.csv("_data/preven_cc.csv")
+punto_corte <- 52
+# Extraemos vectores o trabajamos directamente sobre el dataframe
+gold_std <- biomark1$gold_std
+biomarcador <- biomark1$biomarcador
+resultado_prueba <- cut(biomarcador, breaks = c(-Inf, punto_corte, Inf), labels = c("Negativo", "Positivo"))
+#La función cut sirve para categorizar una variable continua usando puntos de corte y devuelve una variable de tipo factor.
+# Esta es una forma más "barroca" para construir el mismo factor
+#resultado_prueba <- factor(ifelse(biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+# Construcción de la matriz de contingencia para epi.tests
+VP <- sum(resultado_prueba == "Positivo" & gold_std == "Enfermo")
+FP <- sum(resultado_prueba == "Positivo" & gold_std == "Sano")
+FN <- sum(resultado_prueba == "Negativo" & gold_std == "Enfermo")
+VN <- sum(resultado_prueba == "Negativo" & gold_std == "Sano")
+matriz_epir <- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)
+colnames(matriz_epir) <- c("Enfermo", "Sano")
+rownames(matriz_epir) <- c("Test +", "Test -")
+print(matriz_epir)
+library(epiR)
+# Evaluación diagnóstica automatizada con intervalos de confianza
+resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
+# Muestra directamente la tabla de métricas con estimación e IC95%
+print(resultados_diagnosticos$detail)
+biomark1 <- read.csv("_data/preven_cc.csv")
+punto_corte <- 52
+# VAmos a crear resultado_prueba de diferentes maneras para finalmente explicar la relevancia
+biomark1$resultado_prueba <- factor(ifelse(biomark1$biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+# Método alternativo.
+biomark1$resultado_prueba2 <- cut(biomark1$biomarcador,breaks = c(0,52,Inf),
+labels = c("Negativo", "Positivo")
+)
+# o mejor
+table_epir <- table(biomark1$resultado_prueba,biomark1$gold_std)
+epi.tests(table_epir,conf.level = 0.95)
+table_epir
+punto_corte <- 52
+biomark1$resultado_prueba_corr <- factor(ifelse(biomark1$biomarcador > punto_corte, 1, 0), levels = c(1, 0), labels = c("Positivo", "Negativo"))
+table_epir_corr <- table(biomark1$resultado_prueba_corr,biomark1$gold_std)
+epi.tests(table_epir_corr,conf.level = 0.95)
+biomark1$resultado_prueba_corr2 <-relevel(
+biomark1$resultado_prueba,
+ref = "Positivo"
+)
+table_epir_corr2 <- table(biomark1$resultado_prueba_corr2,biomark1$gold_std)
+epi.tests(table_epir_corr2,conf.level = 0.95)
+#| echo: false
+#| results: false
+#| message: false
+# ==============================================================================
+# Generación del archivo prevecor.csv (Dataset continuo para ROC)
+# ==============================================================================
+set.seed(2026) # Semilla para reproducibilidad
+n <- 400       # Tamaño muestral
+# 1. Generar variables sociodemográficas y de riesgo cardiovascular
+prevecor_data <- data.frame(
+id = 1:n,
+edad = round(rnorm(n, mean = 62, sd = 9)),
+sexo = sample(c("Hombre", "Mujer"), n, replace = TRUE, prob = c(0.60, 0.40)),
+colesterol_mgdl = round(rnorm(n, mean = 220, sd = 35)),
+pas_mmhg = round(rnorm(n, mean = 138, sd = 16)),
+# Gold Standard: Prevalencia del 30%
+evento_cv = sample(c(1, 0), n, replace = TRUE, prob = c(0.30, 0.70))
+)
+# 2. Generar el biomarcador hs-PCR como variable continua (mg/L)
+# Usamos una distribución Log-Normal dependiente de evento_cv:
+# - Sanos (0): mediana ≈ 1.5 mg/L
+# - Enfermos (1): mediana ≈ 3.5 mg/L
+log_mu <- log(1.5) + log(2.3) * prevecor_data$evento_cv
+prevecor_data$pcr_hs <- round(rlnorm(n, meanlog = log_mu, sdlog = 0.45), 2)
+# 3. Guardar como archivo CSV en _data y en raíz para mayor comodidad
+dir.create("_data", showWarnings = FALSE)
+write.csv(prevecor_data, "_data/prevecor.csv", row.names = FALSE)
+write.csv(prevecor_data, "prevecor.csv", row.names = FALSE)
+cat("El archivo 'prevecor.csv' se ha creado correctamente con pcr_hs continua.\n")
+# 1. Carga e inspección de datos ----------------------------------------------
+prevecor <- read.csv("prevecor.csv", stringsAsFactors = TRUE)
+prevecor$evento_fac <- factor(prevecor$evento_cv, levels = c(1, 0), labels = c("Enfermo", "Sano"))
+# Test Dicotomizado: Forzamos Nivel 1 = "Positivo" para que ocupe la Fila 1 en table()
+prevecor$test_pcr <- factor(
+cut(prevecor$pcr_hs, breaks = c(-Inf, 3.0, Inf), labels = c("Negativo", "Positivo")),
+levels = c("Positivo", "Negativo")
+)
+matriz_2x2 <- table(prevecor$test_pcr, prevecor$evento_fac)
+cat("\n--- Tabla de Contingencia 2x2 Correctamente Orientada ---\n")
+print(matriz_2x2)
+# 3. Cálculo de Índices Diagnósticos con epiR -------------------------------
+res_diag <- epi.tests(matriz_2x2, conf.level = 0.95)
+# 4. Tabulación de resultados ------------------------------------------------
+metricas_clave <- c("se", "sp", "pv.pos", "pv.neg", "lr.pos", "lr.neg")
+etiquetas <- c(
+"se"     = "Sensibilidad (s)",
+"sp"     = "Especificidad (e)",
+"pv.pos" = "Valor Predictivo Positivo (VPP)",
+"pv.neg" = "Valor Predictivo Negativo (VPN)",
+"lr.pos" = "Razón de Verosimilitud (+)",
+"lr.neg" = "Razón de Verosimilitud (-)"
+)
+tabla_final <- res_diag$detail %>%
+filter(statistic %in% metricas_clave) %>%
+mutate(
+Indicador = etiquetas[statistic],
+`Estimación Puntual` = round(est, 3),
+`IC 95%` = sprintf("[%.3f – %.3f]", lower, upper)
+) %>%
+select(Indicador, `Estimación Puntual`, `IC 95%`)
+kable(tabla_final, align = c("l", "c", "c"), caption = "Resultados de la Validación Diagnóstica")
+# 1. Carga e inspección de datos ----------------------------------------------
+prevecor <- read.csv("prevecor.csv", stringsAsFactors = TRUE)
+# 2. Construcción de la Matriz 2x2 para epiR ----------------------------------
+prevecor$evento_fac <- factor(prevecor$evento_cv, levels = c(1, 0), labels = c("Enfermo", "Sano"))
+# Test Dicotomizado: Forzamos Nivel 1 = "Positivo" para que ocupe la Fila 1 en table()
+prevecor$test_pcr <- factor(
+cut(prevecor$pcr_hs, breaks = c(-Inf, 3.0, Inf), labels = c("Negativo", "Positivo")),
+levels = c("Positivo", "Negativo")
+)
+matriz_2x2 <- table(prevecor$test_pcr, prevecor$evento_fac)
+cat("\n--- Tabla de Contingencia 2x2 Correctamente Orientada ---\n")
+print(matriz_2x2)
+# 3. Cálculo de Índices Diagnósticos con epiR -------------------------------
+res_diag <- epi.tests(matriz_2x2, conf.level = 0.95)
+# 4. Tabulación de resultados ------------------------------------------------
+metricas_clave <- c("se", "sp", "pv.pos", "pv.neg", "lr.pos", "lr.neg")
+etiquetas <- c(
+"se"     = "Sensibilidad (s)",
+"sp"     = "Especificidad (e)",
+"pv.pos" = "Valor Predictivo Positivo (VPP)",
+"pv.neg" = "Valor Predictivo Negativo (VPN)",
+"lr.pos" = "Razón de Verosimilitud (+)",
+"lr.neg" = "Razón de Verosimilitud (-)"
+)
+tabla_final <- res_diag$detail %>%
+filter(statistic %in% metricas_clave) %>%
+mutate(
+Indicador = etiquetas[statistic],
+`Estimación Puntual` = round(est, 3),
+`IC 95%` = sprintf("[%.3f – %.3f]", lower, upper)
+) %>%
+select(Indicador, `Estimación Puntual`, `IC 95%`)
+kable(tabla_final, align = c("l", "c", "c"), caption = "Resultados de la Validación Diagnóstica")
+tabla_final
+res_diag
+res_diag$detail
+renv::status()
+renv::snapshot()  # Para actualizar el lockfile con las librerías actuales
+renv::status()
+renv::snapshot()  # Para actualizar el lockfile con las librerías actuales
+renv::status()
+renv::repair()
+renv::status()
+renv::restore()
+renv::snapshot()
+#| label: roc-basic
+#| message: false
+# Objeto ROC (outcome: 'Good' vs 'Poor')
+roc_s100b <- roc(
+response = aSAH$outcome,
+predictor = aSAH$s100b,
+levels = c("Good", "Poor"), # Control / Caso
+direction = "<"             # "<" indica que valores más altos sugieren el caso ("Poor")
+)
+#| label: setup-sesion10
+#| message: false
+#| warning: false
+library(pROC)
+library(ggplot2)
+# Dataset aSAH: Evaluación del biomarcador s100b para mal pronóstico (outcome)
+data(aSAH,package = "pROC") #No hace falta especificar paquetesi ya se ha cargado la librería.
+head(aSAH)
+#| label: setup-sesion10
+#| message: false
+#| warning: false
+library(pROC)
+library(ggplot2)
+# Dataset aSAH: Evaluación del biomarcador s100b para mal pronóstico (outcome)
+data(aSAH,package = "pROC") #No hace falta especificar paquetesi ya se ha cargado la librería.
+head(aSAH)
+#| label: roc-interactivo-plotly
+#| echo: false
+#| message: false
+#| warning: false
+library(pROC)
+library(plotly)
+data(aSAH)
+roc_obj <- roc(aSAH$outcome, aSAH$s100b, quiet = TRUE)
+# Extraemos todos los puntos de corte posibles
+df_roc <- data.frame(
+cutoff = roc_obj$thresholds,
+sens   = roc_obj$sensitivities,
+spec   = roc_obj$specificities,
+fpr    = 1 - roc_obj$specificities
+)
+# Filtramos los infinitos extremos para que el slider sea limpio
+df_roc <- df_roc[is.finite(df_roc$cutoff), ]
+df_roc <- df_roc[order(df_roc$cutoff), ]
+# Creamos los pasos del slider (uno por cada punto de corte)
+steps <- list()
+for (i in seq_len(nrow(df_roc))) {
+step <- list(
+args = list(
+list(
+x = list(df_roc$fpr, df_roc$fpr[i]),
+y = list(df_roc$sens, df_roc$sens[i])
+)
+),
+label = sprintf("%.2f", df_roc$cutoff[i]),
+method = "restyle"
+)
+steps[[i]] <- step
+}
+# Punto inicial (por ejemplo, el índice de Youden)
+idx_init <- which.max(df_roc$sens + df_roc$spec - 1)
+fig <- plot_ly() %>%
+# Curva ROC completa
+add_trace(
+x = df_roc$fpr, y = df_roc$sens,
+type = "scatter", mode = "lines",
+name = sprintf("Curva ROC (AUC = %.3f)", auc(roc_obj)),
+line = list(color = "#2C3E50", width = 3),
+hoverinfo = "text",
+text = sprintf("Corte: %.2f<br>Sens: %.1f%%<br>Esp: %.1f%%",
+df_roc$cutoff, df_roc$sens*100, df_roc$spec*100)
+) %>%
+# Punto móvil seleccionado por el slider
+add_trace(
+x = df_roc$fpr[idx_init], y = df_roc$sens[idx_init],
+type = "scatter", mode = "markers",
+name = "Punto de corte activo",
+marker = list(color = "#E74C3C", size = 12, line = list(color = "white", width = 2))
+) %>%
+# Diagonal de azar
+add_segments(
+x = 0, xend = 1, y = 0, yend = 1,
+line = list(dash = "dash", color = "gray"),
+showlegend = FALSE
+) %>%
+layout(
+title = "Impacto del punto de corte en Sensibilidad y 1 - Especificidad",
+xaxis = list(title = "1 - Especificidad (Tasa Falsos Positivos)", range = c(-0.02, 1.02)),
+yaxis = list(title = "Sensibilidad (Tasa Verdaderos Positivos)", range = c(-0.02, 1.02)),
+sliders = list(
+list(
+active = idx_init - 1,
+currentvalue = list(prefix = "Punto de corte (s100b): "),
+steps = steps
+)
+)
+)
+fig
+W <-wilcox.test( aSAH[aSAH$outcome == "Poor",]$s100b,aSAH[aSAH$outcome == "Good",]$s100b,paired = F)$statistic
+n<-length(aSAH[aSAH$outcome == "Good",]$s100b)
+m<-length(aSAH[aSAH$outcome == "Poor",]$s100b)
+W/(n*m)
+#| label: tbl-construccion-manual-roc
+#| tbl-cap: "Construcción manual de las coordenadas ROC a partir de los puntos de corte de s100b (cohorte aSAH: n1 = 41 casos, n0 = 72 controles)"
+#| message: false
+#| warning: false
+library(tidyverse)
+library(gt)
+library(pROC)
+# Extraemos todos los umbrales y métricas desde el objeto roc_s100b
+tabla_roc <- coords(
+roc_s100b,
+x = "all",
+ret = c("threshold", "tp", "fn", "tn", "fp", "sensitivity", "specificity", "youden"),
+transpose = FALSE
+)
+# Calculamos 1 - Especificidad (eje X de la curva ROC) y redondeamos
+tabla_roc$fpr <- 1 - tabla_roc$specificity
+# Seleccionamos una muestra equiespaciada de 15 umbrales + el óptimo de Youden para visualización clara
+idx_youden <- which.max(tabla_roc$youden)
+idx_muestra <- unique(sort(c(
+1,
+round(seq(2, nrow(tabla_roc) - 1, length.out = 13)),
+idx_youden,
+nrow(tabla_roc)
+)))
+tabla_mostrar <- tabla_roc[idx_muestra, c(
+"threshold", "tp", "fn", "tn", "fp", "sensitivity", "specificity", "fpr", "youden"
+)]
+# Formateo con gt destacando la fila del punto de corte óptimo de Youden
+fila_optima_gt <- which(tabla_mostrar$threshold == tabla_roc$threshold[idx_youden])
+tabla_mostrar |>
+select(-youden) %>%
+gt() |>
+cols_label(
+threshold   = md("Punto de corte ($c$)"),
+tp          = "VP",
+fn          = "FN",
+tn          = "VN",
+fp          = "FP",
+sensitivity = md("Sensibilidad ($s$)"),
+specificity = md("Especificidad ($e$)"),
+fpr         = md("$1 - e$ (Eje X)"),
+# youden      = md("Youden ($J$)")
+) |>
+fmt_number(columns = threshold, decimals = 3) |>
+fmt_number(columns = c(tp, fn, tn, fp), decimals = 0) |>
+fmt_percent(columns = c(sensitivity, specificity, fpr), decimals = 1) |>
+# fmt_number(columns = youden, decimals = 3) |>
+# tab_style(
+#   style = list(
+#     cell_fill(color = "#E8F4F8"),
+#     cell_text(weight = "bold")
+#   ),
+#   locations = cells_body(rows = fila_optima_gt)
+# ) |>
+# tab_footnote(
+#   footnote = "Fila resaltada: punto de corte óptimo según el Índice de Youden (c* = 0.205).",
+#   locations = cells_body(columns = threshold, rows = fila_optima_gt)
+# ) |>
+tab_options(
+table.font.size = px(13),
+data_row.padding = px(4)
+)
+#| label: roc-basic
+#| message: false
+# Objeto ROC (outcome: 'Good' vs 'Poor')
+roc_s100b <- roc(
+response = aSAH$outcome,
+predictor = aSAH$s100b,
+levels = c("Good", "Poor"), # Control / Caso
+direction = "<"             # "<" indica que valores más altos sugieren el caso ("Poor")
+)
+# Área bajo la curva (AUC)
+auc(roc_s100b)
+# Intervalo de confianza al 95% para el AUC (Delong)
+ci.auc(roc_s100b)
+#| label: fig-roc-plot
+#| fig-cap: "Curva ROC para el biomarcador S100b con intervalo de confianza al 95%"
+#| echo: false
+#| message: false
+#| warning: false
+#| cache: false
+plot(
+roc_s100b,
+main = "Evaluación Diagnóstica: S100b",
+col = "#2E9FDF",
+lwd = 3,
+print.auc = TRUE,
+print.auc.x = 0.4,
+print.auc.y = 0.2,
+auc.polygon = TRUE,
+auc.polygon.col = "#2E9FDF22",
+grid = TRUE
+)
+ci_sp <- ci.se(roc_s100b, specificities = seq(0, 1, 0.1))
+plot(ci_sp, type = "shape", col = "#2E9FDF11")
+#| label: optimal-cutpoint
+# Extracción del punto de corte óptimo por el método de Youden
+corte_optimo <- coords(
+roc_s100b,
+x = "best",
+best.method = "youden",
+ret = c("threshold", "sensitivity", "specificity", "ppv", "npv")
+)
+corte_optimo
+#| label: optimal-cutpoint-topleft
+# Extracción del punto de corte óptimo por distancia mínima al punto ideal (0, 1)
+corte_topleft <- coords(
+roc_s100b,
+x = "best",
+best.method = "closest.topleft",
+ret = c("threshold", "sensitivity", "specificity", "ppv", "npv")
+)
+corte_topleft
+#| label: tbl-construccion-manual-roc-youden
+#| tbl-cap: "Construcción manual de las coordenadas ROC a partir de los puntos de corte de s100b (cohorte aSAH: n1 = 41 casos, n0 = 72 controles)"
+#| message: false
+#| warning: false
+library(tidyverse)
+library(gt)
+library(pROC)
+# Extraemos todos los umbrales y métricas desde el objeto roc_s100b
+tabla_roc <- coords(
+roc_s100b,
+x = "all",
+ret = c("threshold", "tp", "fn", "tn", "fp", "sensitivity", "specificity", "youden"),
+transpose = FALSE
+)
+# Calculamos 1 - Especificidad (eje X de la curva ROC) y redondeamos
+tabla_roc$fpr <- 1 - tabla_roc$specificity
+# Seleccionamos una muestra equiespaciada de 15 umbrales + el óptimo de Youden para visualización clara
+idx_youden <- which.max(tabla_roc$youden)
+idx_topleft <- which(tabla_roc$threshold == corte_topleft$threshold)
+idx_muestra <- unique(sort(c(
+1,
+round(seq(2, nrow(tabla_roc) - 1, length.out = 13)),
+idx_youden,
+idx_topleft,
+nrow(tabla_roc)
+)))
+tabla_mostrar <- tabla_roc[idx_muestra, c(
+"threshold", "tp", "fn", "tn", "fp", "sensitivity", "specificity", "fpr", "youden"
+)]
+# Formateo con gt destacando la fila del punto de corte óptimo de Youden
+fila_optima_you_gt <- which(tabla_mostrar$threshold == tabla_roc$threshold[idx_youden])
+fila_optima_euc_gt <- which(tabla_mostrar$threshold == tabla_roc$threshold[idx_topleft])
+tabla_mostrar |>
+# select(-youden) %>%
+gt() |>
+cols_label(
+threshold   = md("Punto de corte ($c$)"),
+tp          = "VP",
+fn          = "FN",
+tn          = "VN",
+fp          = "FP",
+sensitivity = md("Sensibilidad ($s$)"),
+specificity = md("Especificidad ($e$)"),
+fpr         = md("$1 - e$ (Eje X)"),
+youden      = md("Youden ($J$)")
+) |>
+fmt_number(columns = threshold, decimals = 3) |>
+fmt_number(columns = c(tp, fn, tn, fp), decimals = 0) |>
+fmt_percent(columns = c(sensitivity, specificity, fpr), decimals = 1) |>
+fmt_number(columns = youden, decimals = 3) |>
+tab_style(
+style = list(
+cell_fill(color = "#E8F4F8"),
+cell_text(weight = "bold")
+),
+locations = cells_body(rows = fila_optima_you_gt)
+) |>
+tab_style(
+style = list(
+cell_fill(color = "#FADADD"),
+cell_text(weight = "bold")
+),
+locations = cells_body(rows = fila_optima_euc_gt)
+) |>
+tab_footnote(
+footnote = "Fila resaltada: punto de corte óptimo según el Índice de Youden (c* = 0.205).",
+locations = cells_body(columns = threshold, rows = fila_optima_you_gt)
+) |>
+tab_footnote(
+footnote = "Fila resaltada: punto de corte óptimo según el Índice de Youden (c* = 0.205).",
+locations = cells_body(columns = threshold, rows = fila_optima_euc_gt)
+) |>
+tab_options(
+table.font.size = px(13),
+data_row.padding = px(4)
+)
+# Solución de referencia para la corrección de la Tarea 10
+library(pROC)
+prevecor <- read.csv("_data/prevecor.csv")
+# 1. Objeto ROC
+roc_prevecor <- roc(
+response  = prevecor$evento_cv,
+predictor = prevecor$pcr_hs,
+levels    = c(0, 1),
+direction = "<",
+ci        = TRUE
+)
+# AUC e IC95% (DeLong)
+# AUC aprox: ~0.83 - 0.85 según calibración
+auc(roc_prevecor)
+ci.auc(roc_prevecor)
+# 2. Punto de corte óptimo por Youden
+corte_youden <- coords(
+roc_prevecor,
+x           = "best",
+best.method = "youden",
+ret         = c("threshold", "sensitivity", "specificity", "ppv", "npv", "youden")
+)
+print(corte_youden)
+#| label: setup-sesion10
+#| message: false
+#| warning: false
+library(pROC)
+library(ggplot2)
+# Dataset aSAH: Evaluación del biomarcador s100b para mal pronóstico (outcome)
+data(aSAH,package = "pROC") #No hace falta especificar paquetesi ya se ha cargado la librería.
+head(aSAH)

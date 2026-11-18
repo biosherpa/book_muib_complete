@@ -8,6 +8,10 @@ format:
     toc: true
     code-fold: show
     number-sections: false
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{cancel}
 ---
 
 ## Objetivos de aprendizaje.
@@ -21,292 +25,76 @@ format:
 
 ## Introducción.
 
-### Repaso de conceptos de probabilidad necesarios.
+### Marco conceptual: Validez vs. fiabilidad
 
-  El cálculo de probabilidades es la teoría matemática que nos permite analizar los fenómenos en los que interviene el azar. 
-  Para ello, utiliza el concepto de espacio probabilístico $\{\Omega,\mathcal{A},P\}$ que puede ser un espacio totalmente especificado (como el lanzamiento de un dado perfecto), pero también permite construir espacios probabilísticos adaptados a situaciones experimentales concretas. 
-  
-  Para este último objetivo, para construir espacios adaptados a situaciones concretas, necesitamos realizar observaciones sobre la realidad, en realidad, una observación limitada de la misma, y es aquí donde entra en juego la estadística inferencial.
-  
-  La estadística inferencial nos permiteo obtener información acerca de la ley de probabilidad que gobierna un fenómeno a partir de la observación no exhaustiva de l mismo. Aunque solemos distuingir entre estadística descriptiva e inferencial, el objetivo de la estadística es hablar de la población lo que en el fondo supone inferir sobre la población a partir de nuestra limitada muestra.
-  
+Antes de entrar en los pormenores de la validación diagnóstica, conviene precisar dos dimensiones de la calidad de la medida que a menudo se confunden.
 
+  * **Fiabilidad (repetibilidad / concordancia / reproducibilidad):** Grado en que un instrumento ofrece el mismo resultado cuando se aplica en repetidas ocasiones bajo las mismas condiciones (ausencia de error aleatorio).
   
-## Experimento Aleatorio y Espacio Muestral
+  * **Validez (exactitud / exactitud de medida):** Grado en que un instrumento mide realmente el fenómeno o variable que pretende medir (ausencia de error sistemático o sesgo).
 
-- **Experimento Aleatorio**: 
-
-  * Se puede repetir en las mismas condiciones indefinidamente.
-  * Partiendo de las mismas condiciones iniciales, pueden darse resultados diferentes. 
-  * Todos los resultados posibles se conocen por anticipado.
-  * No se puede predecir cuál ocurrirá en una experiencia en particular.
-  * La frecuencia relativa con la que aparece un determinado suceso, tiende a su probabilidad.
-  
-- **Espacio Muestral ($\Omega$)**: Conjunto compuesto por todos los resultados posibles del experimento aleatorio.
-  - *Resultado elemental* ($\omega \in \Omega$): Desenlace individual e indivisible.
-  - *Ejemplo*: Lanzamiento de un dado, $\Omega = \{1, 2, 3, 4, 5, 6\}$.
+> **Aclaración terminológica:** La *concordancia* o *reproducibilidad* entre mediciones repetidas pertenece al ámbito de la **fiabilidad**, no de la validez. Un instrumento puede ser altamente reproducible (dar siempre la misma cifra) y, sin embargo, carecer totalmente de validez (estar descalibrado o medir el concepto equivocado).
 
 ---
 
-## Tipos de Espacios Muestrales
+### Abordajes clásicos para evaluar la validez
 
-| Tipo de Espacio | Ejemplo Biomédico | Espacio Muestral ($\Omega$) | Suceso de Interés ($A \in \mathcal{A}$) |
-| :--- | :--- | :--- | :--- |
-| **Finito** | Grupo sanguíneo | $\Omega = \{A, B, AB, O\}$ | "Compatibilidad con A" $\rightarrow A=\{A, O\}$ |
-| **Infinito Numerable** | Nº de crisis asmáticas/año | $\Omega = \{0, 1, 2, 3, \dots\}$ | "Más de 3 crisis" $\rightarrow A=\{4, 5, 6, \dots\}$ |
-| **No Numerable (Continuo)** | Glucosa en ayunas (mg/dL) | $\Omega = (0, +\infty)$ | "Criterio de diabetes" $\rightarrow A = [126, +\infty)$ |
+  Cuando nos preguntamos si nuestra prueba o instrumento es *válido*, la respuesta depende del tipo de variable y de si disponemos o no de una referencia absoluta. Tradicionalmente se distinguen tres formas de abordar la validez:
 
----
+1. **Validez de contenido:** 
 
-## Espacio Probabilístico $(\Omega, \mathcal{A}, P)$
+   * Evalúa si el instrumento incluye una muestra representativa y exhaustiva de todas las **dimensiones** del concepto que se desea medir. 
+   * Es un juicio predominantemente teórico o de expertos (frecuente en escalas de calidad de vida o cuestionarios de síntomas).
 
-Un **espacio probabilístico** es la estructura matemática que modela un experimento aleatorio definida por la terna $(\Omega, \mathcal{A}, P)$:
+2. **Validez de constructo:** 
 
-1. **$\Omega$**: Espacio muestral (todos los resultados elementales).
-2. **$\mathcal{A}$**: $\sigma$-álgebra de sucesos (colección de subconjuntos de $\Omega$ cerrada respecto al complementario y uniones numerables).
-3. **$P$**: Medida de probabilidad $P: \mathcal{A} \rightarrow [0,1]$ que satisface los axiomas.
+   * Se utiliza cuando la variable de interés es un concepto abstracto ("constructo") que no se puede observar directamente ni medir con un estándar físico (ej. *burnout*, depresión, fragilidad).
+   * Se evalúa comprobando si la prueba se comporta tal como predice la teoría (mediante validez convergente con otros tests similares, o discriminante frente a conceptos distintos).
 
----
+3. **Validez de criterio (o diagnóstica):** 
 
-## Estructura Algebraica: Álgebra y $\sigma$-Álgebra
-
-  **Álgebra de Sucesos ($\mathcal{A}$)**:
-
-  - Contiene a $\Omega$ (y por tanto a $\emptyset$).
-  - Cerrada bajo complementación ($A \in \mathcal{A} \implies A^c \in \mathcal{A}$).
-  - Cerrada bajo uniones finitas ($A_1, \dots, A_n \in \mathcal{A} \implies \bigcup_{i=1}^n A_i \in \mathcal{A}$).
-  
-  **$\sigma$-Álgebra de Sucesos ($\mathcal{A}$)**:
-  
-  - Mismas propiedades, pero cerrada bajo **uniones numerables infinitas**:
-  
-  $$A_1, A_2, \dots \in \mathcal{A} \implies \bigcup_{i=1}^{\infty} A_i \in \mathcal{A}$$
-
----
-
-## Operaciones Lógicas con Sucesos
-
-| Propiedad | Unión ($\cup$) | Intersección ($\cap$) |
-| :--- | :--- | :--- |
-| **Conmutativa** | $A \cup B = B \cup A$ | $A \cap B = B \cap A$ |
-| **Asociativa** | $(A \cup B) \cup C = A \cup (B \cup C)$ | $(A \cap B) \cap C = A \cap (B \cap C)$ |
-| **Distributiva** | $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ | $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ |
-| **Leyes de De Morgan** | $(A \cup B)^c = A^c \cap B^c$ | $(A \cap B)^c = A^c \cup B^c$ |
-| **Elemento Neutro** | $A \cup \emptyset = A$ | $A \cap \Omega = A$ |
-| **Absorción** | $A \cup \Omega = \Omega$ | $A \cap \emptyset = \emptyset$ |
-
----
-
-# Definiciones y Axiomas de Probabilidad
-
-## Enfoques de Probabilidad
-
-1. **Clásica (Laplace)**: Para sucesos equiprobables,
-   $$P(A) = \frac{\text{Número de casos favorables}}{\text{Número de casos posibles}}$$
-2. **Frecuentista (Empírica / Objetiva)**: $\textit{a posteriori}$.
-   $$P(A) = \lim_{n \to \infty} \frac{n_A}{n}$$
-3. **Bayesiano (Subjetiva)**: $\textit{a priori}$. Representa el grado de creencia o certeza sobre la ocurrencia de un suceso.
-
----
-
-## Axiomas de Kolmogorov
-
-Sea $(\Omega, \mathcal{A}, P)$ un espacio probabilístico:
-
-- **Axioma 1**: $P(A) \ge 0, \quad \forall A \in \mathcal{A}$
-- **Axioma 2**: $P(\Omega) = 1$
-- **Axioma 3**: Para cualquier sucesión de sucesos mutuamente disjuntos   ($A_i \cap A_j = \emptyset, \, i \ne j$):
-  
-  $$P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i)$$
-
----
-
-## Propiedades y Teoremas Fundamentales
-
-1. **Suceso Complementario**: $P(A') = 1 - P(A)$
-2. **Suceso Imposible**: $P(\emptyset) = 0$
-3. **Inclusión**: Si $A \subset B \implies P(A) \le P(B)$ y $P(B \setminus A) = P(B) - P(A)$
-4. **Acotación**: $0 \le P(A) \le 1$
-5. **Ley aditiva de la probabilidad**:
-
-   $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
-   
-6. **Para 3 sucesos**:
-
-   $$P(A_1 \cup A_2 \cup A_3) = P(A_1) + P(A_2) + P(A_3) - P(A_1 \cap A_2) - P(A_1 \cap A_3) - P(A_2 \cap A_3) + P(A_1 \cap A_2 \cap A_3)$$
-
----
-
-# Probabilidad Condicionada e Independencia
-
-## Independencia de Sucesos
-
-Dos sucesos $A$ y $B$ son **independientes** si la ocurrencia de uno no modifica la probabilidad del otro:
-
-$$P(B \mid A) = P(B) \iff P(A \cap B) = P(A) \cdot P(B)$$
-
-::: {.callout-note}
-### ¡Atención!
-- **Disjuntos (Incompatibles)**: $A \cap B = \emptyset \implies P(A \cap B) = 0$.
-- Dos sucesos incompatibles con probabilidades no nulas **NUNCA** son independientes, pues saber que ocurrió uno implica que no puede ocurrir el otro.
-:::
-
----
-
-## Probabilidad Condicionada y ley multiplicativa de la probabilidad.
-
-La probabilidad del suceso $B$ dado que ha ocurrido $A$ (con $P(A) > 0$) es:
-
-$$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
-
-De aquí se deriva la **ley multiplicativa**:
-
-$$P(A \cap B) = P(A) \cdot P(B \mid A)$$
-
-Para $n$ eventos:
-
-$$P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid \bigcap_{i=1}^{n-1} A_i)$$
-
----
-
-   
-### Sistema completo de sucesos.
-
-Un sistema completo de sucesos es un espacio de sucesos en el que:
-
-  - Todos los sucesos son incompatibles entre sí.
-  - La unión de todos es el espacio completo de sucesos.
-  
-  $$P\Big( \bigcup_{i=1}^{k} A_{i,j}\Big) = P(\Omega)  $$
-  
-  $$P(A_i \cap A_j)=P(\emptyset)$$
+   * Se evalúa comparando los resultados de la nueva prueba o medición con una **regla de oro** (*gold standard* o criterio de referencia) que determina la presencia o ausencia real de la enfermedad o rasgo.
+   * Se subdivide en:
+     * *Validez concurrente:* La nueva prueba y el criterio de referencia se aplican simultáneamente.
+     * *Validez predictiva:* La prueba evalúa la capacidad de predecir un evento que ocurrirá en el futuro.
 
 ---
 
 
+  En epidemiología clínica, cuando evaluamos una **prueba diagnóstica**, un biomarcador o una escala de cribado frente a una enfermedad concreta, estamos hablando fundamentalmente de la **validez de criterio**.
 
-```{r}
-#| echo: false
+  A lo largo de este tema y el siguiente nos centraremos de manera exclusiva en este abordaje:
 
-library(ggplot2)
+  * ¿Cómo cuantificamos la validez de criterio de una prueba dicotómica? (**Sensibilidad** y **especificidad**).
+  * ¿Cómo varía su rendimiento según el punto de corte en variables continuas? (**Curvas ROC** y **área bajo la curva**).
+  * ¿Cómo trasladamos esta validez intrínseca a la práctica clínica real? (**Valores predictivos** y **razones de verosimilitud / *likelihood ratios***).
 
-# ==============================================================================
-# 1. Definición de centros para los 9 sucesos (A1 a A9) en la matriz 3x3
-# ==============================================================================
-centros <- data.frame(
-  suceso = paste0("A", 1:9),
-  cx = rep(c(2.0, 5.0, 8.0), each = 3),
-  cy = rep(c(8.0, 5.0, 2.0), times = 3)
-)
 
-# ==============================================================================
-# 2. Generación de una malla de puntos y asignación de regiones curvas
-# ==============================================================================
-# Crear una rejilla de alta resolución para todo el espacio Omega [0, 10] x [0, 10]
-grid <- expand.grid(
-  x = seq(0, 10, length.out = 180),
-  y = seq(0, 10, length.out = 180)
-)
 
-# Distorsión armónica/ondulada suave para crear bordes curvos tipo puzle/orgánicos
-grid$x_dist <- grid$x + 0.45 * sin(grid$y * pi / 3) + 0.25 * cos(grid$x * pi / 2)
-grid$y_dist <- grid$y + 0.45 * cos(grid$x * pi / 3) + 0.25 * sin(grid$y * pi / 2)
 
-# Asignar cada punto de la malla al centroide más cercano (Distancia Euclidiana con distorsión)
-grid$region <- apply(grid[, c("x_dist", "y_dist")], 1, function(p) {
-  dists <- (centros$cx - p[1])^2 + (centros$cy - p[2])^2
-  which.min(dists)
-})
 
-grid$suceso <- paste0("A", grid$region)
+### Teorema de Bayes aplicado al diagnóstico:
 
-# ==============================================================================
-# 3. Parametrización de la elipse para el suceso B (rotada pi/6)
-# ==============================================================================
-t <- seq(0, 2 * pi, length.out = 300)
-a <- 3.8        # Semieje mayor
-b <- 2.2        # Semieje menor
-angle <- pi / 6 # Ángulo de inclinación
-x0 <- 5         # Centro X de la elipse
-y0 <- 5         # Centro Y de la elipse
-
-df_elipse <- data.frame(
-  x = x0 + a * cos(t) * cos(angle) - b * sin(t) * sin(angle),
-  y = y0 + a * cos(t) * sin(angle) + b * sin(t) * cos(angle)
-)
-
-# ==============================================================================
-# 4. Construcción del gráfico completo
-# ==============================================================================
-ggplot() +
-  # A) Malla de regiones de fondo con colores pastel para la partición A1..A9
-  geom_raster(data = grid, aes(x = x, y = y, fill = suceso), alpha = 0.4) +
+  En las notas de repaso sobre probabilidad condicionada usábamos $A$ y $B$ para referirnos a dos sucesos no independientes.  
   
-  # B) Fronteras curvas suaves entre regiones (líneas contorno)
-  geom_contour(data = grid, aes(x = x, y = y, z = region), 
-               breaks = 1.5:8.5, color = "gray25", linewidth = 0.8) +
-  
-  # C) Marco exterior de Omega
-  geom_rect(aes(xmin = 0, xmax = 10, ymin = 0, ymax = 10),
-            fill = NA, color = "black", linewidth = 1.2) +
-  
-  # D) Suceso B (Elipse con transparencia superpuesta)
-  geom_polygon(data = df_elipse, aes(x = x, y = y),
-               fill = "navyblue", alpha = 0.35, color = "darkblue", linewidth = 1.2) +
-  
-  # E) Etiquetas de los sucesos A1 a A9
-  geom_text(data = centros, aes(x = cx, y = cy, label = suceso),
-            size = 5.5, fontface = "bold", color = "gray10") +
-  
-  # F) Etiqueta del suceso B
-  annotate("text", x = 4.5, y = 5.5, label = "B", size = 8, color = "darkblue", fontface = "bold") +
-  
-  # G) Etiqueta del espacio muestral Omega
-  annotate("text", x = 0.4, y = 9.6, label = "Ω", size = 8, fontface = "bold.italic") +
-  
-  # H) Configuración estética general
-  scale_fill_brewer(palette = "Set3") +
-  coord_fixed(expand = FALSE, xlim = c(-0.05, 10.05), ylim = c(-0.05, 10.05)) +
-  theme_void() +
-  theme(
-    legend.position = "none",
-    plot.margin = margin(10, 10, 10, 10)
-  )
+  Para acercarlo a la interpretación clínica, vamos a aplicarlo al diagnóstico asumiendo que $A$ es la presencia de la una Enfermedad ($E$) y $B$ es la presencia de un síntoma ($S$).
 
-```
-
----
-
-
-## Teorema de la Probabilidad Total y Teorema de Bayes
-
-Sea $A_1, A_2, \dots, A_k$ una partición de $\Omega$ (sistema completo de sucesos disjuntos cuya unión es $\Omega$):
-
-- **Probabilidad Total**:
-
-  $$P(B) = \sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)$$
-
-- **Teorema de Bayes**:
-
-  $$P(A_j \mid B) = \frac{P(A_j) \cdot P(B \mid A_j)}{\sum_{i=1}^{k} P(A_i) \cdot P(B \mid A_i)}$$
-
----
-
-
-- **Teorema de Bayes aplicado al diagnóstico**:
 
   El T. de Bayes aplicado a una causa binaria $(E , \bar{E})$ permite entender los factores que relacionan la probabilidad anterior $P(E)$ y la $P({E  \mid S})$.
   
+  Así, la expresión general...
+  
+   $$P(A \mid B) = \frac{P(A) \cdot P(B \mid A)}{P(A) \cdot P(B \mid A)+P(\bar{A}) \cdot P(B \mid \bar{A})}$$
+  aplicada a su uso para el diagnóstico de una enfermedad tras conocer que se ha dado un síntoma quedaría de la siguiente manera.
  
   $$P(E \mid S) = \frac{P(E) \cdot P(S \mid E)}{P(E) \cdot P(S \mid E)+P(\bar{E}) \cdot P(S \mid \bar{E})}$$
- Como se puede ver:
-  
-  1. La probabilidad posterior $P({E  \mid S})$ depende de la probabilidad anterior $P(E)$.
-  2. Un síntoma o un resultado diagnóstico solo contribuye a detectar la enfermedad si este y la enfermedad NO SON INDEPENDIENTES.
-  3. Siendo cierta la anterior, los síntomas que ayudan a diagnosticar enfermedades no son los más frecuentes en los pacientes sino aquellos cuya frecuencia es muy diferente en enfermos $(E)$ y no enfermos $(\bar{E})$ .
+A lo largo de la formación de muchos/as profesionales clínicos suele ofrecérseles información sobre la frecuencia con la que aparecen determinados síntomas en una enfermedad dada ($P(S|E)$). Sin embargo, en la práctica clínica la pregunta clave es otra probabilidad condicionada $P(E|S)$ (recuerde que estas dos probabilidades no son complementarias entre sí).
 
+  En esta *"inversión de las condiciones"* es donde cobra relevancia este teorema.
 
-## Validación Diagnóstica y Matrices de Confusión.
+ 
+
+## Validación diagnóstica.
 
   Todas las probabilidades condicionadas que aparecen en la formulación anterior puede calcularse en tablas de contingencia que enfrenten el resultado del test diagnóstico o el síntoma con el *gold standar* que define la enfermedad, en teoría, no siempre, de manera inequívoca.
   
@@ -314,35 +102,35 @@ Sea $A_1, A_2, \dots, A_k$ una partición de $\Omega$ (sistema completo de suces
 
 ### Estructura de la Matriz $2\times2$
 
-En investigación clínica, validar una nueva prueba diagnóstica requiere enfrentar su resultado frente a un patrón de referencia u *gold standard* (patrón oro). 
+  En investigación clínica, validar una nueva prueba diagnóstica requiere enfrentar su resultado frente a un patrón de referencia u *gold standard* (patrón oro). 
 
-La estructura básica se resume en la siguiente tabla[^1].
+  La estructura básica se resume en la siguiente tabla[^1].
 
-En función de la relación entre el resultado y la verdad, al menos la verdad medida por el *gold standard*.
+  En función de la relación entre el resultado y la verdad, al menos la verdad medida por el *gold standard*.
 
-[^1]: Aunque la siguiente tabla utiliza el resultado de un test, positivo podría ser en realidad cualquier característica (p.ej. un síntoma, una característica..) que se asocie con la aparición de la enfermedad, y el resultado negativo sería su complementario (no tener el síntoma, la característica...)  :
-
-| | Enfermo ($D+$) | Sano ($D-$) | Total |
-| :--- | :---: | :---: | :---: |
-| **Positivo ($T+$)** | $VP$ | $FP$ | $VP + FP$ |
-| **Negativo ($T-$)** | $FN$ | $VN$ | $FN + VN$ |
-| **Total** | $VP + FN$ | $FP + VN$ | $N$ |
-
-$VP$: Verdaderos Positivos 
-$FP$: Falsos Positivos
-$FN$: Falsos Negativos
-$VN$. Verdaderos Negativos
+  [^1]: Aunque la siguiente tabla utiliza el resultado de un test, positivo podría ser en realidad cualquier característica (p.ej. un síntoma, una característica..) que se asocie con la aparición de la enfermedad, y el resultado negativo sería su complementario (no tener el síntoma, la característica...)  :
+  
+  | | Enfermo ($D+$) | Sano ($D-$) | Total |
+  | :--- | :---: | :---: | :---: |
+  | **Positivo ($T+$)** | $VP$ | $FP$ | $VP + FP$ |
+  | **Negativo ($T-$)** | $FN$ | $VN$ | $FN + VN$ |
+  | **Total** | $VP + FN$ | $FP + VN$ | $N$ |
+  
+  $VP$: Verdaderos Positivos 
+  $FP$: Falsos Positivos
+  $FN$: Falsos Negativos
+  $VN$. Verdaderos Negativos
 
 ---
 
-### Parámetros Principales de validez y rendimiento-
+### Parámetros principales de validez y rendimiento.
 
   En una prueba que devuelve un resultado binario (presencia/ausencia; positivo/negativo...) podemos estimar la validez de dicha prueba mediante dos medidas (en el fondo frecuencias relativas): la sensibilidad (s) y la especificidad. La primera habla de los sujetos que, según el *Gold Standard*, tienen la enfermedad y la segunda de los sujetos que no la tienen, son por tanto probabilidades condicionadas al grupo a la pertenencia a uno u otro grupo.
 
-  * **Sensibilidad (Se):** Probabilidad de que la prueba sea positiva en pacientes enfermos.
+  * **Sensibilidad (s):** Probabilidad de que la prueba sea positiva en pacientes enfermos.
     $$\text{s} = \frac{VP}{VP + FN}$$
     
-  * **Especificidad (Sp):** Probabilidad de que la prueba sea negativa en pacientes sanos.
+  * **Especificidad (e):** Probabilidad de que la prueba sea negativa en pacientes sanos.
     $$\text{e} = \frac{VN}{FP + VN}$$
 
   Por su parte, los valores predictivos son también probabilides condicionadas, en los que la condicion es el resultado obtenido.
@@ -357,72 +145,277 @@ $VN$. Verdaderos Negativos
     
   Se suele aceptar que la sensibilidad y la especificidad de la prueba son las mismas siempre. En realidad esto es solo teórico, porque la validez del test viene condicionado por otras circunstancias como la pericia de los técnicos, las condiciones del laboratorio (humedad, temperatura) o características biológicas (conocidas o no) que también lo afecten. 
 
-Lo que sí es cierto es que si eliminásemos todos estos condicionantes, la validez de la prueba no dependería de la frecuencia de la enfermedad, algo que sí afecta a la probabilidad posterior (los valores predictivos en este ejemplo).
+  Lo que sí es cierto es que si eliminásemos todos estos condicionantes, la validez de la prueba no dependería de la frecuencia de la enfermedad, algo que sí afecta a la probabilidad posterior (los valores predictivos en este ejemplo).
 
 
 #### Factor de Bayes 
 
-El factor de Bayes, permite relacionar de una manera mucho más cercana la probabilidad previa (*a priori*) con la probabilidad posterior (*a posteriori*).
-
-Es necesario recordar aquí el concepto de `odd`.
+  Como hemos comentado anteriormente, el factor de bayes  establece cuánto más probable es que se produzca $A$ cuando se ha producido $B$ que cuando no se ha producido $B$, es decir cuando se ha producido $\bar{B}$, pero la lógica se entiende mejor cuando trabajamos con `odds` en vez de con probabilidades. En términos de enfermedad y síntoma, cuánto más probable es que se produzca $E$ cuando observamos que aparece el síntoma $S$ que cuando no se ha producido $\bar{S}$
+  
+  El factor de Bayes, permite relacionar de una manera mucho más cercana la probabilidad previa (*a priori*) con la probabilidad posterior (*a posteriori*), pero lo hace a través de las `odds`.
+  
+  Recordamos aquí el concepto de `odd` y cómo movernos desde esta a la probabilidad y viceversa.
 
 $$odd = \frac{p}{1-p}$$
+$$p = \frac{odd}{1+odd}$$
+
+Dada esta relación entre `odds` y `probabilidad`, consideramos un síntoma y una enfermedad que no son independientes, es decir, que el conocimiento de que ha aparecido uno de ellos modifica nuestro conocimiento de la probablidad del otros. No olvide que esta relación matemática es bidireccional aunque la causal no lo sea. 
+
+Así pues, podemos expresar $P(E|S) = \frac{Odd(E|S)}{1+Odd(E|S)}$.
+
+A su vez:
+
+
+
 $${Odd(E \mid S)}=\frac{P(E \mid S)}{P(\bar{E}\mid S)}$$
 $$Odd(E \mid S)=\frac{\frac{P(E \cap S)}{P(S)}}{\frac{P(\bar{E} \cap S)}{P(S)}}$$
+Aplicando la ley multiplicativa de la probabilidad, podemos sustituir las intersecciones.
 
 
-$$Odd(E \mid S)=\frac{\frac{P(E)·P(S|E)}{P(S)}}{\frac{P(\bar{E})·P(S|\bar{E})}{P(S)}}$$
+
+$$Odd(E \mid S)=\frac{\frac{P(E)·P(S|E)}{\cancel{P(S)}}}{\frac{P(\bar{E})·P(S|\bar{E})}{\cancel{P(S)}}}$$
+y simplificando
+
 
 $$Odd(E \mid S)=\frac{P(E)·P(S|E)}{P(\bar{E})·P(S|\bar{E})}$$
 $$Odd(E \mid S) = Odd(E)·\frac{P(S|E)}{P(S|\bar{E})}$$
 
 $$Odd(E \mid S) = Odd(E)·\text{fb}$$
 
-En epidemiología, el factor bayes se llama Razón de Verosimilitud (RV), Likelihood Ratio (LR) en inglés. 
+En epidemiología, el factor de bayes se llama Razón de Verosimilitud (RV), Likelihood Ratio (LR) en inglés. 
 
 Para facilitar se interpretación se suele hablar de Razón de verosimilitud positiva (test + ) o negativa (test -).
 
-Pero lo importante, es entender que el factor de bayes es una razón de probabilidades sobre la presencia de un resultado (+ o -), de un síntoma ${S}$ y $\bar{S}$ o de cualquier característica, en los enfermos (en general, cualquier característica no independiente del resultado del test, síntoma, característica...).
+Pero lo importante es entender que el factor de bayes es una razón de probabilidades sobre la presencia de un resultado (+ o -), de un síntoma (${S}$ y $\bar{S}$) o de cualquier característica, en un grupo (en el ejemplo, los enfermos) frente a otro (en el ejemplo, los sanos). En general, cualquier característica no independiente (desde el punto de vista probabilístico) del resultado del test, síntoma, característica y que por lo tanto aporte información (modifique la probabilidad) del evento de interés, en este caso la presencia de enfermedad.
 
-Si hablamos de la presencia de un síntoma no independiente, es decir, más probable en enfermos que en sanos, de la enfermedad, y sabiendo que:
+Si hablamos de la presencia de un síntoma no independiente, es decir, más probable  en enfermos que en sanos, de la enfermedad [^nota_fb], y sabiendo que:
 
-  * **Sensibilidad (Se):** Probabilidad de que la prueba sea positiva en pacientes enfermos.
+  * **Sensibilidad (s):** Probabilidad de que la prueba sea positiva en pacientes enfermos.
     $$\text{s} = \frac{VP}{VP + FN}$$
     
-  * **Especificidad (Sp):** Probabilidad de que la prueba sea negativa en pacientes sanos.
+  * **Especificidad (e):** Probabilidad de que la prueba sea negativa en pacientes sanos.
     $$\text{e} = \frac{VN}{FP + VN}$$
     
-La odd quedaría así:
+La odd posterior quedaría así:
     
 $$Odd(E \mid S) = Odd(E)·\frac{s}{1-e}$$
+[^nota_fb]: En realidad lo que importa es que sea diferentemente probable para que nos ayude a discriminar, pero para el ejemplo pensaremos en a un síntoma que señale a la enfermedad y que por tanto sea más probable en enfermos que sanos.
+
 Algo que, en principio, depende solo de la validez del test. 
 
-Como se puede observar, esto simplifica la aplicación del teorema de Bayes, dado que depende solo de la probabilidad previa $P(E)$ y de la capacidad del test para identificar, para clasificar correctamente, para discriminar entre un enfermo y un seno. 
+Como se puede observar, esto simplifica la aplicación del teorema de Bayes, dado que depende solo de la probabilidad previa $P(E)$ y de la capacidad del test para identificar, para clasificar correctamente, para discriminar entre un enfermo y un sano. 
 
+Como hemos comentado previamente, el factor de bayes 
 
+  $$Odd(E \mid S) = Odd(E)·fb_{+}$$
 
-
----
 
 
 ### Influencia Crítica de la Prevalencia
   
-  * **Independencia analítica:** La sensibilidad y la especificidad son, con los condicionantes comentados, propiedades intrínsecas de la prueba diagnóstica y no varían según la prevalencia de la enfermedad que se pretende diagnosticar en la población.
+  * **Independencia analítica:** La sensibilidad y la especificidad son, con los condicionantes comentados, propiedades intrínsecas de la prueba diagnóstica y no varían según la prevalencia de la enfermedad que se pretende diagnosticar en la población. [^nota_sye]
   
   * **Dependencia predictiva:** Por el contrario, los valores predictivos (VPP y VPN) dependen directamente de la prevalencia de la enfermedad en la población de estudio.
   
     $$\text{VPP} = \frac{\text{s} \times \text{Prevalencia}}{(\text{s} \times \text{Prevalencia}) + ((1 - \text{e}) \times (1 - \text{Prevalencia}))}$$
   * **Implicación práctica:** En escenarios de cribado (*screening* con baja prevalencia), el VPP disminuye de forma drástica, generando una alta proporción de falsos positivos que deben ser confirmados mediante pruebas adicionales.
   
+[^nota_sye]: En rigor metodológico, la sensibilidad y la especificidad no son constantes biológicas fijas. Varían en la práctica debido a factores técnicos (toma y conservación de la muestra, kit o lote utilizado, variabilidad del laboratorio) y, de forma muy relevante, por el **efecto espectro** (la gravedad de los casos y la presencia de comorbilidades en los controles de la población analizada) y el sesgo del estándar de referencia. Sin embargo, asumimos su invariancia como una simplificación pedagógica útil para aislar el comportamiento de los valores predictivos frente a la prevalencia.
+
+### Ejemplo práctico manual: cálculo directo y teorema de Bayes
+
+Antes de automatizar el análisis en R, vamos a calcular paso a paso las métricas diagnósticas en una muestra piloto de $N = 1000$ **pacientes** para comprender la mecánica de la matriz de contingencia y su relación con el Teorema de Bayes.
+
+Supongamos que evaluamos una nueva prueba diagnóstica frente al *gold standard* y obtenemos los siguientes resultados:
+
+|  | Enfermo ($D+$) | Sano ($D-$) | Total | 
+| ----- | ----- | ----- | ----- | 
+| **Prueba Positiva (**$T+$**)** | 80 | 90 | **170** | 
+| **Prueba Negativa (**$T-$**)** | 20 | 810 | **830** | 
+| **Total** | **100** | **900** | **1000** | 
+
+### Cálculo de parámetros de validez intrínseca
+
+  * **Sensibilidad (s):** Probabilidad de que el test sea positivo en enfermos.
   
 
+  $$
+  \text{s} = \frac{VP}{VP + FN} = \frac{80}{80 + 20} = \frac{80}{100} = 0.80 \quad (\mathbf{80.0\%})
+  $$
+
+  
+  *(El test detecta al 80% de los enfermos reales).*
+
+  * **Especificidad (e):** Probabilidad de que el test sea negativo en sanos.
+  
+
+  $$
+  \text{e} = \frac{VN}{FP + VN} = \frac{810}{90 + 810} = \frac{810}{900} = 0.90 \quad (\mathbf{90.0\%})
+  $$
+
+  
+  *(El test descarta correctamente al 90% de los sanos).*
+
+### Cálculo de valores predictivos (dependientes de la prevalencia)
+
+* **Prevalencia real en la muestra:** $\frac{100}{1000} = 0.10$ ($10.0\%$).
+
+* **Valor Predictivo Positivo (VPP):** Probabilidad de estar enfermo ante un test positivo.
+  
+
+  $$
+  \text{VPP} = \frac{VP}{VP + FP} = \frac{80}{80 + 90} = \frac{80}{170} \approx 0.471 \quad (\mathbf{47.1\%})
+  $$
+
+* **Valor Predictivo Negativo (VPN):** Probabilidad de estar sano ante un test negativo.
+  
+
+  $$
+  \text{VPN} = \frac{VN}{FN + VN} = \frac{810}{20 + 810} = \frac{810}{830} \approx 0.976 \quad (\mathbf{97.6\%})
+  $$
+
+> **Nota pedagógica:** Como se puede observar, los valores predictivos ($\text{VPP} = 47.1\%$, $\text{VPN} = 97.6\%$) difieren claramente de la sensibilidad y la especificidad ($80\%$ y $90\%$), evidenciando que miden conceptos distintos y están condicionados por la prevalencia poblacional.
+
+### Cálculo de las razones de verosimilitud (*Likelihood Ratios*)
+
+  * $\text{LR}^+$ **(Razón de verosimilitud positiva):**
+  
+
+  $$
+  \text{LR}^+ = \frac{\text{s}}{1 - \text{e}} = \frac{0.80}{1 - 0.90} = \frac{0.80}{0.10} = \mathbf{8.0}
+  $$
+
+  
+  *(Un resultado positivo es 8 veces más probable en un paciente enfermo que en uno sano).*
+
+  * $\text{LR}^-$ **(Razón de verosimilitud negativa):**
+  
+
+  $$
+  \text{LR}^- = \frac{1 - \text{s}}{\text{e}} = \frac{1 - 0.80}{0.90} = \frac{0.20}{0.90} \approx \mathbf{0.222}
+  $$
+
+### Demostración: Teorema de Bayes frente a Odds y Factor de Bayes
+
+Para comprobar que el **Valor Predictivo Positivo (**$\text{VPP}$**)** no es más que la probabilidad a posteriori $P(E \mid T+)$, podemos llegar a él mediante dos caminos matemáticos que arrojan exactamente el mismo resultado:
+
+#### A. Aplicando la fórmula clásica del Teorema de Bayes
+
+Con una prevalencia $P(E) = 0.10$, $P(\bar{E}) = 0.90$, sensibilidad $P(T+ \mid E) = 0.80$ y tasa de falsos positivos $P(T+ \mid \bar{E}) = 1 - \text{e} = 0.10$:
+
+$$
+P(E \mid T+) = \frac{P(E) \cdot P(T+ \mid E)}{P(E) \cdot P(T+ \mid E) + P(\bar{E}) \cdot P(T+ \mid \bar{E})}
+$$
+
+Sustituyendo los valores:
+
+$$
+P(E \mid T+) = \frac{0.10 \times 0.80}{(0.10 \times 0.80) + (0.90 \times 0.10)} = \frac{0.08}{0.08 + 0.09} = \frac{0.08}{0.17} \approx 0.4706 \quad (\mathbf{47.1\%})
+$$
+
+#### B. Aplicando las *Odds* y el Factor de Bayes ($\text{LR}^+$)
+
+El mismo cálculo se simplifica notablemente trabajando en la escala de *odds*:
+
+  1. **Calculamos la *odds* previa (*pre-test*):**
+   
+
+   $$
+   \text{Odds}(E) = \frac{P(E)}{1 - P(E)} = \frac{0.10}{0.90} = \frac{1}{9} \approx 0.1111
+   $$
+
+  2. **Multiplicamos por el Factor de Bayes (**$\text{LR}^+$**) para obtener la *odds* posterior (*post-test*):**
+   
+
+   $$
+   \text{Odds}(E \mid T+) = \text{Odds}(E) \cdot \text{LR}^+ = \frac{1}{9} \cdot 8.0 = \frac{8}{9} \approx 0.8889
+   $$
+
+  3. **Convertimos la *odds* posterior de nuevo a probabilidad (el VPP):**
+   
+
+   $$
+   P(E \mid T+) = \frac{\text{Odds}(E \mid T+)}{1 + \text{Odds}(E \mid T+)} = \frac{8/9}{1 + (8/9)} = \frac{8/9}{17/9} = \frac{8}{17} \approx 0.4706 \quad (\mathbf{47.1\%})
+   $$
+
+Ambos métodos demuestran de manera rigurosa que el razonamiento probabilístico clásico y el uso de *odds* con razones de verosimilitud son perfectamente equivalentes.
+
+Si el resultado hubiese sido negativo:
+
+
+  1. **Calculamos la *odds* previa (*pre-test*):**
+  
+   $$
+   \text{Odds}(E) = \frac{P(E)}{1 - P(E)} = \frac{0.10}{0.90} = \frac{1}{9} \approx 0.1111
+   $$
+
+  2. **Multiplicamos por el Factor de Bayes ($\text{LR}^-$) para obtener la *odds* posterior (*post-test*) de enfermedad:**
+  
+   $$
+   \text{Odds}(E \mid T-) = \text{Odds}(E) \cdot \text{LR}^- = \frac{1}{9} \cdot \frac{2}{9} = \frac{2}{81} \approx 0.0247
+   $$
+
+  3. **Convertimos la *odds* posterior a probabilidad de enfermedad tras un test negativo ($1 - \text{VPN}$):**
+  
+   $$
+   P(E \mid T-) = \frac{\text{Odds}(E \mid T-)}{1 + \text{Odds}(E \mid T-)} = \frac{2/81}{1 + (2/81)} = \frac{2/81}{83/81} = \frac{2}{83} \approx 0.0241 \quad (\mathbf{2.4\%})
+   $$
+
+  4. **Obtenemos el Valor Predictivo Negativo ($\text{VPN}$) como su complementario:**
+   $$
+   \text{VPN} = P(\bar{E} \mid T-) = 1 - P(E \mid T-) = 1 - \frac{2}{83} = \frac{81}{83} \approx 0.9759 \quad (\mathbf{97.6\%})
+   $$
+
+
+
 ---
+
+### 5. Traducción clínica visual: el nomograma de Fagan
+
+El **nomograma de Fagan** (en su versión extendida) es una herramienta gráfica de gran utilidad en la práctica clínica que permite calcular de forma rápida y visual cómo una prueba diagnóstica modifica la probabilidad de que un paciente padezca una enfermedad. Su función principal es servir de puente gráfico entre la probabilidad previa (*pre-test*) y la probabilidad posterior (*post-test*) integrando directamente la sensibilidad y la especificidad de la prueba para obtener las razones de verosimilitud ($\text{LR}^+$ y $\text{LR}^-$).
+
+::: {layout-ncol=2}
+
+![Nomograma de Fagan extendido (estructura)](pics/fagan_nomogram_extended_from_studentsmbe.jpg){width="50%" fig-align="center"}
+
+![Nomograma de Fagan extendido (ejemplo trazado)](pics/fagan_nomogram_extended_from_studentsmbe_lines.jpg)
+
+:::
+
+
+#### Componentes y estructura
+
+Esta versión extendida del nomograma se compone de **cinco escalas verticales paralelas** (tres principales en los extremos y el centro, y dos intermedias para los parámetros intrínsecos del test):
+
+  1. **Columna exterior izquierda (*PreTest Probability*):** Representa la probabilidad inicial de que el paciente tenga la enfermedad antes de realizar la prueba (habitualmente la prevalencia en ese contexto clínico o la sospecha inicial, de $0.001$ a $0.999$).
+  2. **Columna interior izquierda (*Diagnostic Sensitivity*):** Muestra la sensibilidad de la prueba dividida en dos subescalas codificadas por color según el resultado obtenido: en **rojo (*Test+*)** para calcular el $\text{LR}^+$ y en **azul (*Test-*)** para calcular el $\text{LR}^-$ (que corresponde a $1 - \text{Sensibilidad}$).
+  3. **Columna central (*LR* / Razón de Verosimilitud):** Contiene los valores de los cocientes de verosimilitud ($\text{LR}^+$ o $\text{LR}^-$, de $0.001$ a $1000$), reflejando la capacidad discriminativa pura de la prueba.
+  4. **Columna interior derecha (*Diagnostic Specificity*):** Muestra la especificidad de la prueba dividida igualmente en dos subescalas: en **rojo (*Test+*)** para el $\text{LR}^+$ (que corresponde a $1 - \text{Especificidad}$) y en **azul (*Test-*)** para el $\text{LR}^-$.
+  5. **Columna exterior derecha (*PostTest Probability*):** Escala invertida (de $0.999$ arriba a $0.001$ abajo) que muestra la probabilidad final tras la aplicación de la prueba, indicando la nueva certeza de que el paciente esté enfermo una vez conocido el resultado.
+
+#### Cómo se utiliza en la práctica clínica
+
+El uso del nomograma de Fagan extendido permite resolver todo el cálculo bayesiano mediante **dos trazos rectos consecutivos** (o un único trazo si ya se conoce el $\text{LR}$):
+
+  * **Paso 1: Obtener la Razón de Verosimilitud ($\text{LR}$) a partir de la sensibilidad y la especificidad:**
+    * Si el resultado de la prueba es **positivo**, se utiliza la escala en **rojo (*Test+*)**: se localiza la **sensibilidad** en la columna interior izquierda y la **especificidad** en la columna interior derecha, y se traza una línea recta entre ambas. El punto donde dicha recta corta la **columna central (*LR*)** indica directamente el valor de $\text{LR}^+$.
+    * Si el resultado es **negativo**, se repite exactamente el mismo procedimiento leyendo los valores en las escalas en **azul (*Test-*)** para obtener $\text{LR}^-$ en la columna central.
+  
+  * **Paso 2: Calcular la Probabilidad Posterior (*Post-test*):**
+    * Se localiza el valor de la **probabilidad previa** en la **columna exterior izquierda**.
+    * Se conecta mediante una segunda línea recta con el valor del **$\text{LR}$ correspondiente** (obtenido en el paso anterior en la columna central) y se prolonga hasta intersecar con la **columna exterior derecha**.
+    * El punto de corte en la columna exterior derecha marca la **probabilidad posterior**, permitiendo al clínico decidir con precisión si debe descartar la patología, iniciar un tratamiento o solicitar pruebas confirmatorias adicionales.
+
+
+---
+
+
 
 ## Caso Práctico en R (`epiR`)
 
 Veamos un ejemplo de análisis. 
 
-Para ello, vamos a utilizar un dataset propio que encontrará en la carpeta `_data`.
+Para ello, vamos a utilizar un dataset propio que encontrará en la carpeta `_data` (también en el aula virtual). La base de datos se llama `preven_cc.csv`.
 
 La base de datos solo contiene dos variables: `gold_std` y `biomarcador`
 
@@ -447,10 +440,11 @@ prevalencia_real <- 0.15 # 15% de pacientes enfermos en la población
 gold_std <- factor(rbinom(n, 1, prevalencia_real), levels = c(0, 1), labels = c("Sano", "Enfermo"))
 biomarcador <- rnorm(n, mean = 40 + 12 * as.numeric(gold_std), sd = 10)
 
-write.csv(data.frame(id=length(gold_std),
+write.csv(data.frame(id = seq_along(gold_std),
                      gold_std = gold_std,
                      biomarcador),
-          "_data/preven_cc.csv")
+          "_data/preven_cc.csv",
+          row.names = FALSE)
 
 ```
 
@@ -469,13 +463,22 @@ Realicemos todos los pasos desde la importación de datos hasta el análisis de 
   
   Primero veremos un ejemplo de cálculo manual y luego utilizaremos uno de los paquetes (`epiR`) que contiene funciones para poder obtener todo de una manera más fácil.
   
-  La matriz sería la siguiente
+  La matriz sería la siguiente. En este ejemplo crearemos la tabla manualmente para ver el detalle del calculo. 
 
 ```{r}
-
+biomark1 <- read.csv("_data/preven_cc.csv")
 punto_corte <- 52
 
-resultado_prueba <- factor(ifelse(biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+# Extraemos vectores o trabajamos directamente sobre el dataframe
+gold_std <- biomark1$gold_std
+biomarcador <- biomark1$biomarcador
+
+resultado_prueba <- cut(biomarcador, breaks = c(-Inf, punto_corte, Inf), labels = c("Negativo", "Positivo"))
+
+#La función cut sirve para categorizar una variable continua usando puntos de corte y devuelve una variable de tipo factor.
+# Esta es una forma más "barroca" para construir el mismo factor 
+#resultado_prueba <- factor(ifelse(biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+
 
 # Construcción de la matriz de contingencia para epi.tests
 VP <- sum(resultado_prueba == "Positivo" & gold_std == "Enfermo")
@@ -490,9 +493,12 @@ rownames(matriz_epir) <- c("Test +", "Test -")
 print(matriz_epir)
 
 ```
-Obengamos sensibilidad, especificidad y valores predictivos.
+
+
+  Obtengamos sensibilidad, especificidad y valores predictivos.
 
 ```{r}
+library(epiR)
 
 # Evaluación diagnóstica automatizada con intervalos de confianza
 resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
@@ -500,72 +506,206 @@ resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
 print(resultados_diagnosticos$detail) 
 ```
 
+  Cada uno de estos estadísticos tiene un significado que se presenta en la siguiente tabla.
+  
+## Evaluación inferencial de parámetros diagnósticos
+
+En la salida del paquete `epiR` (`epi.tests`), cada indicador presenta su estimación puntual (`est`) acompañada de su correspondiente intervalo de confianza al 95% (`lower` - `upper`). Sin embargo, su comportamiento estadístico e inferencial no es homogéneo.
+
+| Sigla | Término (Inglés / Español) | Significado clínico / conceptual |
+| :--- | :--- | :--- |
+| **ap**^1^ | Apparent Prevalence / Prevalencia aparente | Proporción de individuos con resultado positivo en la prueba sobre el total de la muestra. |
+| **tp**^1^ | True Prevalence / Prevalencia verdadera | Proporción real de individuos enfermos en la muestra según el *gold standard*. |
+| **se**^1^ | Sensitivity / Sensibilidad | Probabilidad de que la prueba dé positivo en presencia de la enfermedad ($P(\text{Test}+ \mid \text{Enfermo}+)$). |
+| **sp**^1^ | Specificity / Especificidad | Probabilidad de que la prueba dé negativo en ausencia de la enfermedad ($P(\text{Test}- \mid \text{Enfermo}-)$). |
+| **diag.ac**^1^ | Diagnostic Accuracy / Exactitud diagnóstica | Proporción global de clasificaciones correctas (verdaderos positivos + verdaderos negativos) sobre el total. |
+| **diag.or**^2^ | Diagnostic Odds Ratio / Razón de *odds* diagnóstica | Razón entre la oportunidad (*odds*) de estar enfermo en quienes dan positivo vs. quienes dan negativo ($\text{LR}+ / \text{LR}-$). |
+| **nndx**^2^ | Number Needed to Diagnose / Número necesario a diagnosticar | Número de personas que es necesario someter a la prueba para identificar un verdadero positivo adicional ($1 / \text{Índice de Youden}$). |
+| **youden**^2^ | Youden's Index / Índice de Youden | Medida sintética del rendimiento global de la prueba ($\text{Sensibilidad} + \text{Especificidad} - 1$). |
+| **pv.pos**^1^ | Positive Predictive Value / Valor predictivo positivo (VPP) | Probabilidad de estar realmente enfermo si el resultado de la prueba es positivo ($P(\text{Enfermo}+ \mid \text{Test}+)$). |
+| **pv.neg**^1^ | Negative Predictive Value / Valor predictivo negativo (VPN) | Probabilidad de estar realmente sano si el resultado de la prueba es negativo ($P(\text{Enfermo}- \mid \text{Test}-)$). |
+| **lr.pos**^2^ | Positive Likelihood Ratio / Razón de verosimilitud positiva ($\text{RV}+ / \text{LR}+$) | Cuántas veces es más probable obtener un positivo en un enfermo que en un sano ($\text{Sensibilidad} / (1 - \text{Especificidad})$). |
+| **lr.neg**^2^ | Negative Likelihood Ratio / Razón de verosimilitud negativa ($\text{RV}- / \text{LR}-$) | Cuántas veces es más probable obtener un negativo en un enfermo que en un sano ($(1 - \text{Sensibilidad}) / \text{Especificidad}$). |
+| **p.rout**^1^ | Proportion Test Result Out / Proporción de tests negativos | Proporción de la muestra con resultado negativo en la prueba ($1 - \text{ap}$). |
+| **p.rin**^1^ | Proportion Test Result In / Proporción de tests positivos | Proporción de la muestra con resultado positivo en la prueba (equivale a `ap`). |
+| **p.tpdn**^1^ | True Positive, Diagnostic Negative / Tasa complementaria de verdaderos positivos | Proporción de enfermos que dan negativo en la prueba sobre el total de enfermos ($1 - \text{Sensibilidad}$). |
+| **p.tndp**^1^ | True Negative, Diagnostic Positive / Tasa complementaria de verdaderos negativos | Proporción de sanos que dan positivo en la prueba sobre el total de sanos ($1 - \text{Especificidad}$). |
+| **p.dntp**^1^ | Diagnostic Negative, True Positive / Complementario del VPP | Probabilidad de estar sano habiendo dado positivo en la prueba ($1 - \text{VPP}$). |
+| **p.dptn**^1^ | Diagnostic Positive, True Negative / Complementario del VPN | Probabilidad de estar enfermo habiendo dado negativo en la prueba ($1 - \text{VPN}$). |
+
+^1^: **Proporciones simples ($p \in [0, 1]$):** La mayor parte de los parámetros de la tabla representán proporciones simples. Desde el punto de vista conceptual, cada uno se obtiene dividiendo el recuento entre el total de observaciones de su subgrupo de interés. Por este motivo, siguen una distribución binomial y, salvo en proporciones extremas (cercanas al 0% o al 100%), la inferencia (construcción de intervalos de confianza y contraste de hipótesis) se apoya en los métodos clásicos de aproximación para proporciones (tales como las fórmulas de Wald, Wilson, Clopper-Pearson o Agresti-Coull).
+
+^2^:   **Parámetros que no son proporciones:** Por el contrario, este grupo de parámetros **no son proporciones**, lo que condiciona sus propiedades matemáticas y exige un abordaje inferencial específico. Las razones de verosimilitud (`lr.pos`, `lr.neg`) y la *odds ratio* diagnóstica (`diag.or`) se mueven en la escala $(0, \infty)$ y presentan una distribución muestral marcadamente asimétrica; para construir sus intervalos de confianza es necesario transformar los valores a la escala logarítmica ($\ln$), aplicar el método delta para aproximar la varianza y exponenciar posteriormente los límites obtenidos. Por su parte, el índice de Youden (`youden`) es una combinación lineal de dos proporciones acotada en $[-1, 1]$ que requiere el cálculo del error estándar compuesto o técnicas de remuestreo (*bootstrapping*), mientras que el número necesario a diagnosticar (`nndx`) es el inverso del propio índice de Youden ($1 / \text{Youden}$), por lo que sus límites de confianza se obtienen invirtiendo matemáticamente los extremos calculados para dicho índice.
 
 
-El mismo ejercicios, pero usando un dataframe.  
+
+
+El mismo ejercicio, pero en este caso vamos a crear la tabla desde el propio dataframe.
+Aprovecharemos para ver diferentes maneras de categorizar la variable resultado_prueba.
 
 
 ```{r}
-biomark1 <- read.csv("_data/preven_cc.csv")
 
-biomark1$resultado_prueba <- factor(ifelse(biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
+biomark1 <- read.csv("_data/preven_cc.csv")
+punto_corte <- 52
+
+
+# VAmos a crear resultado_prueba de diferentes maneras para finalmente explicar la relevancia
+
+biomark1$resultado_prueba <- factor(ifelse(biomark1$biomarcador > punto_corte, 1, 0), levels = c(0, 1), labels = c("Negativo", "Positivo"))
 
 # Método alternativo.
 
 biomark1$resultado_prueba2 <- cut(biomark1$biomarcador,breaks = c(0,52,Inf),
                                   labels = c("Negativo", "Positivo")
                                   )
-biomark1$resultado_prueba3 <-relevel(
-  biomark1$resultado_prueba2,
-  ref = "Positivo"
-)
-
-# Construcción de la matriz de contingencia para epi.tests
-VP <- sum(resultado_prueba == "Positivo" & gold_std == "Enfermo")
-FP <- sum(resultado_prueba == "Positivo" & gold_std == "Sano")
-FN <- sum(resultado_prueba == "Negativo" & gold_std == "Enfermo")
-VN <- sum(resultado_prueba == "Negativo" & gold_std == "Sano")
 
 
-s <- VP/(VP+FN)
-e <- VN/(VN+FP)
+```
 
-print(c(sensibilidad = s, especificidad = e))
+**IMPORTANTE: La orientación de la tabla es muy importante al entregársela a epiR.**
 
+Por ello, si construyes la tabla a partir del dataframe tienes que vigilar que en las filas figure el test y en las columnas el gold standar, pero además que la fila 1 contenga los positivos, y la columna 1 los enfermos. De lo contrario, obtendrás un resultado pero será incorrecto.
 
+Veamos varios ejemplos.
 
-matriz_epir <- matrix(c(VP, FP, FN, VN), nrow = 2, byrow = TRUE)
-colnames(matriz_epir) <- c("Enfermo", "Sano")
-rownames(matriz_epir) <- c("Test +", "Test -")
+Construimos la tabla desde el dataframe sin reparar en la ordenación de los niveles.
 
-
-# Evaluación diagnóstica automatizada con intervalos de confianza
-resultados_diagnosticos <- epi.tests(matriz_epir, conf.level = 0.95)
-# Muestra directamente la tabla de métricas con estimación e IC95%
-print(resultados_diagnosticos$detail)
-
+```{r}
 # o mejor
 
 table_epir <- table(biomark1$resultado_prueba,biomark1$gold_std)
 
 epi.tests(table_epir,conf.level = 0.95)
+```
+Como se puede observar, el resultado no coincide con el obtenido en el ejemplo anterior.
 
-table_epir2 <- table(biomark1$resultado_prueba2,biomark1$gold_std)
+Esto se debe a la forma en la que le hemos entregado la tabla.
 
-epi.tests(table_epir2,conf.level = 0.95)
+```{r}
+table_epir
+```
+Como se puede observar, el Negativo, y no el positivo, ocupa la primera fila.
 
-table_epir3 <- table(biomark1$resultado_prueba3,biomark1$gold_std)
+Para construirlo de la manera correcta, podemos realizar la categorización teniendo esto en cuenta, reordenando los niveles del factor. Como se puede observar, hemos modificado el argumento levels para que ahora coloque en el nivel 1 el positivo,  y en el nivel 2 el negativo.
 
-epi.tests(table_epir3,conf.level = 0.95)
 
-print(table_epir)
-print(table_epir2)
-print(matriz_epir)
+
+```{r}
+punto_corte <- 52
+biomark1$resultado_prueba_corr <- factor(ifelse(biomark1$biomarcador > punto_corte, 1, 0), levels = c(1, 0), labels = c("Positivo", "Negativo"))
+table_epir_corr <- table(biomark1$resultado_prueba_corr,biomark1$gold_std)
+
+epi.tests(table_epir_corr,conf.level = 0.95)
+
+
+
+```
+También podemos utilizar una función que reordene los niveles.
+
+```{r}
+
+biomark1$resultado_prueba_corr2 <-relevel(
+  biomark1$resultado_prueba,
+  ref = "Positivo"
+)
+
+table_epir_corr2 <- table(biomark1$resultado_prueba_corr2,biomark1$gold_std)
+
+epi.tests(table_epir_corr2,conf.level = 0.95)
+
 
 ```
 
 
 
 
+## Tarea intersesión: Evaluación de Pruebas Diagnósticas en Prevención Cardiovascular
+
+
+```{r}
+#| echo: false
+#| results: false
+#| message: false
+
+# ==============================================================================
+# Generación del archivo prevecor.csv (Dataset continuo para ROC)
+# ==============================================================================
+
+set.seed(2026) # Semilla para reproducibilidad
+n <- 400       # Tamaño muestral
+
+# 1. Generar variables sociodemográficas y de riesgo cardiovascular
+prevecor_data <- data.frame(
+  id = 1:n,
+  edad = round(rnorm(n, mean = 62, sd = 9)),
+  sexo = sample(c("Hombre", "Mujer"), n, replace = TRUE, prob = c(0.60, 0.40)),
+  colesterol_mgdl = round(rnorm(n, mean = 220, sd = 35)),
+  pas_mmhg = round(rnorm(n, mean = 138, sd = 16)),
+  # Gold Standard: Prevalencia del 30%
+  evento_cv = sample(c(1, 0), n, replace = TRUE, prob = c(0.30, 0.70))
+)
+
+# 2. Generar el biomarcador hs-PCR como variable continua (mg/L)
+# Usamos una distribución Log-Normal dependiente de evento_cv:
+# - Sanos (0): mediana ≈ 1.5 mg/L
+# - Enfermos (1): mediana ≈ 3.5 mg/L
+log_mu <- log(1.5) + log(2.3) * prevecor_data$evento_cv
+prevecor_data$pcr_hs <- round(rlnorm(n, meanlog = log_mu, sdlog = 0.45), 2)
+
+# 3. Guardar como archivo CSV en _data y en raíz para mayor comodidad
+dir.create("_data", showWarnings = FALSE)
+write.csv(prevecor_data, "_data/prevecor.csv", row.names = FALSE)
+write.csv(prevecor_data, "prevecor.csv", row.names = FALSE)
+
+cat("El archivo 'prevecor.csv' se ha creado correctamente con pcr_hs continua.\n")
+```
+
+Contexto:
+
+
+
+
+Se ha recogido una cohorte prospectiva de 400 pacientes atendidos en consultas de prevención cardiovascular (prevecor.csv). El objetivo es evaluar el rendimiento diagnóstico de un nuevo biomarcador de inflamación vascular (hs-PCR modificada, dicotomizada como positiva/negativa) frente al diagnóstico estándar de enfermedad coronaria confirmada (evento_cv).
+
+
+
+
+Importe la base de datos "prevecor.csv" y obtenga las métricas solicitadas.
+
+**Detalle de la tarea:** 
+
+  * Construir la tabla de contingencia $2 \times 2$ entre el resultado del test (test_pcr) y la presencia de enfermedad (evento_cv).
+  * Calcular los parámetros de validez y seguridad diagnóstica: Sensibilidad ($s$), Especificidad ($e$), VPP, VPN y Razones de Verosimilitud ($\text{LR}^+$ y $\text{LR}^-$) con sus respectivos IC 95%.
+  
+  
+> **Nota de autocomprobación:** Si ha orientado correctamente la matriz $2 \times 2$ en R (Fila 1 = Test $+$, Columna 1 = Enfermo $+$), sus resultados con `epiR` deberían coincidir con los siguientes valores de referencia:  
+> * **Sensibilidad ($s$):** $58.4\%$  
+> * **Especificidad ($e$):** $94.2\%$  
+> * **VPP:** $82.0\%$ | **VPN:** $83.3\%$ | **$\text{LR}^+$:** $10.04$
+  
+  
+  A partir de dichos resultados, responda a las siguientes cuestiones:
+
+### Apartado 1: Caracterización del rendimiento en la cohorte clínica
+* **1.1.** Compare la especificidad ($94.2\%$) y la sensibilidad ($58.4\%$) obtenidas. Desde el punto de vista del comportamiento diagnóstico, ¿qué tipo de error ($FP$ o $FN$) minimiza prioritariamente esta prueba con el punto de corte en $3.0\text{ mg/L}$?
+* **1.2.** La Razón de Verosimilitud Positiva ($\text{LR}^+$) ha resultado ser $10.04$. Explique qué significa este valor en términos de ganancia diagnóstica *post-test* frente a la probabilidad *a priori* (prevalencia basal del $30\%$).
+
+---
+
+### Apartado 2: Impacto del cambio de escenario epidemiológico (Cribado vs. Clínica)
+Suponga que las autoridades sanitarias proponen utilizar este mismo biomarcador (`pcr_hs` $\ge 3.0\text{ mg/L}$) en un programa de **cribado poblacional en Atención Primaria**, donde la prevalencia real de la enfermedad coronaria en adultos asintomáticos desciende al **3%**.
+
+* **2.1.** Asumiendo que la sensibilidad ($58.4\%$) y la especificidad ($94.2\%$) se mantienen constantes (propiedades intrínsecas del test), **calcule teóricamente los nuevos Valores Predictivos (VPP y VPN)** para este escenario de cribado ($P = 0.03$).  
+  *(Nota: Puede utilizar la formulación de Bayes o las relaciones con la prevalencia).*
+* **2.2.** ¿Qué proporción de los sujetos que obtienen un resultado **positivo** en la prueba en este escenario de cribado serán realmente **falsos positivos**?
+
+---
+
+### Apartado 3: Discusión y juicio de decisión clínica
+A la vista de los resultados del Apartado 2 y considerando las características operativas de la prueba:
+
+* **3.1.** Discuta el impacto clínico y los costes derivados de la alta proporción de falsos positivos en una estrategia de cribado masivo.
+* **3.2.** Teniendo en cuenta que el test "pierde" a más del $40\%$ de los enfermos (falsos negativos por su sensibilidad del $58.4\%$) y el comportamiento del VPP en baja prevalencia: **¿Definiría la hs-PCR con el corte de $3.0\text{ mg/L}$ como una prueba adecuada para *screening* (descarte) o como una prueba de confirmación (*Rule-In*)?** Justifique su respuesta de forma razonada.
 
 

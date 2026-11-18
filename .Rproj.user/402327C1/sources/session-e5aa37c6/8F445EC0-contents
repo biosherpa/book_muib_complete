@@ -1,0 +1,263 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+## title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Teorema de Bayes: validación y rendimiento diagnóstico"
+author: "Jesús Esteban Hernández"
+institute: "Máster Universitario en Investigación Biomédica — URJC"
+date: last-modified
+lang: es
+format:
+beamer:
+theme: default
+colortheme: seahorse
+fonttheme: structurebold
+aspectratio: 169
+slide-level: 2
+toc: false
+include-in-header:
+text: |
+\\usepackage{cancel}
+\\setbeamertemplate{navigation symbols}{}
+\\setbeamertemplate{footline}\[frame number\]
+
+```
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+library(epiR)
+library(knitr)
+
+```
+
+## Objetivos de aprendizaje
+
+1. Diferenciar **fiabilidad** y **validez** en la medición biomédica.
+
+2. Construir e interpretar **tablas de contingencia** $2 \times 2$ frente a un *gold standard*.
+
+3. Calcular e interpretar **sensibilidad (**$s$**)**, **especificidad (**$e$**)**, **valores predictivos (**$\text{VPP}$**,** $\text{VPN}$**)** y **razones de verosimilitud (**$\text{LR}^+$**,** $\text{LR}^-$**)**.
+
+4. Analizar el impacto de la **prevalencia** mediante el Teorema de Bayes.
+
+## 1. Validez vs. Fiabilidad
+
+* **Fiabilidad (precisión / reproducibilidad):**
+
+  * Grado en que un instrumento ofrece el **mismo resultado** bajo las mismas condiciones.
+
+  * Ausencia de **error aleatorio**.
+
+* **Validez (exactitud):**
+
+  * Grado en que mide realmente el **fenómeno que pretende medir**.
+
+  * Ausencia de **error sistemático (sesgo)**.
+
+> **Clave:** Un test puede ser altamente reproducible y, sin embargo, carecer de validez. En clínica evaluamos **validez de criterio** frente a un *gold standard*.
+
+## 2. Abordajes clásicos de la validez
+
+| Tipo de validez | Qué evalúa | Aplicación habitual | 
+| ----- | ----- | ----- | 
+| **1. De contenido** | Exhaustividad y representatividad de las dimensiones. | Cuestionarios de síntomas, escalas de calidad de vida. | 
+| **2. De constructo** | Comportamiento acorde a la teoría en conceptos abstractos. | *Burnout*, depresión, fragilidad. | 
+| **3. De criterio** | Comparación frente a una **regla de oro** (*gold standard*). | **Pruebas diagnósticas**, biomarcadores y cribados. | 
+
+* En epidemiología clínica nos centramos en la **validez de criterio** (concurrente o predictiva).
+
+## 3. Teorema de Bayes aplicado al diagnóstico
+
+En la consulta no preguntamos $P(S \mid E)$, sino la probabilidad inversa $P(E \mid S)$:
+
+$$
+P(E \mid S) = \frac{P(E) \cdot P(S \mid E)}{P(E) \cdot P(S \mid E) + P(\bar{E}) \cdot P(S \mid \bar{E})}
+$$
+
+* $P(E)$: **Probabilidad previa** (prevalencia o sospecha *a priori*).
+
+* $P(S \mid E)$: **Sensibilidad** ($s$).
+
+* $P(S \mid \bar{E})$: **Tasa de falsos positivos** ($1 - e$).
+
+* $P(E \mid S)$: **Probabilidad posterior** ($\text{VPP}$).
+
+## 4. La Matriz de Contingencia $2 \times 2$
+
+|  | Enfermo ($D+$) | Sano ($D-$) | Total | 
+| ----- | ----- | ----- | ----- | 
+| **Positivo (**$T+$**)** | $VP$ | $FP$ | $VP + FP$ | 
+| **Negativo (**$T-$**)** | $FN$ | $VN$ | $FN + VN$ | 
+| **Total** | $VP + FN$ | $FP + VN$ | $N$ | 
+
+* $VP$ **/** $VN$**:** Aciertos diagnósticos (Verdaderos Positivos y Negativos).
+
+* $FP$**:** Sano clasificado como enfermo (falsa alarma).
+
+* $FN$**:** Enfermo clasificado como sano (caso perdido).
+
+## 5. Validez intrínseca vs. Seguridad clínica
+
+:::: {.columns}
+
+::: {.column width="48%"}
+**Propiedades del test**
+*(Condicionadas al estado real)*
+
+* **Sensibilidad:** $s = \frac{VP}{VP + FN}$
+
+* **Especificidad:** $e = \frac{VN}{FP + VN}$
+
+*Independientes de la prevalencia.*
+:::
+
+::: {.column width="48%"}
+**Valores predictivos**
+*(Condicionados al resultado)*
+
+* **VPP:** $\text{VPP} = \frac{VP}{VP + FP}$
+
+* **VPN:** $\text{VPN} = \frac{VN}{FN + VN}$
+
+*Dependen de la prevalencia.*
+:::
+
+::::
+
+## 6. Razones de Verosimilitud ($\text{LR}$) y *Odds*
+
+En escala de *odds* ($\text{odd} = \frac{p}{1-p}$), Bayes se reduce a un producto:
+
+$$
+\text{Odd}(E \mid T+) = \text{Odd}(E) \cdot \text{LR}^+
+$$
+
+* **Razón de verosimilitud positiva (**$\text{LR}^+$**):**
+  
+
+  $$
+  \text{LR}^+ = \frac{s}{1 - e} \quad (\text{Valores } > 10 \text{: confirmación muy fuerte})
+  $$
+
+* **Razón de verosimilitud negativa (**$\text{LR}^-$**):**
+  
+
+  $$
+  \text{LR}^- = \frac{1 - s}{e} \quad (\text{Valores } < 0.1 \text{: descarte muy fuerte})
+  $$
+
+## 7. Impacto crítico de la prevalencia
+
+$$
+\text{VPP} = \frac{s \cdot P}{(s \cdot P) + ((1 - e) \cdot (1 - P))}
+$$
+
+* **En consulta especializada (alta prevalencia):** Un resultado positivo tiene un $\text{VPP}$ elevado.
+
+* **En cribado poblacional (baja prevalencia):** El $\text{VPP}$ cae drásticamente y predominan los **falsos positivos**, exigiendo pruebas confirmatorias.
+
+## 8. Ejemplo manual ($N = 1000$, Prevalencia $= 10\%$)
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+|  | $D+$ | $D-$ | Total | 
+| ----- | ----- | ----- | ----- | 
+| $T+$ | **80** | **90** | **170** | 
+| $T-$ | **20** | **810** | **830** | 
+| **Total** | **100** | **900** | **1000** | 
+| ::: |  |  |  | 
+
+::: {.column width="52%"}
+
+* $s = 80/100 = \mathbf{80.0\%}$
+
+* $e = 810/900 = \mathbf{90.0\%}$
+
+* $\text{VPP} = 80/170 = \mathbf{47.1\%}$
+
+* $\text{VPN} = 810/830 = \mathbf{97.6\%}$
+
+* $\text{LR}^+ = 0.80 / 0.10 = \mathbf{8.0}$
+
+* $\text{LR}^- = 0.20 / 0.90 = \mathbf{0.222}$
+  :::
+
+::::
+
+## 9. Equivalencia: Bayes vs. *Odds* ($\text{LR}$)
+
+* **Ante un resultado positivo (**$T+$**):**
+  
+
+  $$
+  \text{Odd}(E) = \frac{0.10}{0.90} = \frac{1}{9} \implies \text{Odd}(E \mid T+) = \frac{1}{9} \cdot 8 = \frac{8}{9} \implies \text{VPP} = \frac{8}{17} \approx \mathbf{47.1\%}
+  $$
+
+* **Ante un resultado negativo (**$T-$**):**
+  
+
+  $$
+  \text{Odd}(E \mid T-) = \frac{1}{9} \cdot \frac{2}{9} = \frac{2}{81} \implies P(E \mid T-) = \frac{2}{83} \approx 2.4\% \implies \text{VPN} = \mathbf{97.6\%}
+  $$
+
+## 10. Nomograma de Fagan extendido
+
+:::: {.columns}
+
+::: {.column width="55%"}
+{width="72%"}
+:::
+
+::: {.column width="42%"}
+**Uso en 2 pasos:**
+
+1. Unir **Sensibilidad** (col. 2) y **Especificidad** (col. 4) en rojo (*Test+*) o azul (*Test-*) para leer $\text{LR}$ en el centro.
+
+2. Unir **Prob. Pre-test** (col. 1) con $\text{LR}$ (col. 3) para obtener **Prob. Post-test** (col. 5).
+   :::
+
+::::
+
+## 11. Caso práctico en R (`epiR`)
+
+```
+#| echo: true
+biomark1 <- read.csv("../_data/preven_cc.csv")
+biomark1$res <- factor(ifelse(biomark1$biomarcador > 52, 1, 0),
+                       levels = c(1, 0), labels = c("Positivo", "Negativo"))
+
+tab <- table(biomark1$res, biomark1$gold_std)
+tab
+
+```
+
+* **Importante:** En `epi.tests()`, la fila 1 debe ser siempre `Positivo` y la columna 1 `Enfermo`.
+
+## 12. Resultados con `epi.tests()`
+
+```
+#| echo: true
+res_epir <- epi.tests(tab, conf.level = 0.95)
+kable(res_epir$detail[c(3, 4, 9, 10, 11, 12), c("statistic", "est", "lower", "upper")],
+      digits = 3, row.names = FALSE)
+
+```
+
+## 13. Tarea intersesión (`prevecor.csv`)
+
+Evaluar el biomarcador `pcr_hs` (punto de corte $\ge 3.0\text{ mg/L}$) frente a `evento_cv` ($N = 400$, prevalencia $= 30\%$):
+
+1. Calcular en R: $s$, $e$, $\text{VPP}$, $\text{VPN}$, $\text{LR}^+$ y $\text{LR}^-$ con sus IC 95%.
+
+2. Analizar qué error ($FP$ o $FN$) minimiza el corte y la ganancia *post-test* ($\text{LR}^+ = 10.04$).
+
+3. Recalcular $\text{VPP}$, $\text{VPN}$ y proporción de $FP$ en escenario de **cribado (**$P = 3\%$**)**.
+
+4. Discutir su utilidad clínica: ¿prueba de *screening* (*Rule-Out*) o de confirmación (*Rule-In*)?

@@ -1,0 +1,54 @@
+---
+title: "Sesión 9: Pruebas Diagnósticas I"
+subtitle: "Teorema de Bayes: validación y rendimiento de una prueba diagnóstica"
+author: "Jesús Esteban Hernández"
+institute: "Máster Universitario en Investigación Biomédica — URJC"
+date: last-modified
+lang: es
+format:
+  revealjs:
+    theme: simple
+    transition: convex
+    background-transition: fade
+    slide-number: c/t
+    show-slide-number: all
+    controls: true
+    controls-layout: bottom-right
+    controls-tutorial: true
+    progress: true
+    history: true
+    center: false
+    width: 1280
+    height: 800
+    margin: 0.07
+    fig-cap-location: bottom
+    code-line-numbers: true
+    code-overflow: wrap
+    chalkboard: true
+    menu:
+      side: right
+    include-in-header:
+      text: |
+        <script>
+        window.MathJax = {
+          tex: {
+            packages: {'[+]': ['cancel']}
+          },
+          loader: {
+            load: ['[tex]/cancel']
+          }
+        };
+        </script>
+editor: source
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+library(epiR)
+library(dplyr)
+library(knitr)
